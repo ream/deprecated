@@ -58,6 +58,25 @@ export default {
 
 If the action you want to perfom in `preFetch` method is async, it should return a Promise.
 
+### createConfig
+
+Create webpack config only.
+
+```js
+const createConfig = require('unvue/lib/create-config')
+
+const config = createConfig({
+  type, // `server` or `client`
+  dev,
+  // ...
+})
+
+const webpackConfig = config.toConfig()
+// perform your own build process
+```
+
+The `config` is a [webpack-chain](https://github.com/mozilla-neutrino/webpack-chain) config instance, which allows you to easily modify original webpack config.
+
 ## API
 
 ### unvue(app, [options])
@@ -85,6 +104,17 @@ Type: `boolean`<br>
 Default: `false`
 
 Run server in development mode which has hot-reloading enabled.
+
+##### cwd
+
+Type: `string`<br>
+Default: `process.cwd()`
+
+### createConfig([options])
+
+#### options
+
+Same as options in `unvue` for now.
 
 ## Contributing
 
