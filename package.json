@@ -34,7 +34,15 @@
     "esnext": true,
     "envs": [
       "jest"
-    ]
+    ],
+    "ignores": [
+      "example/**/*",
+      "app/**/*"
+    ],
+    "rules": {
+      "guard-for-in": 0,
+      "import/no-dynamic-require": 0
+    }
   },
   "dependencies": {
     "babel-core": "^6.24.0",
