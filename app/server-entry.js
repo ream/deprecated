@@ -21,7 +21,9 @@ export default context => {
         })
       })).then(() => {
         isDev && console.log(`data pre-fetch: ${Date.now() - s}ms`)
-        context.state = store.state
+        if (store) {
+          context.state = store.state
+        }
         resolve(app)
       }).catch(reject)
     })
