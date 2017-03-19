@@ -3,7 +3,13 @@
 [![NPM version](https://img.shields.io/npm/v/unvue.svg?style=flat)](https://npmjs.com/package/unvue) [![NPM downloads](https://img.shields.io/npm/dm/unvue.svg?style=flat)](https://npmjs.com/package/unvue) [![Build Status](https://img.shields.io/circleci/project/egoist/unvue/master.svg?style=flat)](https://circleci.com/gh/egoist/unvue) [![codecov](https://codecov.io/gh/egoist/unvue/branch/master/graph/badge.svg)](https://codecov.io/gh/egoist/unvue)
  [![donate](https://img.shields.io/badge/$-donate-ff69b4.svg?maxAge=2592000&style=flat)](https://github.com/egoist/donate)
 
-> Universal Vue.js app made simple.
+> unopinionated, universal Vue.js app made simple
+
+## Why
+
+This isn't just another Next.js clone, bascially this is based on [vue-hackernews-2.0](https://github.com/vuejs/vue-hackernews-2.0) and extracted as a reusable module.
+
+Comparing to Next.js and Nuxt.js, with unvue you can use any file structure you like, the only requirement is to export Vue instance and and vue-router instance in `src/index.js`
 
 ## Install
 
