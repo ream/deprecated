@@ -25,11 +25,13 @@ const app = require('express')()
 const unvue = require('unvue')
 
 unvue(app, {
-  dev: process.env.NODE_ENV !== 'production'
+  dev: process.env.NODE_ENV !== 'production',
+  postCompile() {
+    console.log('> Open http://localhost:3000')
+  }
 })
 
 app.listen(3000)
-console.log('> Open http://localhost:3000')
 ```
 
 Run `node server.js`.
