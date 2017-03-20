@@ -4,7 +4,7 @@ const unvue = require('./lib')
 const app = express()
 
 unvue(app, {
-  dev: false,
+  dev: true,
   cwd: 'example',
   postCompile() {
     console.log('\n> Open http://localhost:4000')

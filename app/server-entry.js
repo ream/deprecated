@@ -9,6 +9,8 @@ const app = createApp({
 
 const isDev = process.env.NODE_ENV !== 'production'
 
+const meta = app.$meta()
+
 export default context => {
   const s = isDev && Date.now()
 
@@ -31,6 +33,7 @@ export default context => {
         if (store) {
           context.state = store.state
         }
+        context.meta = meta
         resolve(app)
       }).catch(reject)
     })

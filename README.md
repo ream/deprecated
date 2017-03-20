@@ -61,6 +61,20 @@ export default {
 
 If the action you want to perfom in `preFetch` method is async, it should return a Promise.
 
+### Modify `<head>`
+
+`unvue` uses [vue-meta](https://github.com/declandewet/vue-meta) under the hood, so you can just set `head` property on Vue component to provide custom head tags:
+
+```js
+export default {
+  head: {
+    title: 'HomePage'
+  }
+}
+```
+
+Check out [vue-meta](https://github.com/declandewet/vue-meta) for details, its usage is the same here except that we're using `head` instead of `metaInfo` as key name.
+
 ### createConfig
 
 Create webpack config only.

@@ -1,19 +1,13 @@
 <template>
   <div class="view">
-    Home
+    <router-link to="/">Home</router-link>
   </div>
 </template>
 
 <script>
   export default {
     head: {
-      title: 'Home'
+      title: 'About'
     }
   }
 </script>
-
-<style>
-  .view {
-    font-size: 50px;
-  }
-</style>
