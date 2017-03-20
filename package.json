@@ -69,6 +69,7 @@
     "vue-ssr-webpack-plugin": "^1.0.2",
     "vue-template-compiler": "^2.2.4",
     "vuex": "^2.2.1",
+    "vuex-router-sync": "^4.1.2",
     "webpack": "^2.2.1",
     "webpack-chain": "^3.0.0",
     "webpack-dev-middleware": "^1.10.1",

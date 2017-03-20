@@ -5593,6 +5593,10 @@ vue@^2.2.4:
   version "2.2.4"
   resolved "https://registry.npmjs.org/vue/-/vue-2.2.4.tgz#d0a3a050a80a12356d7950ae5a7b3131048209cc"
 
+vuex-router-sync@^4.1.2:
+  version "4.1.2"
+  resolved "https://registry.npmjs.org/vuex-router-sync/-/vuex-router-sync-4.1.2.tgz#584d6315909257adec2914a63d54b428c016b8ec"
+
 vuex@^2.2.1:
   version "2.2.1"
   resolved "https://registry.npmjs.org/vuex/-/vuex-2.2.1.tgz#a42d0ce18cb0e0359258f84bfd76835ed468c185"
