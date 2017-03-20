@@ -116,11 +116,17 @@ Run server in development mode which has hot-reloading enabled.
 Type: `string`<br>
 Default: `process.cwd()`
 
+##### postCompile
+
+Type: `function`
+
+Invoke a function when compilation is done. *`unvue` only*
+
 ### createConfig([options])
 
 #### options
 
-Same as options in `unvue` for now.
+Same as options in `unvue` except `unvue only` options.
 
 ## Contributing
 

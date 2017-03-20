@@ -25,8 +25,6 @@
     "eslint-config-rem": "^3.0.0",
     "express": "^4.15.2",
     "jest-cli": "^18.1.0",
-    "vue-router": "^2.3.0",
-    "vuex": "^2.2.1",
     "xo": "^0.17.1"
   },
   "xo": {
@@ -61,9 +59,11 @@
     "style-loader": "^0.14.1",
     "vue": "^2.2.4",
     "vue-loader": "^11.1.4",
+    "vue-router": "^2.3.0",
     "vue-server-renderer": "^2.2.4",
     "vue-ssr-webpack-plugin": "^1.0.2",
     "vue-template-compiler": "^2.2.4",
+    "vuex": "^2.2.1",
     "webpack": "^2.2.1",
     "webpack-chain": "^3.0.0",
     "webpack-dev-middleware": "^1.10.1",

@@ -1,6 +1,6 @@
 <template>
   <div class="view">
-    Home!!!!
+    Home
   </div>
 </template>
 
