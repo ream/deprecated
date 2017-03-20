@@ -42,6 +42,8 @@ export { router }
 
 Run `npm run dev` to start development server.
 
+To run in production server, run `npm run build && npm start`
+
 ### Root component
 
 By default we have a [built-in root component](/app/App.vue), you can export a custom one as well:
