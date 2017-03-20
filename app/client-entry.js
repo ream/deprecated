@@ -1,5 +1,12 @@
 import 'es6-promise/auto'
-import { app, store, router } from '@cwd/src'
+import createApp from './create-app'
+import { store, router, App } from '@cwd/src'
+
+const app = createApp({
+  store,
+  router,
+  App
+})
 
 // prime the store with server-initialized state.
 // the state is determined during SSR and inlined in the page markup.

@@ -9,7 +9,7 @@
 
 This isn't just another Next.js clone, bascially this is based on [vue-hackernews-2.0](https://github.com/vuejs/vue-hackernews-2.0) and extracted as a reusable module.
 
-Comparing to Next.js and Nuxt.js, with unvue you can use any file structure you like, the only requirement is to export Vue instance and and vue-router instance in `src/index.js`
+Comparing to Next.js and Nuxt.js, with unvue you can use any file structure you like, the only requirement is to export vue-router instance in `src/index.js`
 
 [Check out all the features.](/docs/features.md)
 
@@ -41,17 +41,10 @@ Run `node server.js`.
 This assumes you have `src/index.js` in current working directory and it exports at least `app` and `router`:
 
 ```js
-import Vue from 'vue'
 // your vue router instance
 import router from './router'
-import App from './App.vue'
 
-const app = new Vue({
-  router,
-  render: h => h(App)
-})
-
-export { app, router }
+export { router }
 ```
 
 ### preFetch

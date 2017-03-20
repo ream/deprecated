@@ -1,4 +1,11 @@
-import { app, router, store } from '@cwd/src'
+import { App, router, store } from '@cwd/src'
+import createApp from './create-app'
+
+const app = createApp({
+  router,
+  store,
+  App
+})
 
 const isDev = process.env.NODE_ENV !== 'production'
 
