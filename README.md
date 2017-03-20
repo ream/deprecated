@@ -149,6 +149,13 @@ Default: `false`
 
 Run server in development mode which has hot-reloading enabled.
 
+##### build
+
+Type: `boolean`<br>
+Default: `true`
+
+In production mode (when `dev` is `false`), unvue will build your project before starting the webserver, you can disable this if you already run [unvue.build](#unvuebuildoptions).
+
 ##### cwd
 
 Type: `string`<br>
@@ -178,6 +185,10 @@ unvue({
   }
 })
 ```
+
+### unvue.build([options])
+
+Similar to `unvue([options])` but only build app in production mode without starting the server.
 
 ### createConfig([options])
 
