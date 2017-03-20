@@ -87,6 +87,40 @@ export default {
 
 If the action you want to perfom in `preFetch` method is async, it should return a Promise.
 
+#### preFetchCache
+
+Similar to `preFetch` but you can cache data across requests:
+
+```js
+export default {
+  // component name is required
+  name: 'my-view',
+  preFetchCache({ store, cache }) {
+    return store.dispatch('fetchUser', { cache, user: 1 })
+  }
+}
+```
+
+Then in your store, it can have such shape:
+
+```js
+{
+  actions: {
+    fetchUser({ commit }, payload) {
+      // use cache if possible
+      if (payload.cache) return commit('SET_USER', cache)
+      return fetch('/user/' + payload.user)
+        .then(res => res.json())
+        .then(user => {
+          commit('SET_USER', user)
+          // the resolved value would be `cache` in next request
+          return user
+        })
+    }
+  }
+}
+```
+
 ### Modify `<head>`
 
 `unvue` uses [vue-meta](https://github.com/declandewet/vue-meta) under the hood, so you can just set `head` property on Vue component to provide custom head tags:
@@ -168,11 +202,22 @@ In production mode (when `dev` is `false`), unvue will build your project before
 Type: `string`<br>
 Default: `process.cwd()`
 
+##### preFetchCache
+
+Type: `object`<br>
+Default: `{ max: 1000, maxAge: 1000 * 60 * 15 }`
+
+*`unvue()` only*
+
+Options for [lru-cache](https://www.npmjs.com/package/lru-cache) store of `preFetchCache` option in your component.
+
 ##### postCompile
 
 Type: `function`
 
-Invoke a function when compilation is done. *`unvue` only*
+*`unvue()` only*
+
+Invoke a function when compilation is done.
 
 ##### extendWebpack
 

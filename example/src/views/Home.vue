@@ -1,13 +1,17 @@
 <template>
   <div class="view">
-    Home
+    Home {{ $store.state.count }}
   </div>
 </template>
 
 <script>
   export default {
+    name: 'home',
     head: {
       title: 'Home'
+    },
+    preFetchCache({ cache, store }) {
+      return store.dispatch('fetch', cache)
     }
   }
 </script>
