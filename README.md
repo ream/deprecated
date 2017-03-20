@@ -36,7 +36,7 @@ app.listen(3000)
 
 Run `node server.js`.
 
-This assumes you have `src/index.js` in current working directory and it exports at least `app` and `router`:
+This assumes you have `src/index.js` in current working directory and it exports at least `router` instance:
 
 ```js
 // your vue router instance
@@ -45,9 +45,38 @@ import router from './router'
 export { router }
 ```
 
-### preFetch
+### Root component
 
-Every router-view component can have a `preFetch` property to pre-fetch data to fill Vuex store on the server side, this requires you to export `store` in `src/index.js` too.
+By default we have a [built-in root component](/app/App.vue), you can export a custom one as well:
+
+```js
+// src/index.js
+import App from './components/App.vue'
+
+export { App }
+```
+
+The `App` component will be used in creating Vue instance:
+
+```js
+new Vue({
+  render: h => h(App)
+})
+```
+
+### Vuex
+
+You don't have to use Vuex but you can, export Vuex instance `store` in `src/index.js` to enable it:
+
+```js
+import store from './store'
+
+export { store }
+```
+
+#### preFetch
+
+Every router-view component can have a `preFetch` property to pre-fetch data to fill Vuex store on the server side.
 
 ```js
 export default {
