@@ -14,7 +14,7 @@ Comparing to Next.js and Nuxt.js, with unvue you can use any file structure you 
 ## Install
 
 ```bash
-yarn add unvue
+yarn add unvue express
 ```
 
 ## Usage
