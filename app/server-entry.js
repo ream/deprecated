@@ -29,7 +29,7 @@ export default context => {
           store
         })
       })).then(() => {
-        isDev && console.log(`data pre-fetch: ${Date.now() - s}ms`)
+        isDev && console.log(`> Data pre-fetch: ${Date.now() - s}ms`)
         if (store) {
           context.state = store.state
         }
