@@ -37,8 +37,9 @@
       "jest"
     ],
     "ignores": [
-      "example/**/*",
-      "app/**/*"
+      "examples/**/*",
+      "app/**/*",
+      "**/dist/**"
     ],
     "rules": {
       "guard-for-in": 0,

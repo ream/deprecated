@@ -13,7 +13,7 @@ const store = new Vuex.Store({
     }
   },
   actions: {
-    fetch({commit}, cache) {
+    fetch({ commit }, cache) {
       if (cache) return commit('SET_COUNT', cache)
       return new Promise(resolve => {
         setTimeout(() => {

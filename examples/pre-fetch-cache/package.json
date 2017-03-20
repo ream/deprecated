@@ -1,0 +1,10 @@
+{
+  "scripts": {
+    "start": "unvue start",
+    "dev": "unvue dev",
+    "build": "unvue build"
+  },
+  "dependencies": {
+    "unvue": "^0.5.0"
+  }
+}
