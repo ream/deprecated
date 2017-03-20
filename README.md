@@ -11,6 +11,8 @@ This isn't just another Next.js clone, bascially this is based on [vue-hackernew
 
 Comparing to Next.js and Nuxt.js, with unvue you can use any file structure you like, the only requirement is to export Vue instance and and vue-router instance in `src/index.js`
 
+[Check out all the features.](/docs/features.md)
+
 ## Install
 
 ```bash

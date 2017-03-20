@@ -49,6 +49,7 @@
     "babel-loader": "^6.4.1",
     "babel-preset-vue-app": "^0.5.0",
     "compression": "^1.6.2",
+    "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.27.3",
     "es6-promise": "^4.1.0",
     "eventsource-polyfill": "^0.9.6",
