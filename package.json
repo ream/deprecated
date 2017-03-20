@@ -1,6 +1,6 @@
 {
   "name": "unvue",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "unopinionated, universal Vue.js app made simple.",
   "repository": {
     "url": "egoist/unvue",
