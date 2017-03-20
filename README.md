@@ -122,7 +122,9 @@ The `config` is a [webpack-chain](https://github.com/mozilla-neutrino/webpack-ch
 
 ## API
 
-The options (expect those marked as `API only`) can be kept at `unvue.config.js`, check out [example server](/server.js) that uses the API.
+If you're using CLI, the options (expect those marked as `API only`) can be kept at `unvue.config.js` .
+
+You can also check out [example server](/server.js) which is custom server that uses the API.
 
 ### unvue(app, [options])
 
