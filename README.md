@@ -9,7 +9,7 @@
 
 Server-side rendered Vue.js app should be made easy, since vue-router is well optimized for SSR, we built unvue on the top of it to make you build universal Vue.js app fast with fewer trade-offs, the only requirement is to export router instance in your entry file, which mean you have full control of vue-router as well!
 
-[Check out all the features.](/docs/features.md)
+[Check out all the features](/docs/features.md) *or* [Try writing server-rendered Vue.js app online!](https://glitch.com/edit/#!/join/35cdafcd-9a59-4da2-a232-6c13fecdc6f7)
 
 ## Install
 
