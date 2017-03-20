@@ -5,11 +5,9 @@
 
 > unopinionated, universal Vue.js app made simple
 
-## Why
+## Introduction
 
-This isn't just another Next.js clone, bascially this is based on [vue-hackernews-2.0](https://github.com/vuejs/vue-hackernews-2.0) and extracted as a reusable module.
-
-Comparing to Next.js and Nuxt.js, with unvue you can use any file structure you like, the only requirement is to export vue-router instance in `src/index.js`
+Server-side rendered Vue.js app should be made easy, since vue-router is well optimized for SSR, we built unvue on the top of it to make you build universal Vue.js app fast with fewer trade-offs, the only requirement is to export router instance in your entry file, which mean you have full control of vue-router as well!
 
 [Check out all the features.](/docs/features.md)
 
