@@ -156,7 +156,7 @@ app.generate({
 })
 ```
 
-This optons will compiled be an array  by [path-to-regexp](https://github.com/pillarjs/path-to-regexp#compile-reverse-path-to-regexp)
+The value of each entry in `routes` option should be `true` of an array of params, and we compile it into valid string using [path-to-regexp](https://github.com/pillarjs/path-to-regexp#compile-reverse-path-to-regexp)
 
 ###### homepage
 
