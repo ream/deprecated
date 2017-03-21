@@ -230,12 +230,13 @@ unvue({
 
 #### app.prepare()
 
-Prepare webpack.
+Prepare server, returns a Promise
 
 ```js
-app.prepare(() => {
-  // webpack ready
-})
+app.prepare()
+  .then(() => {
+    // server is ready
+  })
 ```
 
 #### app.getRequestHandler()
