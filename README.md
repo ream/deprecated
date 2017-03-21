@@ -259,6 +259,36 @@ If you're running in production mode, make sure you have run `app.build()` first
 
 Build in production.
 
+#### app.generate([options])
+
+If you're using CLI, options for this method should be placed under `generate` property.
+
+##### options
+
+###### routes
+
+Type: `Array`<br>
+Required: `true`
+
+Generate static files for an array of routes, query parameter is not support.
+
+```js
+app.generate({
+  routes: ['/', '/about', '/user/egoist', '/user/trump']
+}).then(dir => {
+  console.log(`Generated into ${dir}`)
+})
+```
+
+**Note:** If route ends with `/` it will be generated into a folder, eg: route `/about/` is generated to `about/index.html` while `/about` will be generated to `/about.html`
+
+###### homepage
+
+Type: `string`<br>
+Default: `/`
+
+The root path to load static assets, if you're deploying the generated static files to subpath like `http://example.com/blog`, please set it to `/blog/` or `http://example.com/blog/`
+
 ### Events
 
 #### ready

@@ -33,17 +33,17 @@ export default context => {
         }
         if (preFetchCache && component.name) {
           const key = context.url + '::' + component.name
-          const cacheData = cache.get(key)
+          const cacheData = cache && cache.get(key)
           const handleCache = preFetchCache({ store, cache: cacheData })
           if (handleCache) {
             if (handleCache.then) {
               return handleCache.then(newCacheData => {
                 if (newCacheData) {
-                  cache.set(key, newCacheData)
+                  cache && cache.set(key, newCacheData)
                 }
               })
             }
-            cache.set(key, handleCache)
+            cache && cache.set(key, handleCache)
           }
         }
       })).then(() => {

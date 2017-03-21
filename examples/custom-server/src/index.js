@@ -9,11 +9,20 @@ const Home = {
   }
 }
 
+const About = {
+  render() {
+    return <h1>About</h1>
+  }
+}
+
 const router = new Router({
   mode: 'history',
   routes: [{
     path: '/',
     component: Home
+  }, {
+    path: '/about',
+    component: About
   }]
 })
 
