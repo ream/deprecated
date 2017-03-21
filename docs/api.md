@@ -126,20 +126,37 @@ If you're using CLI, options for this method should be placed under `generate` p
 
 ###### routes
 
-Type: `Array`<br>
+Type: `Array` `object`<br>
 Required: `true`
 
 Generate static files for an array of routes, query parameter is not support.
 
 ```js
 app.generate({
-  routes: ['/', '/about', '/user/egoist', '/user/trump']
+  routes: ['/', '/about/', '/user/egoist/', '/user/trump/']
 }).then(dir => {
   console.log(`Generated into ${dir}`)
 })
 ```
 
-**Note:** If route ends with `/` it will be generated into a folder, eg: route `/about/` is generated to `about/index.html` while `/about` will be generated to `/about.html`
+**Note:** The route must end with `/`.
+
+The `routes` could also be a plain object:
+
+```js
+app.generate({
+  routes: {
+    '/': true,
+    '/user/:name/': [{
+      name: 'egoist',
+      name: 'trump',
+      name: 'my name'
+    }]
+  }
+})
+```
+
+This optons will compiled be an array  by [path-to-regexp](https://github.com/pillarjs/path-to-regexp#compile-reverse-path-to-regexp)
 
 ###### homepage
 
