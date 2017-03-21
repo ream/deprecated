@@ -72,7 +72,7 @@ if (command === 'build') {
     .then(() => {
       const server = require('express')()
 
-      server.get('*', require('compression')(), app.getRequestHandler())
+      server.get('*', app.getRequestHandler())
       server.listen(port)
     })
 }
