@@ -25,7 +25,7 @@ Note that the usage of `generate` in CLI is slightly different from the API usag
 ```js
 module.exports = {
   generate() {
-    fetch('/my-users')
+    return fetch('/my-users')
       .then(users => {
         return {
           routes: ['/'].concat(user.map(name => `/user/${name}/`))
