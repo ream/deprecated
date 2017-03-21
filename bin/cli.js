@@ -42,32 +42,37 @@ if (fs.existsSync(argv.config)) {
   config = require(_.cwd(argv.config))
 }
 
-const postCompile = () => {
+const app = unvue(Object.assign(
+  {},
+  config,
+  { dev: command === 'dev' }
+))
+
+app.on('valid', () => {
+  unvue.displayStats(app.stats)
   if (command !== 'build') {
     console.log(`> Open http://localhost:${port}`)
   }
-  config.postCompile && config.postCompile()
-}
+})
 
-if (command === 'dev' || command === 'start') {
-  const app = require('express')()
-
-  if (command === 'dev') {
-    unvue(app, Object.assign(
-      {},
-      config,
-      { dev: true, postCompile }
-    ))
+if (command === 'build') {
+  console.log('> Building...')
+  app.build().catch(err => {
+    console.error(err)
+    process.exit(1)
+  })
+} else {
+  if (command === 'start') {
+    console.log('> Starting production server')
   } else {
-    unvue(app, Object.assign(
-      {},
-      config,
-      { dev: false, build: false, postCompile }
-    ))
+    console.log('> Starting development server')
   }
 
-  app.listen(port)
-} else if (command === 'build') {
-  unvue
-    .build(Object.assign({}, config, { postCompile }))
+  app.prepare()
+    .then(() => {
+      const server = require('express')()
+
+      server.get('*', app.getRequestHandler())
+      server.listen(port)
+    })
 }

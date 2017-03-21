@@ -1,15 +1,17 @@
 const express = require('express')
 const unvue = require('./lib')
 
-const app = express()
-
-unvue(app, {
+const app = unvue({
   dev: process.env.NODE_ENV !== 'production',
-  cwd: 'example',
-  build: false,
-  postCompile() {
-    console.log('> Open http://localhost:4000')
-  }
+  cwd: 'examples/custom-server'
 })
 
-app.listen(4000)
+app.prepare()
+  .then(() => {
+    const server = express()
+
+    server.get('*', app.getRequestHandler())
+
+    server.listen(4000)
+    console.log(`> Open http://localhost:4000`)
+  })

@@ -1,15 +1,16 @@
-const app = require('express')()
-const unvue = require('unvue')
+const http = require('http')
+const unvue = require('../../')
 
-unvue(app, {
-  // do not build before starting production server
-  // instead run `npm run build` before `npm start` yourself
-  // because if you're deploying it to service like `now.sh`
-  // you're only allowed to write files outside `npm run build` script
-  build: false,
-  postCompile() {
-    console.log(`> Open http://localhost:3000`)
-  }
+const app = unvue({
+  dev: process.env.NODE_ENV !== 'production'
 })
 
-app.listen(3000)
+app.prepare()
+  .then(() => {
+    const server = http.createServer((req, res) => {
+      app.getRequestHandler()(req, res)
+    })
+
+    server.listen(4000)
+    console.log(`> Open http://localhost:4000`)
+  })

@@ -160,11 +160,13 @@ If you're using CLI, the options (expect those marked as `API only`) can be kept
 
 You can also check out [custom server example](/examples/custom-server/server.js) which is custom server that uses the API.
 
-### unvue(app, [options])
+### unvue([options])
 
-#### app
+Return an unvue app instance:
 
-Express app instance.
+```js
+const app = unvue(options)
+```
 
 #### options
 
@@ -188,15 +190,6 @@ Default: `false`
 
 Run server in development mode which has hot-reloading enabled.
 
-##### build
-
-Type: `boolean`<br>
-Default: `true`
-
-*API only*
-
-In production mode (when `dev` is `false`), unvue will build your project before starting the webserver, you can disable this if you already run [unvue.build](#unvuebuildoptions).
-
 ##### cwd
 
 Type: `string`<br>
@@ -207,17 +200,7 @@ Default: `process.cwd()`
 Type: `object`<br>
 Default: `{ max: 1000, maxAge: 1000 * 60 * 15 }`
 
-*`unvue()` only*
-
 Options for [lru-cache](https://www.npmjs.com/package/lru-cache) store of `preFetchCache` option in your component.
-
-##### postCompile
-
-Type: `function`
-
-*`unvue()` only*
-
-Invoke a function when compilation is done.
 
 ##### extendWebpack
 
@@ -238,15 +221,68 @@ unvue(app, {
 })
 ```
 
-### unvue.build([options])
+#### app.prepare()
 
-Similar to `unvue([options])` but only build app in production mode without starting the server.
+Prepare webpack.
+
+```js
+app.prepare(() => {
+  // webpack ready
+})
+```
+
+#### app.getRequestHandler()
+
+Return a middleware for `http.createServer` instance:
+
+```js
+app.prepare()
+  .then(() => {
+    const server = http.createServer((req, res) => {
+      const handle = app.getRequestHandler()
+      handle(req, res)
+    })
+    server.listen(4000)
+  })
+```
+
+If you're running in production mode, make sure you have run `app.build()` first.
+
+#### app.build()
+
+Build in production.
+
+### Events
+
+#### valid
+
+When webpack bundle is valid, this event will be emitted.
+
+```js
+app.on('valid', () => {
+  console.log('Ready!')
+})
+```
+
+### app.stats
+
+Webpack stats, it only exists when `valid` event is fired once.
+
+```js
+app.on('valid', () => {
+  console.log(app.stats)
+  // { server, client }
+  // stats for server bundle and client bundle
+})
+```
 
 ### createConfig([options])
 
-#### options
+Like `unvue([options])` but returns a webpack-chain instance.
 
-Same as options in `unvue` except `unvue only` options.
+### unvue.displayStats({ server, client })
+
+Pretty print webpack stats, the argument should be `app.stats` or in `{ server, client }` format.
 
 ## FAQ
 
