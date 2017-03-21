@@ -294,13 +294,15 @@ The root path to load static assets, if you're deploying the generated static fi
 
 #### ready
 
-When app is ready , this event will be emitted.
+Each time app is ready , this event will be emitted.
 
 ```js
 app.on('ready', () => {
   console.log('Ready!')
 })
 ```
+
+Since webpack will rebuild when you're running development server, this event will be emitted multiple times, to only listen for once, use `app.once`, basically `app` is created from a subclass of Node.js's `events` modules.
 
 ### app.stats
 
