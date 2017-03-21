@@ -46,6 +46,20 @@ Default: `src/index.js`
 
 The entry file that exports router instance (and others optional exports like `store`, `App`), relative to `cwd` directory.
 
+##### babel
+
+Type: `Object`<br>
+Default: `{ presets: ['vue-app'] }`
+
+Babel options.
+
+##### postcss
+
+Type: `Object`<br>
+Default: `{}`
+
+PostCSS options.
+
 ##### preFetchCache
 
 Type: `object`<br>

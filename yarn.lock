@@ -430,6 +430,10 @@ babel-jest@^19.0.0:
     babel-plugin-istanbul "^4.0.0"
     babel-preset-jest "^19.0.0"
 
+babel-load-config@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.npmjs.org/babel-load-config/-/babel-load-config-0.1.0.tgz#27280b4a90830c47a1fbbc7baaac4c002cd8c8bd"
+
 babel-loader@^6.4.1:
   version "6.4.1"
   resolved "https://registry.npmjs.org/babel-loader/-/babel-loader-6.4.1.tgz#0b34112d5b0748a8dcdbf51acf6f9bd42d50b8ca"

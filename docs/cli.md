@@ -35,6 +35,21 @@ module.exports = {
 }
 ```
 
+## Babel/PostCSS config file
+
+In CLI we automatically load babel/postcss config file as the default value of [babel](/api#babel) and [postcss](/api/postcss) option.
+
+If you have a Babel config file in working directory but don't manage to use it, you can set `babelrc: false` to disable itself, eg: you have `.babelrc` to use with other projects:
+
+```js
+{
+  "babelrc": false,
+  "presets": ["unrelated-preset"]
+}
+```
+
+Set `babel` `postcss` option in config file will also override the default options.
+
 ## Commands
 
 ### build
@@ -52,3 +67,4 @@ Start development server.
 ### generate
 
 Generate static website.
+

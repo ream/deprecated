@@ -52,9 +52,11 @@
   },
   "dependencies": {
     "babel-core": "^6.24.0",
+    "babel-load-config": "^0.1.0",
     "babel-loader": "^6.4.1",
     "babel-preset-vue-app": "^0.5.0",
     "chalk": "^1.1.3",
+    "co": "^4.6.0",
     "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.27.3",
     "es6-promise": "^4.1.0",
@@ -69,6 +71,7 @@
     "lru-cache": "^4.0.2",
     "memory-fs": "^0.4.1",
     "path-match": "^1.2.4",
+    "postcss-load-config": "^1.2.0",
     "postcss-loader": "^1.3.3",
     "rimraf": "^2.6.1",
     "serialize-javascript": "^1.3.0",
@@ -92,6 +95,7 @@
   },
   "peerDependencies": {},
   "babel": {
+    "babelrc": false,
     "env": {
       "test": {
         "presets": [

@@ -1,10 +1,12 @@
 #!/usr/bin/env node
 const fs = require('fs')
 const yargs = require('yargs')
+const co = require('co')
 const chalk = require('chalk')
 const tildify = require('tildify')
 const pkg = require('../package')
 const _ = require('../lib/utils')
+const loadConfig = require('../lib/load-config')
 
 const cli = yargs
   .command('build', 'Build your app')
@@ -48,59 +50,63 @@ if (fs.existsSync(argv.config)) {
 const generateOptions = config.generate
 delete config.generate
 
-const app = unvue(Object.assign(
-  {},
-  config,
-  { dev: command === 'dev' }
-))
+co(function * () {
+  const defaultOptions = {}
 
-if (command === 'build') {
-  console.log('> Building...')
-  app.build().then(() => {
-    console.log('> Done')
-  }).catch(handleError)
-} else if (command === 'generate') {
-  console.log('> Generating...')
-  Promise.resolve()
-    .then(() => {
-      if (typeof generateOptions === 'function') {
-        return generateOptions()
-      }
-      return generateOptions
-    }).then(opts => {
-      return app.generate(opts)
-        .then(dir => {
-          dir = tildify(dir)
-          console.log(`> Static website is generated into ${dir} folder`)
-          console.log(`\n  You may use a static website to preview it:`)
-          console.log(`  ${chalk.yellow('yarn')} global add serve`)
-          console.log(`  ${chalk.yellow('serve')} ${dir} -s\n`)
-        })
-    }).catch(handleError)
-} else {
-  app.on('ready', () => {
-    unvue.displayStats(app.stats)
-    if (command !== 'build') {
-      console.log(`> Open http://localhost:${port}`)
-    }
-  })
-
-  if (command === 'start') {
-    console.log('> Starting production server')
-  } else {
-    console.log('> Starting development server')
+  if (typeof config.babel === 'undefined') {
+    defaultOptions.babel = yield loadConfig.babel()
+  }
+  if (typeof config.postcss === 'undefined') {
+    defaultOptions.postcss = yield loadConfig.postcss()
   }
 
-  app.prepare()
-    .then(() => {
-      const server = require('express')()
+  const app = unvue(Object.assign(
+    defaultOptions,
+    config,
+    { dev: command === 'dev' }
+  ))
 
-      server.get('*', app.getRequestHandler())
-      server.listen(port)
-    }).catch(handleError)
-}
+  if (command === 'build') {
+    console.log('> Building...')
+    yield app.build()
+    console.log('> Done')
+  } else if (command === 'generate') {
+    console.log('> Generating...')
+    const opts = yield Promise.resolve()
+      .then(() => {
+        if (typeof generateOptions === 'function') {
+          return generateOptions()
+        }
+        return generateOptions
+      })
+    let dir = yield app.generate(opts)
+    dir = tildify(dir)
+    console.log(`> Static website is generated into ${dir} folder`)
+    console.log(`\n  You may use a static website to preview it:`)
+    console.log(`  ${chalk.yellow('yarn')} global add serve`)
+    console.log(`  ${chalk.yellow('serve')} ${dir} -s\n`)
+  } else {
+    app.on('ready', () => {
+      unvue.displayStats(app.stats)
+      if (command !== 'build') {
+        console.log(`> Open http://localhost:${port}`)
+      }
+    })
 
-function handleError(err) {
+    if (command === 'start') {
+      console.log('> Starting production server')
+    } else {
+      console.log('> Starting development server')
+    }
+
+    yield app.prepare()
+
+    const server = require('express')()
+
+    server.get('*', app.getRequestHandler())
+    server.listen(port)
+  }
+}).catch(err => {
   console.error(err.stack)
   process.exit(1)
-}
+})
