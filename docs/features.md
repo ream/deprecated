@@ -22,6 +22,8 @@ yarn add sass-loader node-sass --dev
 
 `./dist` folder is served as static files, and files inside `./static` will be copied to `./dist` folder as well.
 
+`./public` folder is also served as static files.
+
 ## Development
 
 Hot Reloading enabled
