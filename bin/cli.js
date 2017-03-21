@@ -45,6 +45,9 @@ if (fs.existsSync(argv.config)) {
   config = require(_.cwd(argv.config))
 }
 
+const generateOptions = config.generate
+delete config.generate
+
 const app = unvue(Object.assign(
   {},
   config,
@@ -58,15 +61,22 @@ if (command === 'build') {
   }).catch(handleError)
 } else if (command === 'generate') {
   console.log('> Generating...')
-  app.generate(config.generate)
-    .then(dir => {
-      dir = tildify(dir)
-      console.log(`> Static website is generated into ${dir} folder`)
-      console.log(`\n  You may use a static website to preview it:`)
-      console.log(`  ${chalk.yellow('yarn')} global add serve`)
-      console.log(`  ${chalk.yellow('serve')} ${dir} -s\n`)
-    })
-    .catch(handleError)
+  Promise.resolve()
+    .then(() => {
+      if (typeof generateOptions === 'function') {
+        return generateOptions()
+      }
+      return generateOptions
+    }).then(opts => {
+      return app.generate(opts)
+        .then(dir => {
+          dir = tildify(dir)
+          console.log(`> Static website is generated into ${dir} folder`)
+          console.log(`\n  You may use a static website to preview it:`)
+          console.log(`  ${chalk.yellow('yarn')} global add serve`)
+          console.log(`  ${chalk.yellow('serve')} ${dir} -s\n`)
+        })
+    }).catch(handleError)
 } else {
   app.on('ready', () => {
     unvue.displayStats(app.stats)
