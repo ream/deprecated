@@ -9,7 +9,7 @@
 
 Server-side rendered Vue.js app should be made easy, since vue-router is well optimized for SSR, we built unvue on the top of it to make you build universal Vue.js app fast with fewer trade-offs, the only requirement is to export router instance in your entry file, which means you have full control of vue-router as well!
 
-[Check out all the features](https://github.com/egoist/unvue/blob/master/docs/features.md) *or* [Try writing server-rendered Vue.js app online!](https://glitch.com/~unvue)
+You can [try unvue with the online playground!](https://glitch.com/~unvue)
 
 ## Install
 
@@ -135,6 +135,39 @@ export default {
 
 Check out [vue-meta](https://github.com/declandewet/vue-meta) for details, its usage is the same here except that we're using `head` instead of `metaInfo` as key name.
 
+### webpack
+
+#### Code split
+
+You can use `import()` or `require.ensure()` to split modules for lazy-loading.
+
+#### JS
+
+JS is transpiled by Babel using [babel-preset-vue-app](https://github.com/egoist/babel-preset-vue-app), which means you can use all latest ECMAScript features and stage-2 features.
+
+#### CSS
+
+Support all CSS preprocessors, you can install its loader to use them, for example to use `scss`
+
+```js
+yarn add sass-loader node-sass --dev
+```
+
+#### Public folder
+
+`./dist` folder is served as static files, and files inside `./static` will be copied to `./dist` folder as well.
+
+`./public` folder is also served as static files.
+
+#### Development
+
+Hot Reloading enabled
+
+#### Production
+
+3rd-party libraries are automatically extracted into a single `vendor` chunk.
+
+All output files are minifies and optimized.
 
 ## FAQ
 
