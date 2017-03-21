@@ -46,6 +46,13 @@ To run in production server, run `npm run build && npm start`
 
 **Dive into the [documentation](https://egoistian.com/unvue) to get more.**
 
+## Prior Art
+
+`unvue` wouldn't exist if it wasn't for excellent prior art, we're inspired by these projects:
+
+- [Nuxt.js](https://github.com/nuxt/nuxt.js)
+- [Next.js](https://github.com/zeit/next.js)
+
 ## Contributing
 
 1. Fork it!
