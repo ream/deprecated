@@ -64,6 +64,7 @@
     "get-port": "^3.0.0",
     "html-webpack-plugin": "^2.28.0",
     "http-proxy": "^1.16.2",
+    "internal-ip": "^1.2.0",
     "lru-cache": "^4.0.2",
     "memory-fs": "^0.4.1",
     "path-match": "^1.2.4",
