@@ -261,22 +261,22 @@ Build in production.
 
 ### Events
 
-#### valid
+#### ready
 
-When webpack bundle is valid, this event will be emitted.
+When app is ready , this event will be emitted.
 
 ```js
-app.on('valid', () => {
+app.on('ready', () => {
   console.log('Ready!')
 })
 ```
 
 ### app.stats
 
-Webpack stats, it only exists when `valid` event is fired once.
+Webpack stats, it only exists when `ready` event is fired once.
 
 ```js
-app.on('valid', () => {
+app.on('ready', () => {
   console.log(app.stats)
   // { server, client }
   // stats for server bundle and client bundle

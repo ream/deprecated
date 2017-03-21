@@ -25,10 +25,9 @@ app.prepare()
     server.use(router.routes())
 
     server.listen(8101)
-    console.log(`> Open http://localhost:8101`)
   })
 
-app.on('valid', () => {
+app.on('ready', () => {
   unvue.displayStats(app.stats)
   console.log(`> Open http://localhost:8101`)
 })

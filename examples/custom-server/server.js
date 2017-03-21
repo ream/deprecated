@@ -13,10 +13,9 @@ app.prepare()
     })
 
     server.listen(4000)
-    console.log(`> Open http://localhost:4000`)
   })
 
-app.on('valid', () => {
+app.on('ready', () => {
   unvue.displayStats(app.stats)
   console.log(`> Open http://localhost:4000`)
 })

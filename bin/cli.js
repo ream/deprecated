@@ -48,7 +48,7 @@ const app = unvue(Object.assign(
   { dev: command === 'dev' }
 ))
 
-app.on('valid', () => {
+app.on('ready', () => {
   unvue.displayStats(app.stats)
   if (command !== 'build') {
     console.log(`> Open http://localhost:${port}`)
