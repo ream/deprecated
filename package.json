@@ -14,8 +14,8 @@
     "bin"
   ],
   "scripts": {
-    "test:cov": "jest --coverage && npm run lint",
-    "test": "jest && npm run lint",
+    "test:cov": "BABEL_ENV=test jest --coverage && npm run lint",
+    "test": "BABEL_ENV=test jest && npm run lint",
     "lint": "xo",
     "precommit": "npm t"
   },
@@ -36,10 +36,14 @@
     "envs": [
       "jest"
     ],
+    "globals": [
+      "jasmine"
+    ],
     "ignores": [
       "examples/**/*",
       "app/**/*",
-      "**/dist/**"
+      "**/dist/**",
+      "**/fixture/**/*"
     ],
     "rules": {
       "guard-for-in": 0,
@@ -84,5 +88,12 @@
     "webpack-node-externals": "^1.5.4",
     "yargs": "^7.0.2"
   },
-  "peerDependencies": {}
+  "peerDependencies": {},
+  "babel": {
+    "env": {
+      "test": {
+        "presets": ["vue-app"]
+      }
+    }
+  }
 }
