@@ -1,4 +1,4 @@
-import { App, router, store } from '@cwd/src'
+import { App, router, store } from '@entry'
 import createApp from './create-app'
 
 const app = createApp({

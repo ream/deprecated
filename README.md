@@ -195,6 +195,13 @@ Run server in development mode which has hot-reloading enabled.
 Type: `string`<br>
 Default: `process.cwd()`
 
+##### entry
+
+Type: `string`<br>
+Default: `src/index.js`
+
+The entry file that exports router instance (and others optional exports like `store`, `App`), relative to `cwd` directory.
+
 ##### preFetchCache
 
 Type: `object`<br>

@@ -1,6 +1,6 @@
 import 'es6-promise/auto'
 import createApp from './create-app'
-import { store, router, App } from '@cwd/src'
+import { store, router, App } from '@entry'
 
 const app = createApp({
   store,
