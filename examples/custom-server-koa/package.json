@@ -1,0 +1,12 @@
+{
+  "scripts": {
+    "start": "NODE_ENV=production node server.js",
+    "build": "unvue build",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "koa": "2",
+    "koa-router": "next",
+    "unvue": "*"
+  }
+}
