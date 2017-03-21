@@ -3,5 +3,8 @@
     "dev": "node server.js",
     "start": "NODE_ENV=production node server.js",
     "build": "unvue build"
+  },
+  "dependencies": {
+    "unvue": "*"
   }
 }

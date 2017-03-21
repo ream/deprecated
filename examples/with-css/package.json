@@ -1,0 +1,14 @@
+{
+  "name": "with-css",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "unvue build",
+    "start": "unvue start",
+    "dev": "unvue dev"
+  },
+  "dependencies": {
+    "unvue": "*"
+  }
+}
