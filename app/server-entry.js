@@ -1,5 +1,6 @@
 import entry from '@entry'
 import createApp from './create-app'
+import { setAsyncData } from './async-data'
 
 const { router, store } = entry
 const app = createApp(entry)
@@ -43,6 +44,21 @@ export default context => {
           }
         }
 
+        if (component.asyncData) {
+          pipe = pipe.then(() => {
+            const data = component.asyncData({ store })
+            if (data.then) {
+              return data.then(asyncData => {
+                context.asyncData = asyncData
+                setAsyncData(asyncData)
+              })
+            } else {
+              context.asyncData = data
+              setAsyncData(data)
+            }
+          })
+        }
+
         return pipe
       })).then(() => {
         isDev && console.log(`> Data pre-fetch: ${Date.now() - s}ms`)
@@ -50,6 +66,7 @@ export default context => {
           context.state = store.state
         }
         context.meta = meta
+
         resolve(app)
       }).catch(reject)
     })

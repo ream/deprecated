@@ -2,6 +2,7 @@ import Vue from 'vue'
 import DefaultApp from './App.vue'
 import Meta from 'vue-meta'
 import { sync } from 'vuex-router-sync'
+import AsyncDaya from './async-data'
 
 Vue.use(Meta, {
   keyName: 'head',
@@ -9,6 +10,8 @@ Vue.use(Meta, {
   ssrAttribute: 'data-unvue-head-rendered',
   tagIDKeyName: 'unvuehid'
 })
+
+Vue.use(AsyncDaya)
 
 export default ({
   App = DefaultApp,
