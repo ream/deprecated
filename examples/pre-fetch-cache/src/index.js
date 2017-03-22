@@ -1,4 +1,4 @@
 import router from './router'
 import store from './store'
 
-export { store, router }
+export default { store, router }

@@ -23,7 +23,7 @@ import createRouter from '@fs-router'
 
 const router = createRouter()
 
-export { router }
+export default { router }
 ```
 
 Here `createRouter` accepts an option:
