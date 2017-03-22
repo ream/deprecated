@@ -1,17 +1,13 @@
-# unvue is awesome
+# static-website-markdown
 
-> build static website so easy
+> static website demo for unvue using `vue-markdown-loader`
 
-## how to use
-
-### 1. install unvue
-
-### 2. create a unvue.config.js
-
-### 3. write some vue components as pages
-
-### 4. run `unvue generate`
-
----
-
-you can see the demo [static-website](https://github.com/egoist/unvue/tree/master/examples/static-website)
+```bash
+# clone first
+$ npm install
+# dev
+$ npm run dev
+# generate static website, see the dist folder
+$ npm run gen
+```
+For more about `vue-markdown-loader` can see [vue-markdown-loader](https://github.com/QingWei-Li/vue-markdown-loader)
