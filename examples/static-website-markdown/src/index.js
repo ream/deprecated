@@ -1,11 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-// import your markdown file as vue component
-import Post from './md/Post.md'
+// Lazy-loading (i.e. code-split) your markdown file as vue component
+const Post = resolve => import('./md/Post.md').then(resolve)
 
-// you can add some style here
-// import some css file
+// You can add some style here
+// Import some css file
 
 Vue.use(Router)
 
