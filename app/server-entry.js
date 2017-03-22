@@ -23,26 +23,27 @@ export default context => {
       }
 
       Promise.all(matchedComponents.map(component => {
+        let pipe = Promise.resolve()
         const preFetch = component.preFetch
+
         if (preFetch) {
-          return preFetch({ store })
-        }
-        const preFetchCache = component.preFetchCache
-        if (preFetchCache && component.name) {
-          const key = context.url + '::' + component.name
-          const cacheData = cache && cache.get(key)
-          const handleCache = preFetchCache({ store, cache: cacheData })
-          if (handleCache) {
-            if (handleCache.then) {
-              return handleCache.then(newCacheData => {
+           pipe = pipe.then(() => preFetch({ store }))
+        } else {
+          const preFetchCache = component.preFetchCache
+          if (preFetchCache && component.name) {
+            const key = context.url + '::' + component.name
+            const cacheData = cache && cache.get(key)
+            pipe = pipe.then(() => {
+              return preFetchCache({ store, cache: cacheData }).then(newCacheData => {
                 if (newCacheData) {
                   cache && cache.set(key, newCacheData)
                 }
               })
-            }
-            cache && cache.set(key, handleCache)
+            })
           }
         }
+
+        return pipe
       })).then(() => {
         isDev && console.log(`> Data pre-fetch: ${Date.now() - s}ms`)
         if (store) {
