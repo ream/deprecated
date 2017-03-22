@@ -28,6 +28,14 @@ module.exports = {
 
 ## ctx
 
+### options
+
+The `options` unvue uses internally.
+
+#### cwd
+
+User's current working directory
+
 ### dev
 
 Type: `boolean`
