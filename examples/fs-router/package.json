@@ -1,0 +1,13 @@
+{
+  "name": "fs-router",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "unvue start",
+    "build": "unvue build",
+    "dev": "unvue dev"
+  },
+  "dependencies": {
+    "unvue": "*"
+  },
+  "license": "MIT"
+}
