@@ -37,7 +37,7 @@ Then populate an `src/index.js` in current working directory and it should expor
 // your vue router instance
 import router from './router'
 
-export { router }
+export default { router }
 ```
 
 Run `npm run dev` to start development server.

@@ -37,7 +37,7 @@ Then populate an `src/index.js` in current working directory and it should expor
 // your vue router instance
 import router from './router'
 
-export { router }
+export default { router }
 ```
 
 Run `npm run dev` to start development server.
@@ -52,7 +52,7 @@ By default we have a [built-in root component](https://github.com/egoist/unvue/b
 // src/index.js
 import App from './components/App.vue'
 
-export { App }
+export default { App }
 ```
 
 The `App` component will be used in creating Vue instance:
@@ -70,7 +70,7 @@ You don't have to use Vuex but you can, export Vuex instance `store` in `src/ind
 ```js
 import store from './store'
 
-export { store }
+export default { store }
 ```
 
 #### preFetch

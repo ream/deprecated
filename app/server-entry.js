@@ -1,11 +1,8 @@
-import { App, router, store } from '@entry'
+import entry from '@entry'
 import createApp from './create-app'
 
-const app = createApp({
-  router,
-  store,
-  App
-})
+const { router, store } = entry
+const app = createApp(entry)
 
 const isDev = process.env.NODE_ENV !== 'production'
 

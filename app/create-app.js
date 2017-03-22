@@ -14,7 +14,7 @@ export default ({
   App = DefaultApp,
   store,
   router
-}) => {
+} = {}) => {
   if (store) {
     const { sync } = require('vuex-router-sync')
     sync(store, router)
