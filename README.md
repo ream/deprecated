@@ -14,7 +14,7 @@ Server-side rendered Vue.js app should be made easy, since vue-router is well op
 - Server-side rendering with code-split support
 - Extensible webpack config
 - Plugin system
-- Next.js/Nuxt.js like behavior via [plugin](https://egoistian.com/unvue/#/plugins/fs-router)
+- Next.js/Nuxt.js-like behavior via [plugin](https://egoistian.com/unvue/#/plugin/fs-router)
 - Exposed a fluent API
 
 [Check out online docs](https://egoistian.com/unvue) *or* [Try writing server-rendered Vue.js app online!](https://glitch.com/~unvue)
