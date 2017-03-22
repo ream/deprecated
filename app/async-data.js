@@ -16,7 +16,7 @@ export default function (Vue) {
             window.__UNVUE__.asyncData = null
             applyData(this.$asyncData)
           } else {
-            const data = this.$options.asyncData({ store: this.$store })
+            const data = this.$options.asyncData({ store: this.$store, route: this.$route })
             if (data.then) {
               data.then(_data => {
                 this.$asyncData = _data

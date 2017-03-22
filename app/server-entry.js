@@ -3,6 +3,7 @@ import createApp from './create-app'
 import { setAsyncData } from './async-data'
 
 const { router, store } = entry
+const { route } = router
 const app = createApp(entry)
 
 const isDev = process.env.NODE_ENV !== 'production'
@@ -28,14 +29,14 @@ export default context => {
         const preFetch = component.preFetch
 
         if (preFetch) {
-           pipe = pipe.then(() => preFetch({ store }))
+           pipe = pipe.then(() => preFetch({ store, route }))
         } else {
           const preFetchCache = component.preFetchCache
           if (preFetchCache && component.name) {
             const key = context.url + '::' + component.name
             const cacheData = cache && cache.get(key)
             pipe = pipe.then(() => {
-              return preFetchCache({ store, cache: cacheData }).then(newCacheData => {
+              return preFetchCache({ store, cache: cacheData, route }).then(newCacheData => {
                 if (newCacheData) {
                   cache && cache.set(key, newCacheData)
                 }
@@ -46,7 +47,7 @@ export default context => {
 
         if (component.asyncData) {
           pipe = pipe.then(() => {
-            const data = component.asyncData({ store })
+            const data = component.asyncData({ store, route })
             if (data.then) {
               return data.then(asyncData => {
                 context.asyncData = asyncData
