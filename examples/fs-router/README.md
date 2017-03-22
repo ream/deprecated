@@ -1,4 +1,4 @@
-# fs-router-example
+# fs-router
 
 `fsRouterPlugin` allows you to have a Next.js/Nuxt.js-like folder structure, which means file system is your router API.
 

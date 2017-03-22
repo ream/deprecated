@@ -29,8 +29,14 @@
         path: '/api',
         title: 'API'
       }, {
-        path: '/plugin',
-        title: 'Plugin'
+        title: 'Plugin',
+        type: 'dropdown',
+        items: [
+          {title: 'Create Plugin', path: '/plugin'},
+          {type: 'sep'},
+          {title: 'Plugins', type: 'label'},
+          {title: 'fs-router', path: '/plugin/fs-router', source: 'https://raw.githubusercontent.com/egoist/unvue/master/examples/fs-router/README.md'}
+        ]
       }]
     })
   </script>
