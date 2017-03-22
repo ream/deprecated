@@ -86,6 +86,13 @@ unvue({
 })
 ```
 
+##### plugins
+
+Type: `Array`<br>
+Default: `[]`
+
+Use an array of plugins.
+
 #### app.prepare()
 
 Prepare server, returns a Promise
