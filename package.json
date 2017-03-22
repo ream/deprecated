@@ -65,6 +65,7 @@
     "eventsource-polyfill": "^0.9.6",
     "express": "^4.15.2",
     "extract-text-webpack-plugin": "^2.1.0",
+    "file-loader": "^0.10.1",
     "fs-promise": "^2.0.0",
     "get-port": "^3.0.0",
     "glob": "^7.1.1",
