@@ -11,7 +11,8 @@
   "files": [
     "lib",
     "app",
-    "bin"
+    "bin",
+    "plugins"
   ],
   "scripts": {
     "test:cov": "BABEL_ENV=test jest --coverage && npm run lint",
