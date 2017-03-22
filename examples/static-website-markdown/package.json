@@ -1,0 +1,12 @@
+{
+  "scripts": {
+    "gen": "unvue generate",
+    "dev": "unvue dev"
+  },
+  "dependencies": {
+    "unvue": "^0.9.0"
+  },
+  "devDependencies": {
+    "vue-markdown-loader": "^0.6.2"
+  }
+}
