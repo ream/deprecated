@@ -24,10 +24,10 @@ export default context => {
 
       Promise.all(matchedComponents.map(component => {
         const preFetch = component.preFetch
-        const preFetchCache = component.preFetchCache && component.preFetchCache
         if (preFetch) {
           return preFetch({ store })
         }
+        const preFetchCache = component.preFetchCache
         if (preFetchCache && component.name) {
           const key = context.url + '::' + component.name
           const cacheData = cache && cache.get(key)
