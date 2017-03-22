@@ -43,10 +43,18 @@ function writeRouter(cwd, to) {
     fs.writeFileSync(to, data, 'utf8')
   }
 
-  build()
-
+  let ready
   const watcher = chokidar.watch(pages, { cwd })
-  watcher.on('all', build)
+  watcher.on('ready', () => {
+    ready = true
+    build()
+  })
+  watcher.on('add', () => {
+    if (ready) {
+      build()
+    }
+  })
+  watcher.on('unlink', build)
 }
 
 module.exports = () => {
