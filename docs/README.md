@@ -206,10 +206,20 @@ All output files are minifies and optimized.
 
 ## FAQ
 
-### Here's a missing feature!
+<details><summary>Here's a missing feature!</summary>
 
 **"Can you update webpack config *this way* so I can use that feature?"** If you have the same question, before we actually think this feature is necessary and add it, you can [extend webpack config](#extendwebpack) yourself to implement it. With [webpack-chain](https://github.com/mozilla-rpweb/webpack-chain) you have full control of our webpack config, check out the default [config instance](https://github.com/egoist/unvue/blob/master/lib/create-config.js).
+</details>
 
+<details><summary>How big is it?</summary>
+
+The runtime bundle (Vue + vue-router) is around 30KB gzipped.
+</details>
+
+<details><summary>How do I fetch data?</summary>
+
+If you want to store data as global state, you can use vuex with [preFetch](#prefetch) method. Otherwise you can use [asyncData](#asyncdata) method. They both are async function, which means you should return a Promise, FYI, `store.dispatch` in vuex always returns a Promise.
+</details>
 
 ## Contributing
 
