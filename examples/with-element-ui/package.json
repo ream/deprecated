@@ -1,0 +1,9 @@
+{
+  "devDependencies": {
+    "babel-plugin-component": "^0.9.1"
+  },
+  "dependencies": {
+    "element-ui": "^1.2.5",
+    "unvue": "*"
+  }
+}
