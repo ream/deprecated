@@ -2,7 +2,7 @@
 
 The only thing that is worthing noting here:
 
-- adds a `.babelrc`, using `babel-plugin-component` so that we can import components you actually need
+- adds a `.babelrc` (unvue automatically load it), using `babel-plugin-component` so that you can import components you actually need
 
 It's quite easy to use unvue with element-ui ;)
 
