@@ -2,7 +2,7 @@ import Vue from 'vue'
 import DefaultApp from './App.vue'
 import Meta from 'vue-meta'
 import { sync } from 'vuex-router-sync'
-import AsyncDaya from './async-data'
+import AsyncData from './async-data'
 
 Vue.use(Meta, {
   keyName: 'head',
@@ -11,7 +11,7 @@ Vue.use(Meta, {
   tagIDKeyName: 'unvuehid'
 })
 
-Vue.use(AsyncDaya)
+Vue.use(AsyncData)
 
 export default ({
   App = DefaultApp,
