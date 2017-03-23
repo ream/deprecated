@@ -7,7 +7,7 @@ const webpack = require('webpack')
 
 function definePlugin(constants) {
   return ctx => {
-    ctx.extendConfig(config => {
+    ctx.extendWebpack(config => {
       // add a webpack plugin
       config.plugin('define-constans')
         .use(webpack.DefinePlugin, [constants])
@@ -42,7 +42,7 @@ Type: `boolean`
 
 Whether unvue is running in development mode.
 
-### extendConfig(config, { type })
+### extendWebpack(config, { type })
 
 #### config
 

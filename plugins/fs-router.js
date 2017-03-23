@@ -62,7 +62,7 @@ module.exports = () => {
   return ctx => {
     writeRouter(ctx.options.cwd, tmp)
 
-    ctx.extendConfig(config => {
+    ctx.extendWebpack(config => {
       config.module
         .rule('js')
           .include
