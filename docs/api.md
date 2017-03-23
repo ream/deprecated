@@ -133,20 +133,9 @@ app.prepare()
 
 If you're running in production mode, make sure you have run `app.build()` first.
 
-#### app.build([options])
+#### app.build()
 
 Build server bundle and client bundle in production mode.
-
-##### options
-
-###### homepage
-
-Type: `string`<br>
-Default: `/dist/`
-
-The root path to load static assets, since you will serve the generated files in a node.js server, so here it's set to `/dist/` folder which will be served as static files.
-
-[TODO: allow to build without server-side rendering, i.e. only build client bundle]
 
 #### app.generate([options])
 

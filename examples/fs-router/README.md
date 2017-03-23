@@ -16,7 +16,7 @@ module.exports = {
 
 Then you will have a `@alias/fs-router` alias in your webpack config, which points to the router we generated for your `./pages` folder, eg: `./pages/index.vue` => `/`, `./pages/about/me.vue` => `/about/me`.
 
-And each router view is splited into independent chunk!
+And each router view is split as independent chunk!
 
 ```js
 import createRouter from '@alias/fs-router'
