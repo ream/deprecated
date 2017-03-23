@@ -17,12 +17,6 @@ You can [try unvue with the online playground!](https://glitch.com/~unvue)
 yarn add unvue
 ```
 
-The docs might not match the API of the latest stable release on npm but the master branch on GitHub, so before we hit `v1.0` you can install it from git to make sure you're using latest feature:
-
-```bash
-yarn add egoist/unvue
-```
-
 ## Usage
 
 Add npm scripts:
