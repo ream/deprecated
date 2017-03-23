@@ -121,6 +121,41 @@ Then in your store, it can have such shape:
 }
 ```
 
+### asyncData
+
+Sometimes you just want to fetch data and pre-render on the server-side without using a global state-mangement library like `vuex`, so `asyncData` is an option for you, it's similar to `getInitialProp` in Next.js but works in the Vue way, which means you can have such router-view component:
+
+```js
+import axios from 'axios'
+
+export default {
+  data() {
+    return {
+      // Do set initial data!
+      username: null
+    }
+  },
+  asyncData({ route }) {
+    return axios.get(`/api/user/${route.params.username}`)
+      .then(res => {
+        return {
+          username: res.data.username
+        }
+      })
+  }
+}
+```
+
+How this works:
+
+On the server-side, it's similar to `preFetch` option but we will pass down the resolved value to client-side where it will be available as `window.__UNVUE__.asyncData`, at the same time we use a Vue mixin to add `created` hook to run this method, but we use `window.__UNVUE__.asyncData` in the first render on client-side, so it won't fetch data twice.
+
+This means you don't have access to `this` in this method, so here we provide `store` and `route` as arguments.
+
+<p class="warning">
+  You can only access component instance `this` on client-side, you can use `process.env.BROWSER_BUILD` to check if it's client-side and perform some logic when it is.
+</p>
+
 ### Modify `<head>`
 
 `unvue` uses [vue-meta](https://github.com/declandewet/vue-meta) under the hood, so you can just set `head` property on Vue component to provide custom head tags:
