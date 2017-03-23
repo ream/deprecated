@@ -123,7 +123,7 @@ Then in your store, it can have such shape:
 
 ### asyncData
 
-Sometimes you just want to fetch data and pre-render on the server-side without using a global state-mangement library like `vuex`, so `asyncData` is an option for you, it's similar to `getInitialProp` in Next.js but works in the Vue way, which means you can have such router-view component:
+Sometimes you just want to fetch data and pre-render on the server-side without using a global state-mangement library like `vuex`, so `asyncData` is an option for you, it's similar to `getInitialProps` in Next.js but works in the Vue way, which means you can have such router-view component:
 
 ```js
 import axios from 'axios'
