@@ -83,7 +83,7 @@
     "style-loader": "^0.16.0",
     "tildify": "^1.2.0",
     "vue": "^2.2.4",
-    "vue-loader": "^11.2.0",
+    "vue-loader": "^11.3.1",
     "vue-meta": "^0.5.5",
     "vue-router": "^2.3.0",
     "vue-server-renderer": "^2.2.4",

@@ -3552,7 +3552,7 @@ loader-utils@^0.2.15, loader-utils@^0.2.16:
     json5 "^0.5.0"
     object-assign "^4.0.1"
 
-loader-utils@^1.0.2:
+loader-utils@^1.0.2, loader-utils@^1.1.0:
   version "1.1.0"
   resolved "https://registry.npmjs.org/loader-utils/-/loader-utils-1.1.0.tgz#c98aef488bcceda2ffb5e2de646d6a754429f5cd"
   dependencies:
@@ -5551,14 +5551,14 @@ vue-hot-reload-api@^2.0.11:
   version "2.0.11"
   resolved "https://registry.npmjs.org/vue-hot-reload-api/-/vue-hot-reload-api-2.0.11.tgz#bf26374fb73366ce03f799e65ef5dfd0e28a1568"
 
-vue-loader@^11.2.0:
-  version "11.2.0"
-  resolved "https://registry.npmjs.org/vue-loader/-/vue-loader-11.2.0.tgz#4a2443d7da429193aafdcb0f64215f9f25f62260"
+vue-loader@^11.3.1:
+  version "11.3.1"
+  resolved "https://registry.npmjs.org/vue-loader/-/vue-loader-11.3.1.tgz#4ccc5a569cef725eda5b0dde63a235a1c0eef182"
   dependencies:
     consolidate "^0.14.0"
     hash-sum "^1.0.2"
     js-beautify "^1.6.3"
-    loader-utils "^1.0.2"
+    loader-utils "^1.1.0"
     lru-cache "^4.0.1"
     postcss "^5.0.21"
     postcss-load-config "^1.1.0"
