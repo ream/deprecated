@@ -93,6 +93,18 @@ Default: `[]`
 
 Use an array of plugins.
 
+##### externalsWhitelist
+
+Type: `Array`<r>
+Default: `[]`
+
+An array for the externals to [whitelist](https://github.com/liady/webpack-node-externals#optionswhitelist-), so they will be included in the server bundle.
+
+<p class="warning">
+By default we exclude all 3rd-party node modules, which means any `require` or `import` for them will be converted to raw commonjs `require` call which will be used in Node.js environment. If you want to import any libraries in your code and they're are js libraries, eg: images/fonts libraries, **do add them into this option.**
+</p>
+
+
 #### app.prepare()
 
 Prepare server, returns a Promise
