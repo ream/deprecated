@@ -133,9 +133,20 @@ app.prepare()
 
 If you're running in production mode, make sure you have run `app.build()` first.
 
-#### app.build()
+#### app.build([options])
 
-Build in production.
+Build server bundle and client bundle in production mode.
+
+##### options
+
+###### homepage
+
+Type: `string`<br>
+Default: `/dist/`
+
+The root path to load static assets, since you will serve the generated files in a node.js server, so here it's set to `/dist/` folder which will be served as static files.
+
+[TODO: allow to build without server-side rendering, i.e. only build client bundle]
 
 #### app.generate([options])
 
@@ -184,21 +195,7 @@ Default: `/`
 
 The root path to load static assets, if you're deploying the generated static files to subpath like `http://example.com/blog`, please set it to `/blog/` or `http://example.com/blog/`
 
-### Events
-
-#### ready
-
-Each time app is ready , this event will be emitted.
-
-```js
-app.on('ready', () => {
-  console.log('Ready!')
-})
-```
-
-Since webpack will rebuild when you're running development server, this event will be emitted multiple times, to only listen for once, use `app.once`, basically `app` is created from a subclass of Node.js's `events` modules.
-
-### app.stats
+#### app.stats
 
 Webpack stats, it only exists when `ready` event is fired once.
 
@@ -209,6 +206,20 @@ app.on('ready', () => {
   // stats for server bundle and client bundle
 })
 ```
+
+#### Events
+
+##### ready
+
+Each time app is ready , this event will be emitted.
+
+```js
+app.on('ready', () => {
+  console.log('Ready!')
+})
+```
+
+Since webpack will rebuild when you're running development server, this event will be emitted multiple times, to only listen for once, use `app.once`, basically `app` is created from a subclass of Node.js's `events` modules.
 
 ### createConfig([options])
 
