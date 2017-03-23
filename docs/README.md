@@ -180,6 +180,8 @@ You can use `import()` or `require.ensure()` to split modules for lazy-loading.
 
 JS is transpiled by Babel using [babel-preset-vue-app](https://github.com/egoist/babel-preset-vue-app), which means you can use all latest ECMAScript features and stage-2 features.
 
+We automatically load Babel config by default.
+
 #### CSS
 
 Support all CSS preprocessors, you can install its loader to use them, for example to use `scss`
@@ -187,6 +189,8 @@ Support all CSS preprocessors, you can install its loader to use them, for examp
 ```js
 yarn add sass-loader node-sass --dev
 ```
+
+We automatically load PostCSS config by default.
 
 #### Public folder
 
@@ -203,6 +207,33 @@ Hot Reloading enabled
 3rd-party libraries are automatically extracted into a single `vendor` chunk.
 
 All output files are minifies and optimized.
+
+## Production deployment
+
+To deploy, you need to build before running production server:
+
+```bash
+unvue build
+unvue start
+```
+
+For example, to deploy with [now](https://zeit.co/now) a package.json like follows is recommended:
+
+```json
+{
+  "name": "my-app",
+  "dependencies": {
+    "unvue": "latest"
+  },
+  "scripts": {
+    "dev": "unvue dev",
+    "build": "unvue build",
+    "start": "unvue start"
+  }
+}
+```
+
+Then run `now` and enjoy! `now` will automically run `npm run build` before `npm start`.
 
 ## FAQ
 
