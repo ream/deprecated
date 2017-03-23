@@ -1,4 +1,4 @@
-import entry from '@entry'
+import entry from '@alias/entry'
 import createApp from './create-app'
 import { setAsyncData } from './async-data'
 

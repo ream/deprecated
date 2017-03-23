@@ -70,7 +70,7 @@ module.exports = () => {
 
       config.resolve
         .alias
-          .set('@fs-router', tmp)
+          .set('@alias/fs-router', tmp)
     })
   }
 }

@@ -1,4 +1,4 @@
-import createRouter from '@fs-router'
+import createRouter from '@alias/fs-router'
 
 const router = createRouter()
 
