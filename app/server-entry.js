@@ -26,14 +26,13 @@ export default context => {
 
       Promise.all(matchedComponents.map(component => {
         let pipe = Promise.resolve()
-        const preFetch = component.preFetch
+        const { preFetch, preFetchCache, name } = component
 
         if (preFetch) {
            pipe = pipe.then(() => preFetch({ store, route }))
         } else {
-          const preFetchCache = component.preFetchCache
-          if (preFetchCache && component.name) {
-            const key = context.url + '::' + component.name
+          if (preFetchCache && name) {
+            const key = context.url + '::' + name
             const cacheData = cache && cache.get(key)
             pipe = pipe.then(() => {
               return preFetchCache({ store, cache: cacheData, route }).then(newCacheData => {
@@ -53,9 +52,6 @@ export default context => {
                 context.asyncData = asyncData
                 setAsyncData(asyncData)
               })
-            } else {
-              context.asyncData = data
-              setAsyncData(data)
             }
           })
         }

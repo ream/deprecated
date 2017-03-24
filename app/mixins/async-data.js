@@ -22,9 +22,6 @@ export default function (Vue) {
                 this.$asyncData = _data
                 applyData(this.$asyncData)
               })
-            } else {
-              this.$asyncData = data
-              applyData(this.$asyncData)
             }
           }
         } else {
