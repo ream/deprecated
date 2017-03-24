@@ -1,7 +1,7 @@
 {
   "scripts": {
-    "dev": "node server.js",
-    "start": "NODE_ENV=production node server.js",
+    "dev": "unvue dev",
+    "start": "unvue start",
     "build": "unvue build"
   },
   "dependencies": {

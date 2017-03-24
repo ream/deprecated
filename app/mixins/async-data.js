@@ -1,5 +1,3 @@
-let asyncData = null
-
 export default function (Vue) {
   Vue.mixin({
     created() {
@@ -10,30 +8,30 @@ export default function (Vue) {
           }
         }
 
+        const fetchData = () => {
+          const data = this.$options.asyncData.call(this, { store: this.$store, route: this.$route })
+          if (data.then) {
+            data.then(_data => {
+              applyData(_data)
+            })
+          }
+        }
+
         if (process.env.BROWSER_BUILD) {
+          // Only apply cache from global variable on the first render
+          // i.e. it won't apply twice after nagivated in client-side router
           if (window.__UNVUE__.asyncData) {
-            this.$asyncData = window.__UNVUE__.asyncData
-            window.__UNVUE__.asyncData = null
-            applyData(this.$asyncData)
+            const data = window.__UNVUE__.asyncData
+            applyData(data)
+            window.__UNVUE__.asyncData = undefined
           } else {
-            const data = this.$options.asyncData.call(this, { store: this.$store, route: this.$route })
-            if (data.then) {
-              data.then(_data => {
-                this.$asyncData = _data
-                applyData(this.$asyncData)
-              })
-            }
+            fetchData()
           }
         } else {
-          this.$asyncData = asyncData
-          asyncData = null
-          applyData(this.$asyncData)
+          const cache = process.__CACHE__
+          applyData(cache.get(`asyncData:${this.$route.fullPath}`))
         }
       }
     }
   })
-}
-
-export const setAsyncData = data => {
-  asyncData = data
 }

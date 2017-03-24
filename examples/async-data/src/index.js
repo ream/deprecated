@@ -9,7 +9,7 @@ const About = {
       name: 'no'
     }
   },
-  asyncData (){
+  asyncData() {
     return new Promise(resolve => {
       setTimeout(() => {
         resolve({

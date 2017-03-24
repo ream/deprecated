@@ -93,8 +93,6 @@ Similar to `preFetch` but you can cache data across requests:
 
 ```js
 export default {
-  // component name is required
-  name: 'my-view',
   preFetchCache({ store, cache }) {
     return store.dispatch('fetchUser', { cache, user: 1 })
   }

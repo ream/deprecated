@@ -3,7 +3,6 @@ import createApp from './create-app'
 import { setAsyncData } from './mixins/async-data'
 
 const { router, store } = entry
-const { route } = router
 const app = createApp(entry)
 
 const isDev = process.env.NODE_ENV !== 'production'
@@ -12,10 +11,15 @@ const meta = app.$meta()
 
 export default context => {
   const s = isDev && Date.now()
-  const cache = context.preFetchCache
+  const cache = context.serverCache
+
+  if (!process.__CACHE) {
+    process.__CACHE__ = cache
+  }
 
   return new Promise((resolve, reject) => {
     router.push(context.url)
+    const route = router.currentRoute
 
     router.onReady(() => {
       const matchedComponents = router.getMatchedComponents()
@@ -26,13 +30,13 @@ export default context => {
 
       Promise.all(matchedComponents.map(component => {
         let pipe = Promise.resolve()
-        const { preFetch, preFetchCache, name } = component
+        const { preFetch, preFetchCache, asyncData, name } = component
 
         if (preFetch) {
            pipe = pipe.then(() => preFetch({ store, route }))
         } else {
-          if (preFetchCache && name) {
-            const key = context.url + '::' + name
+          if (preFetchCache) {
+            const key = 'preFetchCache:' + route.fullPath
             const cacheData = cache && cache.get(key)
             pipe = pipe.then(() => {
               return preFetchCache({ store, cache: cacheData, route }).then(newCacheData => {
@@ -44,13 +48,15 @@ export default context => {
           }
         }
 
-        if (component.asyncData) {
+        if (asyncData) {
           pipe = pipe.then(() => {
-            const data = component.asyncData({ store, route })
+            const data = asyncData({ store, route })
+            const key = 'asyncData:' + route.fullPath
             if (data.then) {
-              return data.then(asyncData => {
-                context.asyncData = asyncData
-                setAsyncData(asyncData)
+              return data.then(newCacheData => {
+                if (newCacheData) {
+                  cache && cache.set(key, newCacheData)
+                }
               })
             }
           })

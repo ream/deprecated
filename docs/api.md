@@ -60,12 +60,12 @@ Default: `{}`
 
 PostCSS options.
 
-##### preFetchCache
+##### cache
 
 Type: `object`<br>
 Default: `{ max: 1000, maxAge: 1000 * 60 * 15 }`
 
-Options for [lru-cache](https://www.npmjs.com/package/lru-cache) store of `preFetchCache` option in your component.
+Options for [lru-cache](https://www.npmjs.com/package/lru-cache) store used by `preFetchCache` and `asyncData` option in your component, each cached item is matched `this.$route.fullPath`.
 
 ##### extendWebpack
 
