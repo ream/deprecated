@@ -1,6 +1,6 @@
 import entry from '@alias/entry'
 import createApp from './create-app'
-import { setAsyncData } from './async-data'
+import { setAsyncData } from './mixins/async-data'
 
 const { router, store } = entry
 const { route } = router

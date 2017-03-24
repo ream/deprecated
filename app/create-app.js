@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import DefaultApp from './App.vue'
 import Meta from 'vue-meta'
-import AsyncData from './async-data'
+import AsyncData from './mixins/async-data'
 
 Vue.use(Meta, {
   keyName: 'head',
