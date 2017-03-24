@@ -261,7 +261,7 @@ const api = axios.create({
 
 // Then it will fetch `http://127.0.0.1:3000/api/user` on server-side
 // And fetch `/api/user` on client-side
-api.get('/api/user)
+api.get('/api/user')
   .then(res => res.data)
 ```
 
