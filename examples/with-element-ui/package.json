@@ -5,5 +5,10 @@
   "dependencies": {
     "element-ui": "^1.2.5",
     "unvue": "*"
+  },
+  "scripts": {
+    "dev": "unvue dev",
+    "build": "unvue build",
+    "start": "unvue start"
   }
 }

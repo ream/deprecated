@@ -5551,9 +5551,9 @@ vue-hot-reload-api@^2.0.11:
   version "2.0.11"
   resolved "https://registry.npmjs.org/vue-hot-reload-api/-/vue-hot-reload-api-2.0.11.tgz#bf26374fb73366ce03f799e65ef5dfd0e28a1568"
 
-vue-loader@^11.3.1:
-  version "11.3.1"
-  resolved "https://registry.npmjs.org/vue-loader/-/vue-loader-11.3.1.tgz#4ccc5a569cef725eda5b0dde63a235a1c0eef182"
+vue-loader@^11.3.2:
+  version "11.3.2"
+  resolved "https://registry.npmjs.org/vue-loader/-/vue-loader-11.3.2.tgz#08bb99446222e223d1e01e6228221acf1bcc95c9"
   dependencies:
     consolidate "^0.14.0"
     hash-sum "^1.0.2"
@@ -5580,9 +5580,9 @@ vue-router@^2.3.0:
   version "2.3.0"
   resolved "https://registry.npmjs.org/vue-router/-/vue-router-2.3.0.tgz#a25c8359e8ca989d22ce79f64322eb0ad0c8670f"
 
-vue-server-renderer@^2.2.4:
-  version "2.2.4"
-  resolved "https://registry.npmjs.org/vue-server-renderer/-/vue-server-renderer-2.2.4.tgz#ec5ea747aaebb49b8ab9896a8fdeba22f4fe7c80"
+vue-server-renderer@^2.2.5:
+  version "2.2.5"
+  resolved "https://registry.npmjs.org/vue-server-renderer/-/vue-server-renderer-2.2.5.tgz#c10bc74b3366c41ebab1d9c6e2d6f5443ab0f09c"
   dependencies:
     de-indent "^1.0.2"
     he "^1.1.0"
@@ -5609,9 +5609,9 @@ vue-style-loader@^2.0.0:
     hash-sum "^1.0.2"
     loader-utils "^1.0.2"
 
-vue-template-compiler@^2.2.4:
-  version "2.2.4"
-  resolved "https://registry.npmjs.org/vue-template-compiler/-/vue-template-compiler-2.2.4.tgz#2856fb09f1571e9098872bf3c512d670eeeafba9"
+vue-template-compiler@^2.2.5:
+  version "2.2.5"
+  resolved "https://registry.npmjs.org/vue-template-compiler/-/vue-template-compiler-2.2.5.tgz#71b1366c3f716e8137a87f82591de9f816609b57"
   dependencies:
     de-indent "^1.0.2"
     he "^1.1.0"
@@ -5620,9 +5620,9 @@ vue-template-es2015-compiler@^1.2.2:
   version "1.5.1"
   resolved "https://registry.npmjs.org/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.5.1.tgz#0c36cc57aa3a9ec13e846342cb14a72fcac8bd93"
 
-vue@^2.2.4:
-  version "2.2.4"
-  resolved "https://registry.npmjs.org/vue/-/vue-2.2.4.tgz#d0a3a050a80a12356d7950ae5a7b3131048209cc"
+vue@^2.2.5:
+  version "2.2.5"
+  resolved "https://registry.npmjs.org/vue/-/vue-2.2.5.tgz#528eba68447d7eff99f86767b31176aa656c6963"
 
 vuex-router-sync@^4.1.2:
   version "4.1.2"
