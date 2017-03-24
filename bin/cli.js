@@ -4,9 +4,12 @@ const yargs = require('yargs')
 const co = require('co')
 const chalk = require('chalk')
 const tildify = require('tildify')
+const update = require('update-notifier')
 const pkg = require('../package')
 const _ = require('../lib/utils')
 const loadConfig = require('../lib/load-config')
+
+update({ pkg }).notify()
 
 const cli = yargs
   .command('build', 'Build your app')
