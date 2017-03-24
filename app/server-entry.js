@@ -38,10 +38,10 @@ export default context => {
           if (preFetchCache && name) {
             const key = `preFetchCache:${name}:${route.fullPath}`
             const cacheData = cache && cache.get(key)
-            context.preFetchCacheKeys.push(key)
             pipe = pipe.then(() => {
               return preFetchCache({ store, cache: cacheData, route }).then(newCacheData => {
                 if (newCacheData) {
+                  context.preFetchCacheKeys.push(key)
                   cache && cache.set(key, newCacheData)
                 }
               })
@@ -53,10 +53,10 @@ export default context => {
           pipe = pipe.then(() => {
             const data = asyncData({ store, route })
             const key = `asyncData:${name}:` + route.fullPath
-            context.asyncDataKeys.push(key)
             if (data.then) {
               return data.then(newCacheData => {
                 if (newCacheData) {
+                  context.asyncDataKeys.push(key)
                   cache && cache.set(key, newCacheData)
                 }
               })

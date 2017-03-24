@@ -3,8 +3,10 @@ export default function (Vue) {
     created() {
       if (this.$options.asyncData) {
         const applyData = data => {
-          for (const key in data) {
-            this[key] = data[key]
+          if (data) {
+            for (const key in data) {
+              this[key] = data[key]
+            }
           }
         }
 

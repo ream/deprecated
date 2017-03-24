@@ -13,10 +13,8 @@ const About = {
   asyncData() {
     return new Promise(resolve => {
       setTimeout(() => {
-        resolve({
-          msg: 'yes'
-        }, 400)
-      })
+        resolve()
+      }, 400)
     })
   },
   render() {

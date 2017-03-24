@@ -152,9 +152,9 @@ export default {
 
 How this works:
 
-On the server-side, it's similar to `preFetch` option but we will pass down the resolved value to client-side where it will be available as `window.__UNVUE__.asyncData`, at the same time we use a Vue mixin to add `created` hook to run this method, but we use `window.__UNVUE__.asyncData` in the first render on client-side, so it won't fetch data twice.
+In this way, we will fetch the data on the server-side first, on the client-side, it will only fetch data after the fist paint.
 
-This means you don't have access to `this` in this method, so here we provide `store` and `route` as arguments.
+You will have `{ route, store }` as argument, `store` only exists when you export it in your entry file.
 
 <p class="warning">
   You can only access component instance `this` on client-side, you can use `process.env.BROWSER_BUILD` to check if it's client-side and perform some logic when it is.
