@@ -9,3 +9,13 @@
     font-size: 20px;
   }
 </style>
+
+<style lang="scss">
+  .home {
+    h1 {
+      color: red;
+    }
+  }
+</style>
+
+<style src="./home.css"></style>

@@ -10,5 +10,9 @@
   },
   "dependencies": {
     "unvue": "*"
+  },
+  "devDependencies": {
+    "node-sass": "^4.5.1",
+    "sass-loader": "^6.0.3"
   }
 }
