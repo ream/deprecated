@@ -13,7 +13,7 @@ describe('build', () => {
     await app.build()
       .then(() => {
         expect(fs.readdirSync(join(__dirname, 'dist')).length)
-          .toBe(6)
+          .toBe(8)
       })
   })
 })

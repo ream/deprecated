@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import DefaultApp from './App.vue'
 import Meta from 'vue-meta'
-import { sync } from 'vuex-router-sync'
 import AsyncData from './async-data'
 
 Vue.use(Meta, {

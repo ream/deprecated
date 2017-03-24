@@ -69,6 +69,19 @@ co(function * () {
     { dev: command === 'dev' }
   ))
 
+  app.on('ready', () => {
+    unvue.displayStats(app.stats)
+    if (command === 'build') {
+      if (argv.stats) {
+        console.log('> Generating stats file...')
+        fs.writeFileSync('./client-stats.json', JSON.stringify(app.stats.client.toJson()), 'utf8')
+        console.log(`> Generated at ./client-stats.json`)
+      }
+    } else {
+      console.log(`> Open http://localhost:${port}`)
+    }
+  })
+
   if (command === 'build') {
     console.log('> Building...')
     yield app.build()
@@ -89,13 +102,6 @@ co(function * () {
     console.log(`  ${chalk.yellow('yarn')} global add serve`)
     console.log(`  ${chalk.yellow('serve')} ${dir} -s\n`)
   } else {
-    app.on('ready', () => {
-      unvue.displayStats(app.stats)
-      if (command !== 'build') {
-        console.log(`> Open http://localhost:${port}`)
-      }
-    })
-
     if (command === 'start') {
       console.log('> Starting production server')
     } else {
