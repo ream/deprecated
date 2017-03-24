@@ -6,20 +6,21 @@ Vue.use(Router)
 const About = {
   data() {
     return {
-      name: 'no'
+      msg: 'no'
     }
   },
+  name: 'about',
   asyncData() {
     return new Promise(resolve => {
       setTimeout(() => {
         resolve({
-          name: 'yes'
+          msg: 'yes'
         }, 400)
       })
     })
   },
   render() {
-    return <h1>About {this.name}</h1>
+    return <h1>About {this.msg}</h1>
   }
 }
 

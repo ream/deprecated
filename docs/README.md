@@ -93,6 +93,9 @@ Similar to `preFetch` but you can cache data across requests:
 
 ```js
 export default {
+  // Component name is required!
+  // Since it will be cache by `router path + component name`
+  name: 'component-name',
   preFetchCache({ store, cache }) {
     return store.dispatch('fetchUser', { cache, user: 1 })
   }
@@ -127,6 +130,9 @@ Sometimes you just want to fetch data and pre-render on the server-side without 
 import axios from 'axios'
 
 export default {
+  // Component name is required!
+  // Since it will be cache by `router path + component name`
+  name: 'component-name',
   data() {
     return {
       // Do set initial data!

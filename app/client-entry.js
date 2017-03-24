@@ -9,6 +9,7 @@ const app = createApp(entry)
 // the state is determined during SSR and inlined in the page markup.
 if (window.__UNVUE__.state && store) {
   store.replaceState(window.__UNVUE__.state)
+  window.__UNVUE__.state = null // mark it as used
 }
 
 // wait until router has resolved all async before hooks

@@ -17,19 +17,22 @@ export default function (Vue) {
           }
         }
 
+        const name = this.$options.name
+        const key = `asyncData:${name}:${this.$route.fullPath}`
+
         if (process.env.BROWSER_BUILD) {
           // Only apply cache from global variable on the first render
           // i.e. it won't apply twice after nagivated in client-side router
-          if (window.__UNVUE__.asyncData) {
-            const data = window.__UNVUE__.asyncData
+          if (window.__UNVUE__[key]) {
+            const data = window.__UNVUE__[key]
             applyData(data)
-            window.__UNVUE__.asyncData = undefined
+            window.__UNVUE__.asyncData = null
           } else {
             fetchData()
           }
         } else {
           const cache = process.__CACHE__
-          applyData(cache.get(`asyncData:${this.$route.fullPath}`))
+          applyData(cache.get(key))
         }
       }
     }
