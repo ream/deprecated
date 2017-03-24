@@ -237,20 +237,35 @@ Then run `now` and enjoy! `now` will automically run `npm run build` before `npm
 
 ## FAQ
 
-<details><summary>Here's a missing feature!</summary>
+### Here's a missing feature!
 
 **"Can you update webpack config *this way* so I can use that feature?"** If you have the same question, before we actually think this feature is necessary and add it, you can [extend webpack config](#extendwebpack) yourself to implement it. With [webpack-chain](https://github.com/mozilla-rpweb/webpack-chain) you have full control of our webpack config, check out the default [config instance](https://github.com/egoist/unvue/blob/master/lib/create-config.js).
-</details>
 
-<details><summary>How big is it?</summary>
+### How big is it?
 
 The runtime bundle (Vue + vue-router) is around 30KB gzipped.
-</details>
 
-<details><summary>How do I fetch data?</summary>
+### How do I fetch data?
 
 If you want to store data as global state, you can use vuex with [preFetch](#prefetch) method. Otherwise you can use [asyncData](#asyncdata) method. They both are async function, which means you should return a Promise, FYI, `store.dispatch` in vuex always returns a Promise.
-</details>
+
+Note that when fetching data on the server-side, you can't use pathname directly, eg: `/api/user/egoist`, since the server bundle is running in a node.js vm instance, using absolute path will result in fetching `127.0.0.1:80/api/user/egoist` which is not accesible, instead you should use full URL:
+
+```js
+import axios from 'axios'
+
+const api = axios.create({
+  // Set base url
+  baseURL: process.env.BROWSER_BUILD ? '/' : 'http://127.0.0.1:3000/'
+})
+
+// Then it will fetch `http://127.0.0.1:3000/api/user` on server-side
+// And fetch `/api/user` on client-side
+api.get('/api/user)
+  .then(res => res.data)
+```
+
+You can replace `127.0.0.1` with the hostname you're actually running at, by default the server we're running in `unvue dev` and `unvue start` command runs at `0.0.0.0` which means all IPv4 addresses on the local machine.
 
 ## Contributing
 

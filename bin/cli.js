@@ -113,7 +113,7 @@ co(function * () {
     const server = require('express')()
 
     server.get('*', app.getRequestHandler())
-    server.listen(port)
+    server.listen(port, '0.0.0.0')
   }
 }).catch(err => {
   console.error(err.stack)
