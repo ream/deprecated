@@ -1,9 +1,10 @@
-# ream
+<p align="center">
+<img src="./docs/assets/REAM.png" alt="ream" width="100" />
+</p>
 
-[![NPM version](https://img.shields.io/npm/v/ream.svg?style=flat)](https://npmjs.com/package/ream) [![NPM downloads](https://img.shields.io/npm/dm/ream.svg?style=flat)](https://npmjs.com/package/ream) [![Build Status](https://img.shields.io/circleci/project/egoist/ream/master.svg?style=flat)](https://circleci.com/gh/egoist/ream) [![codecov](https://codecov.io/gh/egoist/ream/branch/master/graph/badge.svg)](https://codecov.io/gh/egoist/ream) [![Gitter](https://badges.gitter.im/egoist/ream.svg)](https://gitter.im/egoist/ream?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
- [![donate](https://img.shields.io/badge/$-donate-ff69b4.svg?maxAge=2592000&style=flat)](https://github.com/egoist/donate)
+<p align="center"><br><a href="https://npmjs.com/package/ream"><img src="https://img.shields.io/npm/v/ream.svg?style=flat" alt="NPM version"></a> <a href="https://npmjs.com/package/ream"><img src="https://img.shields.io/npm/dm/ream.svg?style=flat" alt="NPM downloads"></a> <a href="https://circleci.com/gh/egoist/ream"><br/><img src="https://img.shields.io/circleci/project/egoist/ream/master.svg?style=flat" alt="Build Status"></a> <a href="https://codecov.io/gh/egoist/ream"><img src="https://codecov.io/gh/egoist/ream/branch/master/graph/badge.svg" alt="codecov"></a> <a href="https://gitter.im/egoist/ream?utm_source=badge&amp;utm_medium=badge&amp;utm_campaign=pr-badge"><img src="https://badges.gitter.im/egoist/ream.svg" alt="Gitter"></a>
+ <a href="https://github.com/egoist/donate"><img src="https://img.shields.io/badge/$-donate-ff69b4.svg?maxAge=2592000&amp;style=flat" alt="donate"></a></p>
 
-> unopinionated, universal Vue.js app made simple
 
 ## Introduction
 
