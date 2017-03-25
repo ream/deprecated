@@ -5,12 +5,11 @@ const { router, store, handlers } = entry
 
 const app = createApp(entry)
 
-const isDev = process.env.NODE_ENV !== 'production'
-
 const meta = app.$meta()
 
 export default context => {
-  const s = isDev && Date.now()
+  const dev = context.dev
+  const s = dev && Date.now()
 
   // We will inline `data` into HTML markup
   // Just like what we do for Vuex state
@@ -22,9 +21,17 @@ export default context => {
     }
   }
 
+  const handlerContext = {
+    store,
+    router,
+    deliverData,
+    isDev: context.dev,
+    isServer: true
+  }
+
   if (handlers) {
     for (const handler of handlers) {
-      handler({ store, router, deliverData })
+      handler(handlerContext)
     }
   }
 
@@ -46,7 +53,7 @@ export default context => {
            return preFetch({ store, route })
         }
       })).then(() => {
-        isDev && console.log(`> Data pre-fetch: ${Date.now() - s}ms`)
+        dev && console.log(`> Data pre-fetch: ${Date.now() - s}ms`)
         if (store) {
           context.state = store.state
         }

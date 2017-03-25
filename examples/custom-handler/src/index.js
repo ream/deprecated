@@ -12,18 +12,29 @@ const router = new Router({
       render() {
         return (
           <div>
-            Home
+            { this.text }
           </div>
         )
+      },
+      data() {
+        return { text: 'home' }
+      },
+      mounted() {
+        this.text = 'nope'
       }
     }
   }]
 })
 
 const handlers = [
-  function ({ router }) {
+  function ({ router, isServer, deliverData }) {
+    if (isServer) {
+      deliverData({foo: 123})
+    }
     router.beforeEach((to, from, next) => {
+      console.log(new Date)
       setTimeout(() => {
+        console.log(new Date)
         next()
       }, 3000)
     })
