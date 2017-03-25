@@ -3,6 +3,7 @@ const os = require('os')
 const fs = require('fs')
 const chokidar = require('chokidar')
 const glob = require('glob')
+const _ = require('../lib/utils')
 
 function writeRouter(cwd, to) {
   const pages = 'pages/**/*.{vue,js}'
@@ -71,6 +72,8 @@ module.exports = () => {
       config.resolve
         .alias
           .set('@alias/fs-router', tmp)
+
+      _.tweakTime(tmp)
     })
   }
 }
