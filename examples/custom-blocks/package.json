@@ -4,13 +4,13 @@
     "post-loader": "^1.1.0"
   },
   "dependencies": {
-    "unvue": "*"
+    "ream": "*"
   },
   "scripts": {
-    "dev": "unvue dev",
-    "start": "npm run build && unvue start",
-    "build": "unvue build",
-    "generate": "unvue generate",
-    "deploy": "npm run generate && surge -p dist -d unvue-custom-block.surge.sh"
+    "dev": "ream dev",
+    "start": "npm run build && ream start",
+    "build": "ream build",
+    "generate": "ream generate",
+    "deploy": "npm run generate && surge -p dist -d ream-custom-block.surge.sh"
   }
 }

@@ -1,20 +1,20 @@
-# unvue
+# ream
 
-[![NPM version](https://img.shields.io/npm/v/unvue.svg?style=flat)](https://npmjs.com/package/unvue) [![NPM downloads](https://img.shields.io/npm/dm/unvue.svg?style=flat)](https://npmjs.com/package/unvue) [![Build Status](https://img.shields.io/circleci/project/egoist/unvue/master.svg?style=flat)](https://circleci.com/gh/egoist/unvue) [![codecov](https://codecov.io/gh/egoist/unvue/branch/master/graph/badge.svg)](https://codecov.io/gh/egoist/unvue) [![Gitter](https://badges.gitter.im/egoist/unvue.svg)](https://gitter.im/egoist/unvue?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+[![NPM version](https://img.shields.io/npm/v/ream.svg?style=flat)](https://npmjs.com/package/ream) [![NPM downloads](https://img.shields.io/npm/dm/ream.svg?style=flat)](https://npmjs.com/package/ream) [![Build Status](https://img.shields.io/circleci/project/egoist/ream/master.svg?style=flat)](https://circleci.com/gh/egoist/ream) [![codecov](https://codecov.io/gh/egoist/ream/branch/master/graph/badge.svg)](https://codecov.io/gh/egoist/ream) [![Gitter](https://badges.gitter.im/egoist/ream.svg)](https://gitter.im/egoist/ream?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
  [![donate](https://img.shields.io/badge/$-donate-ff69b4.svg?maxAge=2592000&style=flat)](https://github.com/egoist/donate)
 
 > unopinionated, universal Vue.js app made simple
 
 ## Introduction
 
-Server-side rendered Vue.js app should be made easy, since vue-router is well optimized for SSR, we built unvue on the top of it to make you build universal Vue.js app fast with fewer trade-offs, the only requirement is to export router instance in your entry file, which means you have full control of vue-router as well!
+Server-side rendered Vue.js app should be made easy, since vue-router is well optimized for SSR, we built ream on the top of it to make you build universal Vue.js app fast with fewer trade-offs, the only requirement is to export router instance in your entry file, which means you have full control of vue-router as well!
 
-You can [try unvue with the online playground!](https://glitch.com/~unvue)
+You can [try ream with the online playground!](https://glitch.com/~ream)
 
 ## Install
 
 ```bash
-yarn add unvue
+yarn add ream
 ```
 
 ## Usage
@@ -24,9 +24,9 @@ Add npm scripts:
 ```js
 {
   "scripts": {
-    "build": "unvue build",
-    "start": "unvue start",
-    "dev": "unvue dev"
+    "build": "ream build",
+    "start": "ream start",
+    "dev": "ream dev"
   }
 }
 ```
@@ -46,7 +46,7 @@ To run in production server, run `npm run build && npm start`
 
 ### Root component
 
-By default we have a [built-in root component](https://github.com/egoist/unvue/blob/master/app/App.vue), you can export a custom one as well:
+By default we have a [built-in root component](https://github.com/egoist/ream/blob/master/app/App.vue), you can export a custom one as well:
 
 ```js
 // src/index.js
@@ -162,7 +162,7 @@ You will have `{ route, store }` as argument, `store` only exists when you expor
 
 ### Modify `<head>`
 
-`unvue` uses [vue-meta](https://github.com/declandewet/vue-meta) under the hood, so you can just set `head` property on Vue component to provide custom head tags:
+`ream` uses [vue-meta](https://github.com/declandewet/vue-meta) under the hood, so you can just set `head` property on Vue component to provide custom head tags:
 
 ```js
 export default {
@@ -217,8 +217,8 @@ All output files are minifies and optimized.
 To deploy, you need to build before running production server:
 
 ```bash
-unvue build
-unvue start
+ream build
+ream start
 ```
 
 For example, to deploy with [now](https://zeit.co/now) a package.json like follows is recommended:
@@ -227,12 +227,12 @@ For example, to deploy with [now](https://zeit.co/now) a package.json like follo
 {
   "name": "my-app",
   "dependencies": {
-    "unvue": "latest"
+    "ream": "latest"
   },
   "scripts": {
-    "dev": "unvue dev",
-    "build": "unvue build",
-    "start": "unvue start"
+    "dev": "ream dev",
+    "build": "ream build",
+    "start": "ream start"
   }
 }
 ```
@@ -243,7 +243,7 @@ Then run `now` and enjoy! `now` will automically run `npm run build` before `npm
 
 ### Here's a missing feature!
 
-**"Can you update webpack config *this way* so I can use that feature?"** If you have the same question, before we actually think this feature is necessary and add it, you can [extend webpack config](#extendwebpack) yourself to implement it. With [webpack-chain](https://github.com/mozilla-rpweb/webpack-chain) you have full control of our webpack config, check out the default [config instance](https://github.com/egoist/unvue/blob/master/lib/create-config.js).
+**"Can you update webpack config *this way* so I can use that feature?"** If you have the same question, before we actually think this feature is necessary and add it, you can [extend webpack config](#extendwebpack) yourself to implement it. With [webpack-chain](https://github.com/mozilla-rpweb/webpack-chain) you have full control of our webpack config, check out the default [config instance](https://github.com/egoist/ream/blob/master/lib/create-config.js).
 
 ### How big is it?
 
@@ -269,7 +269,7 @@ api.get('/api/user')
   .then(res => res.data)
 ```
 
-You can replace `127.0.0.1` with the hostname you're actually running at, by default the server we're running in `unvue dev` and `unvue start` command runs at `0.0.0.0` which means all IPv4 addresses on the local machine.
+You can replace `127.0.0.1` with the hostname you're actually running at, by default the server we're running in `ream dev` and `ream start` command runs at `0.0.0.0` which means all IPv4 addresses on the local machine.
 
 ## Contributing
 
@@ -282,7 +282,7 @@ You can replace `127.0.0.1` with the hostname you're actually running at, by def
 
 ## Author
 
-**unvue** © [egoist](https://github.com/egoist), Released under the [MIT](https://github.com/egoist/unvue/blob/master/LICENSE) License.<br>
-Authored and maintained by egoist with help from contributors ([list](https://github.com/egoist/unvue/contributors)).
+**ream** © [egoist](https://github.com/egoist), Released under the [MIT](https://github.com/egoist/ream/blob/master/LICENSE) License.<br>
+Authored and maintained by egoist with help from contributors ([list](https://github.com/egoist/ream/contributors)).
 
 > [egoistian.com](https://egoistian.com) · GitHub [@egoist](https://github.com/egoist) · Twitter [@rem_rin_rin](https://twitter.com/rem_rin_rin)

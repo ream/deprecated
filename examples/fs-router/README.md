@@ -5,7 +5,7 @@
 To add this plugin:
 
 ```js
-const fsRouterPlugin = require('unvue/plugins/fs-router')
+const fsRouterPlugin = require('ream/plugins/fs-router')
 
 module.exports = {
   plugins: [

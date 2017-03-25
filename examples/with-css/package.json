@@ -4,12 +4,12 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "build": "unvue build",
-    "start": "unvue start",
-    "dev": "unvue dev"
+    "build": "ream build",
+    "start": "ream start",
+    "dev": "ream dev"
   },
   "dependencies": {
-    "unvue": "*"
+    "ream": "*"
   },
   "devDependencies": {
     "node-sass": "^4.5.1",

@@ -2,9 +2,9 @@
   "scripts": {
     "dev": "node server.js",
     "start": "NODE_ENV=production node server.js",
-    "build": "unvue build"
+    "build": "ream build"
   },
   "dependencies": {
-    "unvue": "*"
+    "ream": "*"
   }
 }

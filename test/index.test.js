@@ -1,5 +1,5 @@
-const unvue = require('../')
+const ream = require('../')
 
 test('main', () => {
-  expect(typeof unvue).toBe('function')
+  expect(typeof ream).toBe('function')
 })

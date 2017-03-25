@@ -1,12 +1,12 @@
 import fs from 'fs'
 import { join } from 'path'
-import unvue from '../../'
+import ream from '../../'
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000
 
 describe('build', () => {
   test('emit files', async () => {
-    const app = unvue({
+    const app = ream({
       cwd: __dirname,
       entry: 'fixture/index.js'
     })

@@ -1,10 +1,10 @@
-# unvue + element-ui
+# ream + element-ui
 
 The only thing that is worthing noting here:
 
-- adds a `.babelrc` (unvue automatically load it), using `babel-plugin-component` so that you can import components you actually need
+- adds a `.babelrc` (ream automatically load it), using `babel-plugin-component` so that you can import components you actually need
 
-It's quite easy to use unvue with element-ui ;)
+It's quite easy to use ream with element-ui ;)
 
 ## Development
 

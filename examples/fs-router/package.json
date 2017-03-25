@@ -2,12 +2,12 @@
   "name": "fs-router",
   "version": "1.0.0",
   "scripts": {
-    "start": "unvue start",
-    "build": "unvue build",
-    "dev": "unvue dev"
+    "start": "ream start",
+    "build": "ream build",
+    "dev": "ream dev"
   },
   "dependencies": {
-    "unvue": "*"
+    "ream": "*"
   },
   "license": "MIT"
 }

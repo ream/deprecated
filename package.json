@@ -1,9 +1,9 @@
 {
-  "name": "unvue",
+  "name": "ream",
   "version": "0.9.8",
   "description": "unopinionated, universal Vue.js app made simple.",
   "repository": {
-    "url": "egoist/unvue",
+    "url": "egoist/ream",
     "type": "git"
   },
   "main": "lib/index.js",

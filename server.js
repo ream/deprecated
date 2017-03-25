@@ -1,7 +1,7 @@
 const express = require('express')
-const unvue = require('./lib')
+const ream = require('./lib')
 
-const app = unvue({
+const app = ream({
   dev: process.env.NODE_ENV !== 'production',
   cwd: 'examples/custom-server'
 })

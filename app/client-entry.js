@@ -7,9 +7,9 @@ const app = createApp(entry)
 
 // prime the store with server-initialized state.
 // the state is determined during SSR and inlined in the page markup.
-if (window.__UNVUE__.state && store) {
-  store.replaceState(window.__UNVUE__.state)
-  window.__UNVUE__.state = null // mark it as used
+if (window.__REAM__.state && store) {
+  store.replaceState(window.__REAM__.state)
+  window.__REAM__.state = null // mark it as used
 }
 
 // wait until router has resolved all async before hooks

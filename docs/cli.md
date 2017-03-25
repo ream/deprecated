@@ -2,7 +2,7 @@
 
 ## Config File
 
-All [options of unvue([options]) API](/api#unvueoptions) can be kept in `unvue.config.js`, eg:
+All [options of ream([options]) API](/api#reamoptions) can be kept in `ream.config.js`, eg:
 
 ```js
 module.exports = {
@@ -54,7 +54,7 @@ Set `babel` `postcss` option in config file will also override the default optio
 
 ### build
 
-Build server bundle and client bundle, you will need this before running `unvue start`.
+Build server bundle and client bundle, you will need this before running `ream start`.
 
 ### start
 

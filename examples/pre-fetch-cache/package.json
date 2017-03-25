@@ -1,10 +1,10 @@
 {
   "scripts": {
-    "start": "unvue start",
-    "dev": "unvue dev",
-    "build": "unvue build"
+    "start": "ream start",
+    "dev": "ream dev",
+    "build": "ream build"
   },
   "dependencies": {
-    "unvue": "*"
+    "ream": "*"
   }
 }

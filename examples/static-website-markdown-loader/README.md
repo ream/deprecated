@@ -1,6 +1,6 @@
 # static-website-markdown
 
-> static website demo for unvue using `vue-markdown-loader`
+> static website demo for ream using `vue-markdown-loader`
 
 ```bash
 # Clone first

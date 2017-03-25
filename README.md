@@ -1,28 +1,28 @@
-# unvue
+# ream
 
-[![NPM version](https://img.shields.io/npm/v/unvue.svg?style=flat)](https://npmjs.com/package/unvue) [![NPM downloads](https://img.shields.io/npm/dm/unvue.svg?style=flat)](https://npmjs.com/package/unvue) [![Build Status](https://img.shields.io/circleci/project/egoist/unvue/master.svg?style=flat)](https://circleci.com/gh/egoist/unvue) [![codecov](https://codecov.io/gh/egoist/unvue/branch/master/graph/badge.svg)](https://codecov.io/gh/egoist/unvue) [![Gitter](https://badges.gitter.im/egoist/unvue.svg)](https://gitter.im/egoist/unvue?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+[![NPM version](https://img.shields.io/npm/v/ream.svg?style=flat)](https://npmjs.com/package/ream) [![NPM downloads](https://img.shields.io/npm/dm/ream.svg?style=flat)](https://npmjs.com/package/ream) [![Build Status](https://img.shields.io/circleci/project/egoist/ream/master.svg?style=flat)](https://circleci.com/gh/egoist/ream) [![codecov](https://codecov.io/gh/egoist/ream/branch/master/graph/badge.svg)](https://codecov.io/gh/egoist/ream) [![Gitter](https://badges.gitter.im/egoist/ream.svg)](https://gitter.im/egoist/ream?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
  [![donate](https://img.shields.io/badge/$-donate-ff69b4.svg?maxAge=2592000&style=flat)](https://github.com/egoist/donate)
 
 > unopinionated, universal Vue.js app made simple
 
 ## Introduction
 
-Server-side rendered Vue.js app should be made easy, since vue-router is well optimized for SSR, we built unvue on the top of it to make you build universal Vue.js app fast with fewer trade-offs, the only requirement is to export router instance in your entry file, which means you have full control of vue-router as well!
+Server-side rendered Vue.js app should be made easy, since vue-router is well optimized for SSR, we built ream on the top of it to make you build universal Vue.js app fast with fewer trade-offs, the only requirement is to export router instance in your entry file, which means you have full control of vue-router as well!
 
 ## Features
 
 - Server-side rendering with code-split support
 - Extensible webpack config
 - Plugin system
-- Next.js/Nuxt.js-like behavior via [plugin](https://egoistian.com/unvue/#/plugin/fs-router)
+- Next.js/Nuxt.js-like behavior via [plugin](https://egoistian.com/ream/#/plugin/fs-router)
 - Exposed a fluent API
 
-[Check out online docs](https://egoistian.com/unvue) *or* [Try writing server-rendered Vue.js app online!](https://glitch.com/~unvue)
+[Check out online docs](https://egoistian.com/ream) *or* [Try writing server-rendered Vue.js app online!](https://glitch.com/~ream)
 
 ## Install
 
 ```bash
-yarn add unvue
+yarn add ream
 ```
 
 ## Usage
@@ -32,9 +32,9 @@ Add npm scripts:
 ```js
 {
   "scripts": {
-    "build": "unvue build",
-    "start": "unvue start",
-    "dev": "unvue dev"
+    "build": "ream build",
+    "start": "ream start",
+    "dev": "ream dev"
   }
 }
 ```
@@ -52,11 +52,11 @@ Run `npm run dev` to start development server.
 
 To run in production server, run `npm run build && npm start`
 
-**Dive into the [documentation](https://egoistian.com/unvue) to get more.**
+**Dive into the [documentation](https://egoistian.com/ream) to get more.**
 
 ## Prior Art
 
-`unvue` wouldn't exist if it wasn't for excellent prior art, we're inspired by these projects:
+`ream` wouldn't exist if it wasn't for excellent prior art, we're inspired by these projects:
 
 - [Nuxt.js](https://github.com/nuxt/nuxt.js)
 - [Next.js](https://github.com/zeit/next.js)
@@ -72,7 +72,7 @@ To run in production server, run `npm run build && npm start`
 
 ## Author
 
-**unvue** © [egoist](https://github.com/egoist), Released under the [MIT](./LICENSE) License.<br>
-Authored and maintained by egoist with help from contributors ([list](https://github.com/egoist/unvue/contributors)).
+**ream** © [egoist](https://github.com/egoist), Released under the [MIT](./LICENSE) License.<br>
+Authored and maintained by egoist with help from contributors ([list](https://github.com/egoist/ream/contributors)).
 
 > [egoistian.com](https://egoistian.com) · GitHub [@egoist](https://github.com/egoist) · Twitter [@rem_rin_rin](https://twitter.com/rem_rin_rin)

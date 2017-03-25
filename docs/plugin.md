@@ -30,7 +30,7 @@ module.exports = {
 
 ### options
 
-The `options` unvue uses internally.
+The `options` ream uses internally.
 
 #### cwd
 
@@ -40,7 +40,7 @@ User's current working directory
 
 Type: `boolean`
 
-Whether unvue is running in development mode.
+Whether ream is running in development mode.
 
 ### extendWebpack(config, { type })
 

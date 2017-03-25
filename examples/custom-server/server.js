@@ -1,7 +1,7 @@
 const http = require('http')
-const unvue = require('../../')
+const ream = require('../../')
 
-const app = unvue({
+const app = ream({
   dev: process.env.NODE_ENV !== 'production'
 })
 
@@ -16,6 +16,6 @@ app.prepare()
   })
 
 app.on('ready', () => {
-  unvue.displayStats(app.stats)
+  ream.displayStats(app.stats)
   console.log(`> Open http://localhost:4000`)
 })

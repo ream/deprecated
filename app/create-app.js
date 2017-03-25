@@ -5,9 +5,9 @@ import AsyncData from './mixins/async-data'
 
 Vue.use(Meta, {
   keyName: 'head',
-  attribute: 'data-unvue-head',
-  ssrAttribute: 'data-unvue-head-rendered',
-  tagIDKeyName: 'unvuehid'
+  attribute: 'data-rehead',
+  ssrAttribute: 'data-rehead-rendered',
+  tagIDKeyName: 'rehid'
 })
 
 Vue.use(AsyncData)

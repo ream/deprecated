@@ -1,4 +1,4 @@
-unvue + vue-loader custom blocks example
+ream + vue-loader custom blocks example
 
 The idea of using [custom block](http://vue-loader.vuejs.org/en/configurations/custom-blocks.html) in single-file component.
 

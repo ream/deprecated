@@ -22,7 +22,7 @@ const cli = yargs
   })
   .option('config', {
     description: 'Path to config file',
-    default: 'unvue.config.js'
+    default: 'ream.config.js'
   })
   .version(pkg.version)
   .alias('v', 'version')
@@ -41,7 +41,7 @@ if (commands.indexOf(command) === -1) {
   process.exit()
 }
 
-const unvue = require('../lib')
+const ream = require('../lib')
 
 let config = {}
 const port = argv.port
@@ -63,14 +63,14 @@ co(function * () {
     defaultOptions.postcss = yield loadConfig.postcss()
   }
 
-  const app = unvue(Object.assign(
+  const app = ream(Object.assign(
     defaultOptions,
     config,
     { dev: command === 'dev' }
   ))
 
   app.on('ready', () => {
-    unvue.displayStats(app.stats)
+    ream.displayStats(app.stats)
     if (command === 'build') {
       if (argv.stats) {
         console.log('> Generating stats file...')

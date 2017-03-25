@@ -10,7 +10,7 @@
 title: Hello World!
 ---
 
-[unvue](https://github.com/egoist/unvue/tree/dev/examples/custom-blocks) + SSR + **custom blocks** in vue-loader = awesome!
+[ream](https://github.com/egoist/ream/tree/dev/examples/custom-blocks) + SSR + **custom blocks** in vue-loader = awesome!
 
 ![yep](https://media.giphy.com/media/3o7TKB15qTJv5E397y/giphy.gif)
 </blog>

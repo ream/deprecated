@@ -25,10 +25,10 @@ export default function (Vue) {
         if (process.env.BROWSER_BUILD) {
           // Only apply cache from global variable on the first render
           // i.e. it won't apply twice after nagivated in client-side router
-          if (window.__UNVUE__[key]) {
-            const data = window.__UNVUE__[key]
+          if (window.__REAM__[key]) {
+            const data = window.__REAM__[key]
             applyData(data)
-            window.__UNVUE__.asyncData = null
+            window.__REAM__.asyncData = null
           } else {
             fetchData()
           }
