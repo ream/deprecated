@@ -22,13 +22,17 @@ export default function (Vue) {
         const name = this.$options.name
         const key = `asyncData:${name}:${this.$route.fullPath}`
 
+        if (!name) {
+          throw new Error('`asyncData` option need a component name!')
+        }
+
         if (process.env.BROWSER_BUILD) {
           // Only apply cache from global variable on the first render
           // i.e. it won't apply twice after nagivated in client-side router
           if (window.__REAM__[key]) {
             const data = window.__REAM__[key]
             applyData(data)
-            window.__REAM__.asyncData = null
+            window.__REAM__[key] = null
           } else {
             fetchData()
           }

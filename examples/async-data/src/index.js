@@ -13,7 +13,7 @@ const About = {
   asyncData() {
     return new Promise(resolve => {
       setTimeout(() => {
-        resolve()
+        resolve({msg: 'yes!!'})
       }, 400)
     })
   },
@@ -23,8 +23,23 @@ const About = {
 }
 
 const Home = {
+  data() {
+    return {
+      text: 'original'
+    }
+  },
+  asyncData() {
+    return new Promise(resolve => {
+      setTimeout(() => {
+        resolve({text: 'changed!!'})
+      }, 400)
+    })
+  },
   render() {
-    return <router-link to="/about">goto about</router-link>
+    return <div>
+      <router-link to="/about">goto about</router-link>
+      {this.text}
+    </div>
   }
 }
 
