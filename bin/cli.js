@@ -85,7 +85,7 @@ co(function * () {
   if (command === 'build') {
     console.log('> Building...')
     yield app.build()
-    console.log('> Done')
+    console.log(`> Done, check out .ream/dist folder`)
   } else if (command === 'generate') {
     console.log('> Generating...')
     const opts = yield Promise.resolve()

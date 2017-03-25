@@ -1,6 +1,5 @@
 const path = require('path')
-const os = require('os')
-const fs = require('fs')
+const fs = require('fs-promise')
 const chokidar = require('chokidar')
 const glob = require('glob')
 const _ = require('../lib/utils')
@@ -41,6 +40,7 @@ function writeRouter(cwd, to) {
       return router
     }
     `
+    fs.ensureDirSync(path.dirname(to))
     fs.writeFileSync(to, data, 'utf8')
   }
 
@@ -61,8 +61,8 @@ function writeRouter(cwd, to) {
 }
 
 module.exports = () => {
-  const tmp = path.join(os.tmpdir(), `fs-router-${Date.now()}.js`)
   return ctx => {
+    const tmp = path.join(ctx.options.cwd, '.ream', `fs-router.js`)
     writeRouter(ctx.options.cwd, tmp)
 
     ctx.extendWebpack(config => {

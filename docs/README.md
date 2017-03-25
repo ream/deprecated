@@ -220,6 +220,8 @@ For example, to deploy with [now](https://zeit.co/now) a package.json like follo
 
 Then run `now` and enjoy! `now` will automically run `npm run build` before `npm start`.
 
+Note: we recommend putting `.ream` folder in your `.gitignore` file, since the generated files are populated in `.ream/dist` folder.
+
 ## FAQ
 
 ### Here's a missing feature!
