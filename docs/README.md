@@ -193,6 +193,21 @@ Hot Reloading enabled
 
 All output files are minifies and optimized.
 
+### Generate static website
+
+When you visit a web page, the only context we need it a `URL` at some point, so you can just provide an array of routes and we will generated corresponding static pages for you:
+
+```js
+// ream.config.js
+module.exports = {
+  generate: {
+    routes: ['/', '/user/egoist/', '/user/rem']
+  }
+}
+```
+
+Check out more usage in its [API](/api#app-generateoptions).
+
 ## Production deployment
 
 To deploy, you need to build before running production server:

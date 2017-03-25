@@ -16,6 +16,8 @@ Server-side rendered Vue.js app should be made easy, since vue-router is well op
 - Extensible webpack config
 - Plugin system
 - Next.js/Nuxt.js-like behavior via [plugin](https://egoistian.com/ream/#/plugin/fs-router)
+- [Generate static website](https://egoistian.com/ream/#/?id=generate-static-website)
+- [Writing blogs using Markdown/Vue Component](https://github.com/egoist/ream-blog-plugin)
 - Exposed a fluent API
 
 [Check out online docs](https://egoistian.com/ream) *or* [Try writing server-rendered Vue.js app online!](https://glitch.com/~ream)
