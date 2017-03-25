@@ -89,7 +89,7 @@ export default {
 }
 ```
 
-If the action you want to perfom in `preFetch` method is async, it should return a Promise.
+If the action you want to perform in `preFetch` method is async, it should return a Promise.
 
 ### Modify `<head>`
 
