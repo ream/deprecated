@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import DefaultApp from './App.vue'
 import Meta from 'vue-meta'
-import AsyncData from './mixins/async-data'
 
 Vue.use(Meta, {
   keyName: 'head',
@@ -9,8 +8,6 @@ Vue.use(Meta, {
   ssrAttribute: 'data-rehead-rendered',
   tagIDKeyName: 'rehid'
 })
-
-Vue.use(AsyncData)
 
 export default ({
   App = DefaultApp,

@@ -91,79 +91,6 @@ export default {
 
 If the action you want to perfom in `preFetch` method is async, it should return a Promise.
 
-#### preFetchCache
-
-Similar to `preFetch` but you can cache data across requests:
-
-```js
-export default {
-  // Component name is required!
-  // Since it will be cache by `router path + component name`
-  name: 'component-name',
-  preFetchCache({ store, cache }) {
-    return store.dispatch('fetchUser', { cache, user: 1 })
-  }
-}
-```
-
-Then in your store, it can have such shape:
-
-```js
-{
-  actions: {
-    fetchUser({ commit }, payload) {
-      // use cache if possible
-      if (payload.cache) return commit('SET_USER', cache)
-      return fetch('/user/' + payload.user)
-        .then(res => res.json())
-        .then(user => {
-          commit('SET_USER', user)
-          // the resolved value would be `cache` in next request
-          return user
-        })
-    }
-  }
-}
-```
-
-### asyncData
-
-Sometimes you just want to fetch data and pre-render on the server-side without using a global state-mangement library like `vuex`, so `asyncData` is an option for you, it's similar to `getInitialProps` in Next.js but works in the Vue way, which means you can have such router-view component:
-
-```js
-import axios from 'axios'
-
-export default {
-  // Component name is required!
-  // Since it will be cache by `router path + component name`
-  name: 'component-name',
-  data() {
-    return {
-      // Do set initial data!
-      username: null
-    }
-  },
-  asyncData({ route }) {
-    return axios.get(`/api/user/${route.params.username}`)
-      .then(res => {
-        return {
-          username: res.data.username
-        }
-      })
-  }
-}
-```
-
-How this works:
-
-In this way, we will fetch the data on the server-side first, on the client-side, it will only fetch data after the fist paint.
-
-You will have `{ route, store }` as argument, `store` only exists when you export it in your entry file.
-
-<p class="warning">
-  You can only access component instance `this` on client-side, you can use `process.env.BROWSER_BUILD` to check if it's client-side and perform some logic when it is.
-</p>
-
 ### Modify `<head>`
 
 `ream` uses [vue-meta](https://github.com/declandewet/vue-meta) under the hood, so you can just set `head` property on Vue component to provide custom head tags:
@@ -252,26 +179,6 @@ Then run `now` and enjoy! `now` will automically run `npm run build` before `npm
 ### How big is it?
 
 The runtime bundle (Vue + vue-router) is around 30KB gzipped.
-
-### How do I fetch data?
-
-If you want to store data as global state, you can use vuex with [preFetch](#prefetch) method. Otherwise you can use [asyncData](#asyncdata) method. They both are async function, which means you should return a Promise, FYI, `store.dispatch` in vuex always returns a Promise.
-
-Note that when fetching data on the server-side, you can't use pathname directly, eg: `/api/user/egoist`, since the server bundle is running in a node.js vm instance, using absolute path will result in fetching `127.0.0.1:80/api/user/egoist` which is not accesible, instead you should use full URL:
-
-```js
-import axios from 'axios'
-
-const api = axios.create({
-  // Set base url
-  baseURL: process.env.BROWSER_BUILD ? '/' : 'http://127.0.0.1:3000/'
-})
-
-// Then it will fetch `http://127.0.0.1:3000/api/user` on server-side
-// And fetch `/api/user` on client-side
-api.get('/api/user')
-  .then(res => res.data)
-```
 
 You can replace `127.0.0.1` with the hostname you're actually running at, by default the server we're running in `ream dev` and `ream start` command runs at `0.0.0.0` which means all IPv4 addresses on the local machine.
 
