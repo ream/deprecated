@@ -1,7 +1,7 @@
 import entry from '@alias/entry'
 import createApp from './create-app'
 
-const { router, store } = entry
+const { router, store, handlers } = entry
 const app = createApp(entry)
 
 const isDev = process.env.NODE_ENV !== 'production'
@@ -14,6 +14,15 @@ export default context => {
   return new Promise((resolve, reject) => {
     router.push(context.url)
     const route = router.currentRoute
+
+    if (!process.__INIT__) {
+      process.__INIT__ = true
+      if (handlers) {
+        for (const handler of handlers) {
+          handler({ store, router })
+        }
+      }
+    }
 
     router.onReady(() => {
       const matchedComponents = router.getMatchedComponents()
