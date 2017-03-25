@@ -49,6 +49,8 @@ function writeRouter(cwd, to) {
   watcher.on('ready', () => {
     ready = true
     build()
+    // Tweak time for first build
+    _.tweakTime(to)
   })
   watcher.on('add', () => {
     if (ready) {
@@ -72,8 +74,6 @@ module.exports = () => {
       config.resolve
         .alias
           .set('@alias/fs-router', tmp)
-
-      _.tweakTime(tmp)
     })
   }
 }
