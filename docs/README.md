@@ -105,6 +105,56 @@ export default {
 
 Check out [vue-meta](https://github.com/declandewet/vue-meta) for details, its usage is the same here except that we're using `head` instead of `metaInfo` as key name.
 
+### Handlers
+
+You can implement your own `preFetch` method by using `handlers`, let's call it `preLoadHandler`:
+
+```js
+// src/index.js
+function preLoadHandler({ 
+  router, 
+  store, 
+  isServer,
+  deliverData
+}) {
+  isServer && router.beforeEach((to, from, next) => {
+    Promise.all(getMatchedComponents(to.matched).map(component => {
+      if (component.preLoad) {
+        return component.preLoad({ store })
+      }
+    })).then(() => {
+      deliverData({ state: store.state })
+      next()
+    })
+  })
+
+  if (!isServer) {
+    store.replaceState(window.__REAM__.data.state)
+  }
+}
+
+function getMatchedComponents(route) {
+  let res = []
+  for (const record of route) {
+    res.push(record.component)
+    if (record.children) {
+      res = [...res, ...getMatchedComponents(record.children)]
+    }
+  }
+  return res
+}
+
+export default { router, store, handlers: [preLoadHandler] }
+```
+
+Arguments of `handler` function:
+
+- router: vue-router instance
+- store: vuex instance (only exists if you exported it in entry file)
+- isServer: 
+- isClient
+- deliverData: pass data down from server to client, eg: `deliverData({foo: 123})` then it will be available as `window.__REAM__.data.foo`
+
 ### webpack
 
 #### Code split

@@ -2,7 +2,20 @@ import 'es6-promise/auto'
 import createApp from './create-app'
 import entry from '@alias/entry'
 
-const { store, router } = entry
+const { store, router, handlers } = entry
+
+if (handlers) {
+  const handlerContext = {
+    store,
+    router,
+    isDev: process.env.NODE_ENV === 'development',
+    isClient: true
+  }
+  for (const handler of handlers) {
+    handler(handlerContext)
+  }
+}
+
 const app = createApp(entry)
 
 // prime the store with server-initialized state.
