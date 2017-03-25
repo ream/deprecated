@@ -107,7 +107,7 @@ Check out [vue-meta](https://github.com/declandewet/vue-meta) for details, its u
 
 ### Handlers
 
-You can imple your own `preFetch` method by using `handlers`, let's call it `preLoadHandler`:
+You can implement your own `preFetch` method by using `handlers`, let's call it `preLoadHandler`:
 
 ```js
 // src/index.js
@@ -117,17 +117,15 @@ function preLoadHandler({
   isServer,
   deliverData
 }) {
-  router.beforeEach((to, from, next) => {
-    if (isServer) {
-      Promise.all(getMatchedComponents(to.matched).map(component => {
-        if (component.preLoad) {
-          return component.preLoad({ store })
-        }
-      })).then(() => {
-        deliverData({ state: store.state })
-        next()
-      })
-    }
+  isServer && router.beforeEach((to, from, next) => {
+    Promise.all(getMatchedComponents(to.matched).map(component => {
+      if (component.preLoad) {
+        return component.preLoad({ store })
+      }
+    })).then(() => {
+      deliverData({ state: store.state })
+      next()
+    })
   })
 
   if (!isServer) {
