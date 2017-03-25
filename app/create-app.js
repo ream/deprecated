@@ -9,25 +9,19 @@ Vue.use(Meta, {
   tagIDKeyName: 'rehid'
 })
 
-let app
-
 export default ({
   App = DefaultApp,
   store,
   router
 } = {}) => {
-  if (app) return app
-
   if (store) {
     const { sync } = require('vuex-router-sync')
     sync(store, router)
   }
 
-  app = new Vue({
+  return new Vue({
     store,
     router,
     render: h => h(App)
   })
-
-  return app
 }
