@@ -2,7 +2,7 @@
 <img src="./assets/REAM.png" alt="ream" width="100" />
 </p>
 
-<p align="center"><br><a href="https://npmjs.com/package/ream"><img src="https://img.shields.io/npm/v/ream.svg?style=flat" alt="NPM version"></a> <a href="https://npmjs.com/package/ream"><img src="https://img.shields.io/npm/dm/ream.svg?style=flat" alt="NPM downloads"></a> <a href="https://circleci.com/gh/egoist/ream"><br/><img src="https://img.shields.io/circleci/project/egoist/ream/master.svg?style=flat" alt="Build Status"></a> <a href="https://codecov.io/gh/egoist/ream"><img src="https://codecov.io/gh/egoist/ream/branch/master/graph/badge.svg" alt="codecov"></a> <a href="https://gitter.im/egoist/ream?utm_source=badge&amp;utm_medium=badge&amp;utm_campaign=pr-badge"><img src="https://badges.gitter.im/egoist/ream.svg" alt="Gitter"></a>
+<p align="center"><br><a href="https://npmjs.com/package/ream"><img src="https://img.shields.io/npm/v/ream.svg?style=flat" alt="NPM version"></a> <a href="https://npmjs.com/package/ream"><img src="https://img.shields.io/npm/dm/ream.svg?style=flat" alt="NPM downloads"></a> <a href="https://circleci.com/gh/egoist/ream"><br/><img src="https://img.shields.io/circleci/project/egoist/ream/master.svg?style=flat" alt="Build Status"></a> <a href="https://codecov.io/gh/egoist/ream"><img src="https://codecov.io/gh/egoist/ream/branch/master/graph/badge.svg" alt="codecov"></a> <a href="https://codeclimate.com/github/egoist/ream"><img src="https://codeclimate.com/github/egoist/ream/badges/gpa.svg" /></a>
  <a href="https://github.com/egoist/donate"><img src="https://img.shields.io/badge/$-donate-ff69b4.svg?maxAge=2592000&amp;style=flat" alt="donate"></a></p>
 
 <br>
