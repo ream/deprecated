@@ -77,7 +77,7 @@ co(function * () {
         fs.writeFileSync('./client-stats.json', JSON.stringify(app.stats.client.toJson()), 'utf8')
         console.log(`> Generated at ./client-stats.json`)
       }
-    } else {
+    } else if (command === 'dev' || command === 'start') {
       console.log(`> Open http://localhost:${port}`)
     }
   })
