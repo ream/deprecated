@@ -10,15 +10,13 @@ export default ({
   handleError
 }) => {
   router.beforeEach((to, from, next) => {
-    const components = getMatchedComponents(to.matched)
+    let Components = getMatchedComponents(to.matched)
 
-    if (!components.length) {
+    if (!Components.length) {
       return handleError({ code: 404 })
     }
 
     const route = router.currentRoute
-
-    const ps = []
 
     const applyData = (component, asyncData) => {
       const data = component.options.data ? component.options.data() : {}
@@ -26,60 +24,69 @@ export default ({
       component._Ctor.options.data = component.options.data
     }
 
-    for (const component of components) {
-      if (!component.options) {
-        component = Vue.extend(component)
-        component._Ctor = component
-      } else {
-        component._Ctor = component
-        component.extendOptions = component.options
-      }
-
-      if (component.options.asyncData) {
-        if (isClient && window.__REAM__.data.asyncData) {
-          const data = window.__REAM__.data.asyncData
-          applyData(component, data)
-          window.__REAM__.data.asyncData = null
-        } else {
-          const asyncData = component.options.asyncData({
-            store,
-            route,
-            isServer,
-            isClient
-          })
-          if (asyncData.then) {
-            ps.push(asyncData.then(data => {
-              applyData(component, data)
-              isServer && deliverData({ asyncData: data })
-            }))
+    Promise.all(Components.map(Component => {
+      return new Promise((resolve, reject) => {
+        const touchComponent = Component => {
+          if (!Component.options) {
+            Component = Vue.extend(Component)
+            Component._Ctor = Component
           } else {
-            applyData(component, asyncData)
+            Component._Ctor = Component
+            Component.extendOptions = Component.options
+          }
+          resolve(Component)
+        }
+        if (typeof Component === 'function') {
+          return Component().then(touchComponent).catch(reject)
+        }
+        touchComponent(Component)
+      })
+    })).then(Components => {
+      const ps = []
+
+      for (const Component of Components) {
+        if (Component.options.asyncData) {
+          if (isClient && window.__REAM__.data.asyncData) {
+            const data = window.__REAM__.data.asyncData
+            applyData(Component, data)
+            window.__REAM__.data.asyncData = null
+          } else {
+            const asyncData = Component.options.asyncData({
+              store,
+              route,
+              isServer,
+              isClient
+            })
+            if (asyncData.then) {
+              ps.push(asyncData.then(data => {
+                applyData(Component, data)
+                isServer && deliverData({ asyncData: data })
+              }))
+            } else {
+              applyData(Component, asyncData)
+            }
+          }
+        }
+
+        if (Component.options.preFetch) {
+          const shouldFetchOnClientSide = isClient && !window.__REAM__.data.__state
+          if (isServer || shouldFetchOnClientSide) {
+            const preFetch = Component.options.preFetch
+            ps.push(preFetch({
+              store,
+              route,
+              isServer,
+              isClient
+            }))
           }
         }
       }
 
-      if (component.options.preFetch) {
-        const shouldFetchOnClientSide = isClient && !window.__REAM__.data.__state
-        if (isServer || shouldFetchOnClientSide) {
-          const preFetch = component.options.preFetch
-          ps.push(preFetch({
-            store,
-            route,
-            isServer,
-            isClient
-          }))
-        }
-      }
-    }
-
-    if (ps.length) {
-      Promise.all(ps).then(() => {
-        isServer && store && deliverData({ __state: store.state })
-        next()
-      }).catch(handleError)
-    } else {
+      return Promise.all(ps)
+    }).then(() => {
+      isServer && store && deliverData({ __state: store.state })
       next()
-    }
+    }).catch(handleError)
   })
 
   if (isClient && store) {
