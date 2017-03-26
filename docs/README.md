@@ -91,6 +91,48 @@ export default {
 
 If the action you want to perform in `preFetch` method is async, it should return a Promise.
 
+`preFetch` will be executed after first paint on client-side as well.
+
+Arguments:
+
+- `route`: Current route in vue-router
+- `store`: Vuex store instance if any
+- `isServer`: Is server-side
+- `isClient`: Is client-side
+
+### asyncData
+
+If you want to pre-fetch data but don't want to keep it at a global store like `Vuex`, you can use `asyncData`, it's similar to Next.js's `getInitialProps` but works in the Vue way. You can treat it as an async version of `data` property but it does not have access to component instance:
+
+```vue
+<template>
+  <div class="page">
+    {{ user.username }}
+  </div>
+</template>
+
+<script>
+  export default {
+    asyncData({ route }) {
+      return axios.get(`https://my-api.com/user/${route.params.username}`).then(res => {
+        return {
+          user: res.data
+        }
+      })
+    }
+  }
+</script>
+```
+
+Same as `preFetch`, this will be executed after first paint on client-side as well.
+
+Arguments:
+
+- `route`: Current route in vue-router
+- `store`: Vuex store instance if any
+- `isServer`: Is server-side
+- `isClient`: Is client-side
+
 ### Modify `<head>`
 
 `ream` uses [vue-meta](https://github.com/declandewet/vue-meta) under the hood, so you can just set `head` property on Vue component to provide custom head tags:
