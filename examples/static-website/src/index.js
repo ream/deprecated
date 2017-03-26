@@ -1,11 +1,15 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import logo from './images/logo.png'
 
 Vue.use(Router)
 
 const Home = {
   render() {
-    return <h1>Home</h1>
+    return <div>
+    <h1>Home</h1>
+    <img src={logo} />
+    </div>
   }
 }
 
