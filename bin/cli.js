@@ -69,15 +69,10 @@ co(function * () {
     { dev: command === 'dev' }
   ))
 
+  // Call when server is ready
   app.on('ready', () => {
     ream.displayStats(app.stats)
-    if (command === 'build') {
-      if (argv.stats) {
-        console.log('> Generating stats file...')
-        fs.writeFileSync('./client-stats.json', JSON.stringify(app.stats.client.toJson()), 'utf8')
-        console.log(`> Generated at ./client-stats.json`)
-      }
-    } else if (command === 'dev' || command === 'start') {
+    if (command === 'dev' || command === 'start') {
       console.log(`> Open http://localhost:${port}`)
     }
   })
@@ -85,6 +80,12 @@ co(function * () {
   if (command === 'build') {
     console.log('> Building...')
     yield app.build()
+    ream.displayStats(app.stats)
+    if (argv.stats) {
+      console.log('> Generating stats file...')
+      fs.writeFileSync('./client-stats.json', JSON.stringify(app.stats.client.toJson()), 'utf8')
+      console.log(`> Generated at ./client-stats.json`)
+    }
     console.log(`> Done, check out .ream/dist folder`)
   } else if (command === 'generate') {
     console.log('> Generating...')
