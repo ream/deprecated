@@ -133,6 +133,29 @@ Arguments:
 - `isServer`: Is server-side
 - `isClient`: Is client-side
 
+### Progress bar
+
+When you're using `preFetch` or `asyncData` method, you will always need a progress bar to show the loading progress as well.
+
+This might the easiest part, since you can achieve it like a pro by using nprogress in router's hooks.
+
+```js
+if (process.env.BROWSER) {
+  const nprogress = require('nprogress')
+  require('nprogress/nprogress.css')
+
+  router.beforeEach((from, to, next) => {
+    nprogress.start()
+    next()
+  })
+  router.afterEach(() => {
+    nprogress.done()
+  })
+}
+```
+
+Since you would never want to display progress bar on server-side (and you can't), you need to call it only when `process.env.BROWSER` is `true`.
+
 ### Modify `<head>`
 
 `ream` uses [vue-meta](https://github.com/declandewet/vue-meta) under the hood, so you can just set `head` property on Vue component to provide custom head tags:

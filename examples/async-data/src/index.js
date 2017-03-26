@@ -20,4 +20,17 @@ const router = new Router({
   }]
 })
 
+if (process.env.BROWSER) {
+  const nprogress = require('nprogress')
+  require('nprogress/nprogress.css')
+
+  router.beforeEach((from, to, next) => {
+    nprogress.start()
+    next()
+  })
+  router.afterEach(() => {
+    nprogress.done()
+  })
+}
+
 export default { router }

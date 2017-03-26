@@ -1,7 +1,7 @@
 <template>
   <div class="page">
     <h1>Home</h1>
-    <p>{{bio}}</p>
+    <input type="text" v-model="bio">
     <router-link to="/about">Go About</router-link>
   </div>
 </template>
