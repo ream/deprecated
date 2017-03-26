@@ -3,7 +3,7 @@
   "version": "0.10.3",
   "description": "unopinionated, universal Vue.js app made simple.",
   "repository": {
-    "url": "egoist/ream",
+    "url": "ream/ream",
     "type": "git"
   },
   "main": "lib/index.js",

@@ -2,7 +2,7 @@
 <img src="./assets/REAM.png" alt="ream" width="100" />
 </p>
 
-<p align="center"><br><a href="https://npmjs.com/package/ream"><img src="https://img.shields.io/npm/v/ream.svg?style=flat" alt="NPM version"></a> <a href="https://npmjs.com/package/ream"><img src="https://img.shields.io/npm/dm/ream.svg?style=flat" alt="NPM downloads"></a> <a href="https://circleci.com/gh/egoist/ream"><br/><img src="https://img.shields.io/circleci/project/egoist/ream/master.svg?style=flat" alt="Build Status"></a> <a href="https://codecov.io/gh/egoist/ream"><img src="https://codecov.io/gh/egoist/ream/branch/master/graph/badge.svg" alt="codecov"></a> <a href="https://codeclimate.com/github/egoist/ream"><img src="https://codeclimate.com/github/egoist/ream/badges/gpa.svg" /></a>
+<p align="center"><br><a href="https://npmjs.com/package/ream"><img src="https://img.shields.io/npm/v/ream.svg?style=flat" alt="NPM version"></a> <a href="https://npmjs.com/package/ream"><img src="https://img.shields.io/npm/dm/ream.svg?style=flat" alt="NPM downloads"></a> <a href="https://circleci.com/gh/ream/ream"><br/><img src="https://img.shields.io/circleci/project/ream/ream/master.svg?style=flat" alt="Build Status"></a> <a href="https://codecov.io/gh/ream/ream"><img src="https://codecov.io/gh/ream/ream/branch/master/graph/badge.svg" alt="codecov"></a> <a href="https://codeclimate.com/github/ream/ream"><img src="https://codeclimate.com/github/ream/ream/badges/gpa.svg" /></a>
  <a href="https://github.com/egoist/donate"><img src="https://img.shields.io/badge/$-donate-ff69b4.svg?maxAge=2592000&amp;style=flat" alt="donate"></a></p>
 
 <br>
@@ -50,7 +50,7 @@ To run in production server, run `npm run build && npm start`
 
 ### Root component
 
-By default we have a [built-in root component](https://github.com/egoist/ream/blob/master/app/App.vue), you can export a custom one as well:
+By default we have a [built-in root component](https://github.com/ream/ream/blob/master/app/App.vue), you can export a custom one as well:
 
 ```js
 // src/index.js
@@ -241,7 +241,7 @@ Note: we recommend putting `.ream` folder in your `.gitignore` file, since the g
 
 ### Here's a missing feature!
 
-**"Can you update webpack config *this way* so I can use that feature?"** If you have the same question, before we actually think this feature is necessary and add it, you can [extend webpack config](#extendwebpack) yourself to implement it. With [webpack-chain](https://github.com/mozilla-rpweb/webpack-chain) you have full control of our webpack config, check out the default [config instance](https://github.com/egoist/ream/blob/master/lib/create-config.js).
+**"Can you update webpack config *this way* so I can use that feature?"** If you have the same question, before we actually think this feature is necessary and add it, you can [extend webpack config](#extendwebpack) yourself to implement it. With [webpack-chain](https://github.com/mozilla-rpweb/webpack-chain) you have full control of our webpack config, check out the default [config instance](https://github.com/ream/ream/blob/master/lib/create-config.js).
 
 ### How big is it?
 
@@ -260,7 +260,7 @@ You can replace `127.0.0.1` with the hostname you're actually running at, by def
 
 ## Author
 
-**ream** © [egoist](https://github.com/egoist), Released under the [MIT](https://github.com/egoist/ream/blob/master/LICENSE) License.<br>
-Authored and maintained by egoist with help from contributors ([list](https://github.com/egoist/ream/contributors)).
+**ream** © [egoist](https://github.com/egoist), Released under the [MIT](https://github.com/ream/ream/blob/master/LICENSE) License.<br>
+Authored and maintained by egoist with help from contributors ([list](https://github.com/ream/ream/contributors)).
 
 > [egoistian.com](https://egoistian.com) · GitHub [@egoist](https://github.com/egoist) · Twitter [@rem_rin_rin](https://twitter.com/rem_rin_rin)

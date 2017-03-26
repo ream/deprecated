@@ -2,7 +2,7 @@
 <img src="./docs/assets/REAM.png" alt="ream" width="100" />
 </p>
 
-<p align="center"><br><a href="https://npmjs.com/package/ream"><img src="https://img.shields.io/npm/v/ream.svg?style=flat" alt="NPM version"></a> <a href="https://npmjs.com/package/ream"><img src="https://img.shields.io/npm/dm/ream.svg?style=flat" alt="NPM downloads"></a> <a href="https://circleci.com/gh/egoist/ream"><br/><img src="https://img.shields.io/circleci/project/egoist/ream/master.svg?style=flat" alt="Build Status"></a> <a href="https://codecov.io/gh/egoist/ream"><img src="https://codecov.io/gh/egoist/ream/branch/master/graph/badge.svg" alt="codecov"></a> <a href="https://codeclimate.com/github/egoist/ream"><img src="https://codeclimate.com/github/egoist/ream/badges/gpa.svg" /></a>
+<p align="center"><br><a href="https://npmjs.com/package/ream"><img src="https://img.shields.io/npm/v/ream.svg?style=flat" alt="NPM version"></a> <a href="https://npmjs.com/package/ream"><img src="https://img.shields.io/npm/dm/ream.svg?style=flat" alt="NPM downloads"></a> <a href="https://circleci.com/gh/ream/ream"><br/><img src="https://img.shields.io/circleci/project/ream/ream/master.svg?style=flat" alt="Build Status"></a> <a href="https://codecov.io/gh/ream/ream"><img src="https://codecov.io/gh/ream/ream/branch/master/graph/badge.svg" alt="codecov"></a> <a href="https://codeclimate.com/github/ream/ream"><img src="https://codeclimate.com/github/ream/ream/badges/gpa.svg" /></a>
  <a href="https://github.com/egoist/donate"><img src="https://img.shields.io/badge/$-donate-ff69b4.svg?maxAge=2592000&amp;style=flat" alt="donate"></a></p>
 
 
@@ -17,7 +17,7 @@ Server-side rendered Vue.js app should be made easy, since vue-router is well op
 - Plugin system
 - Next.js/Nuxt.js-like behavior via [plugin](https://ream.github.io/ream/#/plugin/fs-router)
 - [Generate static website](https://ream.github.io/ream/#/?id=generate-static-website)
-- [Writing blogs using Markdown/Vue Component](https://github.com/egoist/ream-blog-plugin)
+- [Writing blogs using Markdown/Vue Component](https://github.com/ream/ream-blog-plugin)
 - Exposed a fluent API
 
 [Check out online docs](https://ream.github.io/ream) *or* [Try writing server-rendered Vue.js app online!](https://glitch.com/~ream)
@@ -76,6 +76,6 @@ To run in production server, run `npm run build && npm start`
 ## Author
 
 **ream** © [egoist](https://github.com/egoist), Released under the [MIT](./LICENSE) License.<br>
-Authored and maintained by egoist with help from contributors ([list](https://github.com/egoist/ream/contributors)).
+Authored and maintained by egoist with help from contributors ([list](https://github.com/ream/ream/contributors)).
 
 > [egoistian.com](https://egoistian.com) · GitHub [@egoist](https://github.com/egoist) · Twitter [@rem_rin_rin](https://twitter.com/rem_rin_rin)
