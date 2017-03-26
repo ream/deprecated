@@ -3,7 +3,7 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
-const Home = resolve => import('./Home.vue').then(resolve)
+const Home = () => import('./Home.vue')
 
 const router = new Router({
   mode: 'history',

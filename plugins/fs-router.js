@@ -29,7 +29,7 @@ function writeRouter(cwd, to) {
         return `{
           ...(typeof routeOptions === 'function' ? routeOptions('${path}') : routeOptions),
           path: '${path}',
-          component: resolve => import('@cwd/pages${file.slice(5)}').then(resolve)
+          component: () => import('@cwd/pages${file.slice(5)}')
         }`
       }).join(',')}]
       const router = new Router({
