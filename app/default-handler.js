@@ -16,8 +16,6 @@ export default ({
       return handleError({ code: 404 })
     }
 
-    const route = router.currentRoute
-
     const applyData = (component, asyncData) => {
       const data = component.options.data ? component.options.data() : {}
       component.options.data = () => ({...data, ...asyncData})
@@ -53,7 +51,7 @@ export default ({
           } else {
             const asyncData = Component.options.asyncData({
               store,
-              route,
+              route: to,
               isServer,
               isClient
             })
@@ -74,7 +72,7 @@ export default ({
             const preFetch = Component.options.preFetch
             ps.push(preFetch({
               store,
-              route,
+              route: to,
               isServer,
               isClient
             }))

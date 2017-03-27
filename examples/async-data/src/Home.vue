@@ -10,6 +10,7 @@
   import axios from 'axios'
 
   export default {
+    name: 'aacc',
     async asyncData() {
       const res = await axios.get('https://api.github.com/users/egoist').then(res => res.data)
       return res
