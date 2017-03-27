@@ -1,8 +1,10 @@
 <template>
   <div class="page">
     <h1>Home</h1>
-    <input type="text" v-model="bio">
+    <h2>{{ title }}</h2>
+    <p>{{ body }}</p>
     <router-link to="/about">Go About</router-link>
+    <router-view />
   </div>
 </template>
 
@@ -10,9 +12,9 @@
   import axios from 'axios'
 
   export default {
-    name: 'aacc',
+    name: 'home',
     async asyncData() {
-      const res = await axios.get('https://api.github.com/users/egoist').then(res => res.data)
+      const res = await axios.get('http://jsonplaceholder.typicode.com/posts/1').then(res => res.data)
       return res
     }
   }

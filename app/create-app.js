@@ -22,6 +22,9 @@ export default ({
   return new Vue({
     store,
     router,
+    created() {
+      Vue.prototype.$ream = this
+    },
     render: h => h(App)
   })
 }

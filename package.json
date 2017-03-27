@@ -14,6 +14,9 @@
     "bin",
     "plugins"
   ],
+  "publishConfig": {
+    "tag": "beta"
+  },
   "scripts": {
     "test:cov": "BABEL_ENV=test jest --coverage && npm run lint",
     "test": "BABEL_ENV=test jest && npm run lint",

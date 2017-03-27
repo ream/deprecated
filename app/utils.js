@@ -7,3 +7,9 @@ export function getMatchedComponents(routes) {
   }
   return res
 }
+
+export function applyAsynaData(component, asyncData) {
+  const data = component.options.data ? component.options.data() : {}
+  component.options.data = () => ({...data, ...asyncData})
+  component._Ctor.options.data = component.options.data
+}

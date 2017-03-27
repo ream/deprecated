@@ -1,7 +1,8 @@
 <template>
   <div class="page">
     <h1>About</h1>
-    <p>{{description}}</p>
+    <h2>{{ title }}</h2>
+    <p>{{ body }}</p>
     <router-link to="/">Go Home</router-link>
   </div>
 </template>
@@ -10,9 +11,10 @@
   import axios from 'axios'
 
   export default {
+    name: 'about',
     async asyncData() {
-      const description = await axios.get('https://api.github.com/repos/ream/ream').then(res => res.data.description)
-      return { description }
+      const res = await axios.get('http://jsonplaceholder.typicode.com/posts/6').then(res => res.data)
+      return res
     }
   }
 </script>

@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import { getMatchedComponents } from './utils'
+import { getMatchedComponents, applyAsyncData } from './utils'
 
 export default ({
   router,
@@ -42,12 +42,12 @@ export default ({
     })).then(Components => {
       const ps = []
 
-      for (const Component of Components) {
+      for (const [index, Component] of Components.entries()) {
         if (Component.options.asyncData) {
-          if (isClient && window.__REAM__.data.asyncData) {
-            const data = window.__REAM__.data.asyncData
-            applyData(Component, data)
-            window.__REAM__.data.asyncData = null
+          if (isClient && window.__REAM__.data[`asyncData${index}`]) {
+            const data = window.__REAM__.data[`asyncData${index}`]
+            applyAsyncData(Component, data)
+            window.__REAM__.data[`asyncData${index}`] = null
           } else {
             const asyncData = Component.options.asyncData({
               store,
@@ -57,11 +57,11 @@ export default ({
             })
             if (asyncData.then) {
               ps.push(asyncData.then(data => {
-                applyData(Component, data)
-                isServer && deliverData({ asyncData: data })
+                applyAsyncData(Component, data)
+                isServer && deliverData({ [`asyncData${index}`]: data })
               }))
             } else {
-              applyData(Component, asyncData)
+              applyAsyncData(Component, asyncData)
             }
           }
         }

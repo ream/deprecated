@@ -10,6 +10,7 @@
   import { mapState } from 'vuex'
 
   export default {
+    name: 'hi',
     preFetch({ store }) {
       return store.dispatch('updateDescription')
     },
