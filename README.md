@@ -9,9 +9,49 @@
 </p>
 
 
-## Introduction
+<h2 align="center">Introduction</h2>
 
 Server-side rendered Vue.js app should be made easy, since vue-router is well optimized for SSR, we built ream on the top of it to make you build universal Vue.js app fast with fewer trade-offs, the only requirement is to export router instance in your entry file, which means you have full control of vue-router as well!
+
+<h2 align="center">Sponsors</h2>
+
+<p align="center">
+<a href="https://opencollective.com/ream/sponsor/0/website" target="_blank"><img src="https://opencollective.com/ream/sponsor/0/avatar.svg"></a>
+<a href="https://opencollective.com/ream/sponsor/1/website" target="_blank"><img src="https://opencollective.com/ream/sponsor/1/avatar.svg"></a>
+<a href="https://opencollective.com/ream/sponsor/2/website" target="_blank"><img src="https://opencollective.com/ream/sponsor/2/avatar.svg"></a>
+<a href="https://opencollective.com/ream/sponsor/3/website" target="_blank"><img src="https://opencollective.com/ream/sponsor/3/avatar.svg"></a>
+<a href="https://opencollective.com/ream/sponsor/4/website" target="_blank"><img src="https://opencollective.com/ream/sponsor/4/avatar.svg"></a>
+<a href="https://opencollective.com/ream/sponsor/5/website" target="_blank"><img src="https://opencollective.com/ream/sponsor/5/avatar.svg"></a>
+<a href="https://opencollective.com/ream/sponsor/6/website" target="_blank"><img src="https://opencollective.com/ream/sponsor/6/avatar.svg"></a>
+<a href="https://opencollective.com/ream/sponsor/7/website" target="_blank"><img src="https://opencollective.com/ream/sponsor/7/avatar.svg"></a>
+<a href="https://opencollective.com/ream/sponsor/8/website" target="_blank"><img src="https://opencollective.com/ream/sponsor/8/avatar.svg"></a>
+<a href="https://opencollective.com/ream/sponsor/9/website" target="_blank"><img src="https://opencollective.com/ream/sponsor/9/avatar.svg"></a>
+<a href="https://opencollective.com/ream/sponsor/10/website" target="_blank"><img src="https://opencollective.com/ream/sponsor/10/avatar.svg"></a>
+<a href="https://opencollective.com/ream/sponsor/11/website" target="_blank"><img src="https://opencollective.com/ream/sponsor/11/avatar.svg"></a>
+<a href="https://opencollective.com/ream/sponsor/12/website" target="_blank"><img src="https://opencollective.com/ream/sponsor/12/avatar.svg"></a>
+<a href="https://opencollective.com/ream/sponsor/13/website" target="_blank"><img src="https://opencollective.com/ream/sponsor/13/avatar.svg"></a>
+<a href="https://opencollective.com/ream/sponsor/14/website" target="_blank"><img src="https://opencollective.com/ream/sponsor/14/avatar.svg"></a>
+<a href="https://opencollective.com/ream/sponsor/15/website" target="_blank"><img src="https://opencollective.com/ream/sponsor/15/avatar.svg"></a>
+<a href="https://opencollective.com/ream/sponsor/16/website" target="_blank"><img src="https://opencollective.com/ream/sponsor/16/avatar.svg"></a>
+<a href="https://opencollective.com/ream/sponsor/17/website" target="_blank"><img src="https://opencollective.com/ream/sponsor/17/avatar.svg"></a>
+<a href="https://opencollective.com/ream/sponsor/18/website" target="_blank"><img src="https://opencollective.com/ream/sponsor/18/avatar.svg"></a>
+<a href="https://opencollective.com/ream/sponsor/19/website" target="_blank"><img src="https://opencollective.com/ream/sponsor/19/avatar.svg"></a>
+<a href="https://opencollective.com/ream/sponsor/20/website" target="_blank"><img src="https://opencollective.com/ream/sponsor/20/avatar.svg"></a>
+<a href="https://opencollective.com/ream/sponsor/21/website" target="_blank"><img src="https://opencollective.com/ream/sponsor/21/avatar.svg"></a>
+<a href="https://opencollective.com/ream/sponsor/22/website" target="_blank"><img src="https://opencollective.com/ream/sponsor/22/avatar.svg"></a>
+<a href="https://opencollective.com/ream/sponsor/23/website" target="_blank"><img src="https://opencollective.com/ream/sponsor/23/avatar.svg"></a>
+<a href="https://opencollective.com/ream/sponsor/24/website" target="_blank"><img src="https://opencollective.com/ream/sponsor/24/avatar.svg"></a>
+<a href="https://opencollective.com/ream/sponsor/25/website" target="_blank"><img src="https://opencollective.com/ream/sponsor/25/avatar.svg"></a>
+<a href="https://opencollective.com/ream/sponsor/26/website" target="_blank"><img src="https://opencollective.com/ream/sponsor/26/avatar.svg"></a>
+<a href="https://opencollective.com/ream/sponsor/27/website" target="_blank"><img src="https://opencollective.com/ream/sponsor/27/avatar.svg"></a>
+<a href="https://opencollective.com/ream/sponsor/28/website" target="_blank"><img src="https://opencollective.com/ream/sponsor/28/avatar.svg"></a>
+<a href="https://opencollective.com/ream/sponsor/29/website" target="_blank"><img src="https://opencollective.com/ream/sponsor/29/avatar.svg"></a>
+</p>
+
+<p align="center">
+  Become a sponsor and get your logo on our README on Github with a link to your site. <br>
+  <a href="https://opencollective.com/ream#sponsor)">Become a sponsor</a>
+</p>
 
 ## Features
 
@@ -95,42 +135,6 @@ Support us with a monthly donation and help us continue our activities. [[Become
 <a href="https://opencollective.com/ream/backer/27/website" target="_blank"><img src="https://opencollective.com/ream/backer/27/avatar.svg"></a>
 <a href="https://opencollective.com/ream/backer/28/website" target="_blank"><img src="https://opencollective.com/ream/backer/28/avatar.svg"></a>
 <a href="https://opencollective.com/ream/backer/29/website" target="_blank"><img src="https://opencollective.com/ream/backer/29/avatar.svg"></a>
-
-
-## Sponsors
-
-Become a sponsor and get your logo on our README on Github with a link to your site. [[Become a sponsor](https://opencollective.com/ream#sponsor)]
-
-<a href="https://opencollective.com/ream/sponsor/0/website" target="_blank"><img src="https://opencollective.com/ream/sponsor/0/avatar.svg"></a>
-<a href="https://opencollective.com/ream/sponsor/1/website" target="_blank"><img src="https://opencollective.com/ream/sponsor/1/avatar.svg"></a>
-<a href="https://opencollective.com/ream/sponsor/2/website" target="_blank"><img src="https://opencollective.com/ream/sponsor/2/avatar.svg"></a>
-<a href="https://opencollective.com/ream/sponsor/3/website" target="_blank"><img src="https://opencollective.com/ream/sponsor/3/avatar.svg"></a>
-<a href="https://opencollective.com/ream/sponsor/4/website" target="_blank"><img src="https://opencollective.com/ream/sponsor/4/avatar.svg"></a>
-<a href="https://opencollective.com/ream/sponsor/5/website" target="_blank"><img src="https://opencollective.com/ream/sponsor/5/avatar.svg"></a>
-<a href="https://opencollective.com/ream/sponsor/6/website" target="_blank"><img src="https://opencollective.com/ream/sponsor/6/avatar.svg"></a>
-<a href="https://opencollective.com/ream/sponsor/7/website" target="_blank"><img src="https://opencollective.com/ream/sponsor/7/avatar.svg"></a>
-<a href="https://opencollective.com/ream/sponsor/8/website" target="_blank"><img src="https://opencollective.com/ream/sponsor/8/avatar.svg"></a>
-<a href="https://opencollective.com/ream/sponsor/9/website" target="_blank"><img src="https://opencollective.com/ream/sponsor/9/avatar.svg"></a>
-<a href="https://opencollective.com/ream/sponsor/10/website" target="_blank"><img src="https://opencollective.com/ream/sponsor/10/avatar.svg"></a>
-<a href="https://opencollective.com/ream/sponsor/11/website" target="_blank"><img src="https://opencollective.com/ream/sponsor/11/avatar.svg"></a>
-<a href="https://opencollective.com/ream/sponsor/12/website" target="_blank"><img src="https://opencollective.com/ream/sponsor/12/avatar.svg"></a>
-<a href="https://opencollective.com/ream/sponsor/13/website" target="_blank"><img src="https://opencollective.com/ream/sponsor/13/avatar.svg"></a>
-<a href="https://opencollective.com/ream/sponsor/14/website" target="_blank"><img src="https://opencollective.com/ream/sponsor/14/avatar.svg"></a>
-<a href="https://opencollective.com/ream/sponsor/15/website" target="_blank"><img src="https://opencollective.com/ream/sponsor/15/avatar.svg"></a>
-<a href="https://opencollective.com/ream/sponsor/16/website" target="_blank"><img src="https://opencollective.com/ream/sponsor/16/avatar.svg"></a>
-<a href="https://opencollective.com/ream/sponsor/17/website" target="_blank"><img src="https://opencollective.com/ream/sponsor/17/avatar.svg"></a>
-<a href="https://opencollective.com/ream/sponsor/18/website" target="_blank"><img src="https://opencollective.com/ream/sponsor/18/avatar.svg"></a>
-<a href="https://opencollective.com/ream/sponsor/19/website" target="_blank"><img src="https://opencollective.com/ream/sponsor/19/avatar.svg"></a>
-<a href="https://opencollective.com/ream/sponsor/20/website" target="_blank"><img src="https://opencollective.com/ream/sponsor/20/avatar.svg"></a>
-<a href="https://opencollective.com/ream/sponsor/21/website" target="_blank"><img src="https://opencollective.com/ream/sponsor/21/avatar.svg"></a>
-<a href="https://opencollective.com/ream/sponsor/22/website" target="_blank"><img src="https://opencollective.com/ream/sponsor/22/avatar.svg"></a>
-<a href="https://opencollective.com/ream/sponsor/23/website" target="_blank"><img src="https://opencollective.com/ream/sponsor/23/avatar.svg"></a>
-<a href="https://opencollective.com/ream/sponsor/24/website" target="_blank"><img src="https://opencollective.com/ream/sponsor/24/avatar.svg"></a>
-<a href="https://opencollective.com/ream/sponsor/25/website" target="_blank"><img src="https://opencollective.com/ream/sponsor/25/avatar.svg"></a>
-<a href="https://opencollective.com/ream/sponsor/26/website" target="_blank"><img src="https://opencollective.com/ream/sponsor/26/avatar.svg"></a>
-<a href="https://opencollective.com/ream/sponsor/27/website" target="_blank"><img src="https://opencollective.com/ream/sponsor/27/avatar.svg"></a>
-<a href="https://opencollective.com/ream/sponsor/28/website" target="_blank"><img src="https://opencollective.com/ream/sponsor/28/avatar.svg"></a>
-<a href="https://opencollective.com/ream/sponsor/29/website" target="_blank"><img src="https://opencollective.com/ream/sponsor/29/avatar.svg"></a>
 
 
 ## Prior Art
