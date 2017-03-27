@@ -21,7 +21,8 @@
     "test:cov": "BABEL_ENV=test jest --coverage && npm run lint",
     "test": "BABEL_ENV=test jest && npm run lint",
     "lint": "xo",
-    "precommit": "npm t"
+    "precommit": "npm t",
+    "postinstall": "./node_modules/.bin/opencollective-postinstall || exit 0"
   },
   "author": "egoist <0x142857@gmail.com>",
   "license": "MIT",
@@ -32,6 +33,7 @@
     "eslint-config-rem": "^3.0.0",
     "husky": "^0.13.2",
     "jest-cli": "^19.0.2",
+    "opencollective-postinstall": "^1.0.13",
     "xo": "^0.18.0"
   },
   "xo": {
@@ -113,5 +115,10 @@
         ]
       }
     }
+  },
+  "collective": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/ream",
+    "logo": "https://opencollective.com/opencollective/logo.txt"
   }
 }
