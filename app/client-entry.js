@@ -85,10 +85,10 @@ function addHotReload ($component, depth) {
 
       if (asyncData.then) {
         ps.push(asyncData.then(data => {
-          applyAsynaData(Component, data)
+          applyAsyncData(Component, data)
         }))
       } else {
-        applyAsynaData(Component, asyncData)
+        applyAsyncData(Component, asyncData)
       }
     }
 
