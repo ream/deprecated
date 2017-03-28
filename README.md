@@ -68,7 +68,7 @@ Server-side rendered Vue.js app should be made easy, since vue-router is well op
 ## Install
 
 ```bash
-yarn add ream
+yarn add ream@beta
 ```
 
 ## Usage

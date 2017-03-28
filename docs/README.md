@@ -18,7 +18,7 @@ You can [try ream with the online playground!](https://glitch.com/~ream)
 ## Install
 
 ```bash
-yarn add ream
+yarn add ream@beta
 ```
 
 ## Usage
