@@ -1,3 +1,5 @@
+const noopData = () => ({})
+
 export function getMatchedComponents(routes) {
   let res = []
   for (const route of routes) {
@@ -8,8 +10,11 @@ export function getMatchedComponents(routes) {
   return res
 }
 
-export function applyAsyncData(component, asyncData) {
-  const data = component.options.data ? component.options.data() : {}
-  component.options.data = () => ({...data, ...asyncData})
+export function applyAsyncData(component, asyncData = {}) {
+  const componentData = component.options.data || noopData
+  component.options.data = function () {
+    const data =  componentData.call(this)
+    return {...data, ...asyncData}
+  }
   component._Ctor.options.data = component.options.data
 }

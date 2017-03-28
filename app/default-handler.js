@@ -16,12 +16,6 @@ export default ({
       return handleError({ code: 404 })
     }
 
-    const applyData = (component, asyncData) => {
-      const data = component.options.data ? component.options.data() : {}
-      component.options.data = () => ({...data, ...asyncData})
-      component._Ctor.options.data = component.options.data
-    }
-
     Promise.all(Components.map(Component => {
       return new Promise((resolve, reject) => {
         const touchComponent = Component => {
