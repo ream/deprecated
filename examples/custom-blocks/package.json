@@ -8,7 +8,7 @@
   },
   "scripts": {
     "dev": "ream dev",
-    "start": "npm run build && ream start",
+    "start": "ream start",
     "build": "ream build",
     "generate": "ream generate",
     "deploy": "npm run generate && surge -p dist -d ream-custom-block.surge.sh"
