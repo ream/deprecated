@@ -2,7 +2,7 @@
   "name": "fs-router",
   "version": "1.0.0",
   "scripts": {
-    "start": "ream start",
+    "start": "npm run build && ream start",
     "build": "ream build",
     "dev": "ream dev"
   },
