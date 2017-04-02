@@ -312,8 +312,6 @@ Note: we recommend putting `.ream` folder in your `.gitignore` file, since the g
 
 The runtime bundle (Vue + vue-router) is around 30KB gzipped.
 
-You can replace `127.0.0.1` with the hostname you're actually running at, by default the server we're running in `ream dev` and `ream start` command runs at `0.0.0.0` which means all IPv4 addresses on the local machine.
-
 ## Contributing
 
 1. Fork it!
