@@ -15,6 +15,7 @@ Server-side rendered Vue.js app should be made easy, since vue-router is well op
 
 You can [try ream with the online playground!](https://glitch.com/~ream)
 
+
 ## Install
 
 ```bash
@@ -47,6 +48,31 @@ export default { router }
 Run `npm run dev` to start development server.
 
 To run in production server, run `npm run build && npm start`
+
+### Router instance
+
+Building SSR app with Ream is as simple as exporting a vue-router instance in your entry file, and the router must use `history` mode:
+
+```js
+import Vue from 'vue'
+import Router from 'vue-router'
+
+Vue.use(Router)
+
+const router = new Router({
+  mode: 'history',
+  routes: [{
+    path: '/',
+    component: () => import('./views/Home.vue')
+  }]
+})
+
+export default { router }
+```
+
+<p class="tip">
+Note that it's recommended to use [dynamic import](https://webpack.js.org/guides/code-splitting-import/#dynamic-import) to load modules dynamically on runtime.
+</p>
 
 ### Root component
 
