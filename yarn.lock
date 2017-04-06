@@ -2,6 +2,14 @@
 # yarn lockfile v1
 
 
+"@ream/babel-loader@^7.0.0":
+  version "7.0.0"
+  resolved "https://registry.npmjs.org/@ream/babel-loader/-/babel-loader-7.0.0.tgz#bd6dfb0ede05b3245912d844644088810ce6f9b7"
+  dependencies:
+    find-cache-dir "^0.1.1"
+    loader-utils "^1.0.2"
+    mkdirp "^0.5.1"
+
 "@types/fs-extra@0.0.37":
   version "0.0.37"
   resolved "https://registry.npmjs.org/@types/fs-extra/-/fs-extra-0.0.37.tgz#195f11bcd9a1b97d9e412c6b66899b545471a1f7"
@@ -433,14 +441,6 @@ babel-jest@^19.0.0:
 babel-load-config@^0.1.0:
   version "0.1.0"
   resolved "https://registry.npmjs.org/babel-load-config/-/babel-load-config-0.1.0.tgz#27280b4a90830c47a1fbbc7baaac4c002cd8c8bd"
-
-babel-loader@7.0.0-beta.1:
-  version "7.0.0-beta.1"
-  resolved "https://registry.yarnpkg.com/babel-loader/-/babel-loader-7.0.0-beta.1.tgz#1318888dfcbbd5f05750ba2d72c744cc07815ce2"
-  dependencies:
-    find-cache-dir "^0.1.1"
-    loader-utils "^1.0.2"
-    mkdirp "^0.5.1"
 
 babel-messages@^6.23.0:
   version "6.23.0"
