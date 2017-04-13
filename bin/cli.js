@@ -86,7 +86,7 @@ co(function * () {
       fs.writeFileSync('./client-stats.json', JSON.stringify(app.stats.client.toJson()), 'utf8')
       console.log(`> Generated at ./client-stats.json`)
     }
-    console.log(`> Done, check out .ream/dist folder`)
+    console.log(`> Done, check out ${tildify(_.cwd(app.options.cwd, app.options.outputFolder, 'dist'))} folder`)
   } else if (command === 'generate') {
     console.log('> Generating...')
     const opts = yield Promise.resolve()
