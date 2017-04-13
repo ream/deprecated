@@ -2,7 +2,12 @@ const http = require('http')
 const ream = require('../../')
 
 const app = ream({
-  dev: process.env.NODE_ENV !== 'production'
+  dev: process.env.NODE_ENV !== 'production',
+  extendWebpack(config) {
+    console.log(config.plugins.has('uglify'))
+    config.plugins.delete('uglify')
+    console.log(config.plugins.has('uglify'))
+  }
 })
 
 console.log('> Starting...')
