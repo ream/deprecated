@@ -28,7 +28,7 @@ const app = createApp(entry)
 // and async components...
 router.onReady(() => {
   // actually mount to DOM
-  app.$mount('#app')
+  app.$mount(entry.root || '#app')
   if (module.hot) {
     Vue.nextTick(() => {
       hotReloadAPI(app)
