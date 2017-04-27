@@ -1,4 +1,4 @@
-import 'es6-promise/auto'
+import './polyfills'
 import Vue from 'vue'
 import createApp from './create-app'
 

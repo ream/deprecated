@@ -83,6 +83,7 @@
     "internal-ip": "^1.2.0",
     "lru-cache": "^4.0.2",
     "memory-fs": "^0.4.1",
+    "object-assign": "^4.1.1",
     "path-match": "^1.2.4",
     "path-to-regexp": "^1.7.0",
     "postcss-load-config": "^1.2.0",
