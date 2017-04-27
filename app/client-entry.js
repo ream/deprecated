@@ -1,113 +1,47 @@
 import 'es6-promise/auto'
 import Vue from 'vue'
 import createApp from './create-app'
-import defaultHandler from './default-handler'
-import {
-  getMatchedComponents,
-  applyAsyncData
- } from './utils'
-import entry from '@alias/entry'
 
-const { store, router, handlers = [] } = entry
+const { app, router, store, root } = createApp()
 
-const handlerContext = {
-  store,
-  router,
-  isDev: process.env.NODE_ENV === 'development',
-  isClient: true,
-  handleError: (...args) => console.error(...args)
-}
+const ream = window.__REAM__
 
-for (const handler of [defaultHandler, ...handlers]) {
-  handler(handlerContext)
-}
-
-const app = createApp(entry)
-
-// wait until router has resolved all async before hooks
-// and async components...
 router.onReady(() => {
-  // actually mount to DOM
-  app.$mount(entry.root || '#app')
-  if (module.hot) {
-    Vue.nextTick(() => {
-      hotReloadAPI(app)
-      router.afterEach(() => {
-        Vue.nextTick(() => {
-          hotReloadAPI(app)
-        })
-      })
-    })
+  if (ream.state) {
+    store.replaceState(ream.state)
   }
+ // Add router hook for handling preFetch.
+ // Doing it after initial route is resolved so that we don't double-fetch
+ // the data that we already have. Using router.beforeResolve() so that all
+ // async components are resolved.
+ router.beforeResolve((to, from, next) => {
+   const matched = router.getMatchedComponents(to)
+   const prevMatched = router.getMatchedComponents(from)
+
+   // we only care about none-previously-rendered components,
+   // so we compare them until the two matched lists differ
+   let diffed = false
+   const activated = matched.filter((c, i) => {
+     return diffed || (diffed = (prevMatched[i] !== c))
+   })
+
+   if (!activated.length) {
+     return next()
+   }
+
+   // this is where we should trigger a loading indicator if there is one
+
+   Promise.all(activated.map((Component, index) => {
+     if (Component.preFetch) {
+       return Component.preFetch({ store, route: to })
+     }
+   })).then(() => {
+
+     // stop loading indicator
+
+     next()
+   }).catch(next)
+ })
+
+ app.$mount(root)
 })
-
-// Heavily extracted from Nuxt.js
-function hotReloadAPI (_app) {
-  let cps = []
-  let $ream = _app.$ream
-  const getCp = (children) => {
-    if (!children || !children.length) return
-    children.forEach(function (child, i) {
-      if (child.$vnode.data.routerView) {
-        cps.push(child)
-        getCp(child.$children)
-      }
-    })
-  }
-
-  getCp($ream.$children)
-  cps.forEach(addHotReload.bind(_app))
-}
-
-function addHotReload ($component, depth) {
-  if ($component.$vnode.data._hasHotReload) return
-
-  $component.$vnode.data._hasHotReload = true
-
-  const _forceUpdate = $component.$forceUpdate.bind($component.$parent)
-
-  $component.$vnode.context.$forceUpdate = () => {
-    let Components = getMatchedComponents(router.currentRoute.matched)
-    let Component = Components[depth]
-    const ps = []
-
-    if (Component && !Component.options) {
-      Component = Vue.extend(Component)
-      Component._Ctor = Component
-    }
-
-    if (Component.options.asyncData) {
-      const asyncData = Component.options.asyncData({
-        store,
-        route: router.currentRoute,
-        isClient: true
-      })
-
-      if (asyncData.then) {
-        ps.push(asyncData.then(data => {
-          applyAsyncData(Component, data)
-        }))
-      } else {
-        applyAsyncData(Component, asyncData)
-      }
-    }
-
-    if (Component.options.preFetch) {
-      const preFetch = Component.options.preFetch({
-        store,
-        route: router.currentRoute,
-        isClient: true
-      })
-
-      if (preFetch.then) {
-        ps.push(preFetch)
-      }
-    }
-
-    Promise.all(ps).then(() => {
-      _forceUpdate()
-      Vue.nextTick(() => hotReloadAPI(this))
-    }).catch(console.error)
-  }
-}
-

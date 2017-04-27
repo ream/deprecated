@@ -39,36 +39,26 @@ Add npm scripts:
 Then populate an `src/index.js` in current working directory and it should export at least `router` instance:
 
 ```js
-// your vue router instance
-import router from './router'
-
-export default { router }
-```
-
-Run `npm run dev` to start development server.
-
-To run in production server, run `npm run build && npm start`
-
-### Router instance
-
-Building SSR app with Ream is as simple as exporting a vue-router instance in your entry file, and the router must use `history` mode:
-
-```js
 import Vue from 'vue'
 import Router from 'vue-router'
 
 Vue.use(Router)
 
-const router = new Router({
-  mode: 'history',
+// The createRouter function should return a route instance
+const createRouter = () => new Router({
+  mode: 'history', // required
   routes: [{
     path: '/',
-    component: () => import('./views/Home.vue')
+    component: () => import('./Home.vue')
   }]
 })
 
-export default { router }
+export default { createRouter }
 ```
+
+Run `npm run dev` to start development server.
+
+To run in production server, run `npm run build && npm start`
 
 <p class="tip">
 Note that it's recommended to use [dynamic import](https://webpack.js.org/guides/code-splitting-import/#dynamic-import) to load modules dynamically on runtime.
@@ -76,7 +66,7 @@ Note that it's recommended to use [dynamic import](https://webpack.js.org/guides
 
 ### Root component
 
-By default we have a [built-in root component](https://github.com/ream/ream/blob/master/app/App.vue), you can export a custom one as well:
+By default the root component is `router-view`, but you can provide your own one:
 
 ```js
 // src/index.js
@@ -85,22 +75,22 @@ import App from './components/App.vue'
 export default { App }
 ```
 
-The `App` component will be used in creating Vue instance:
+This is how `App` gets used:
 
 ```js
 new Vue({
-  render: h => h(App)
+  render: h => h(App || 'router-view')
 })
 ```
 
 ### Vuex
 
-You don't have to use Vuex but you can, export Vuex instance `store` in `src/index.js` to enable it:
+You don't have to use Vuex but you can, export a function which returns the Vuex instance `store` in `src/index.js` to enable it:
 
 ```js
-import store from './store'
+import createStore from './store'
 
-export default { store }
+export default { createStore }
 ```
 
 #### preFetch
@@ -109,7 +99,7 @@ Every router-view component can have a `preFetch` property to pre-fetch data to 
 
 ```js
 export default {
-  preFetch({ store }) {
+  preFetch({ store, route }) {
     return store.dispatch('asyncFetchData')
   }
 }
@@ -123,41 +113,6 @@ Arguments:
 
 - `route`: Current route in vue-router
 - `store`: Vuex store instance if any
-- `isServer`: Is server-side
-- `isClient`: Is client-side
-
-### asyncData
-
-If you want to pre-fetch data but don't want to keep it at a global store like `Vuex`, you can use `asyncData`, it's similar to Next.js's `getInitialProps` but works in the Vue way. You can treat it as an async version of `data` property but it does not have access to component instance:
-
-```vue
-<template>
-  <div class="page">
-    {{ user.username }}
-  </div>
-</template>
-
-<script>
-  export default {
-    asyncData({ route }) {
-      return axios.get(`https://my-api.com/user/${route.params.username}`).then(res => {
-        return {
-          user: res.data
-        }
-      })
-    }
-  }
-</script>
-```
-
-Same as `preFetch`, this will be executed after first paint on client-side as well.
-
-Arguments:
-
-- `route`: Current route in vue-router
-- `store`: Vuex store instance if any
-- `isServer`: Is server-side
-- `isClient`: Is client-side
 
 ### Progress bar
 
@@ -166,7 +121,7 @@ When you're using `preFetch` or `asyncData` method, you will always need a progr
 This might the easiest part, since you can achieve it like a pro by using nprogress in router's hooks.
 
 ```js
-if (process.env.BROWSER) {
+if (__BROWSER__) {
   const nprogress = require('nprogress')
   require('nprogress/nprogress.css')
 
@@ -195,56 +150,6 @@ export default {
 ```
 
 Check out [vue-meta](https://github.com/declandewet/vue-meta) for details, its usage is the same here except that we're using `head` instead of `metaInfo` as key name.
-
-### Handlers
-
-You can implement your own `preFetch` method by using `handlers`, let's call it `preLoadHandler`:
-
-```js
-// src/index.js
-function preLoadHandler({ 
-  router, 
-  store, 
-  isServer,
-  deliverData
-}) {
-  isServer && router.beforeEach((to, from, next) => {
-    Promise.all(getMatchedComponents(to.matched).map(component => {
-      if (component.preLoad) {
-        return component.preLoad({ store })
-      }
-    })).then(() => {
-      deliverData({ state: store.state })
-      next()
-    })
-  })
-
-  if (!isServer) {
-    store.replaceState(window.__REAM__.data.state)
-  }
-}
-
-function getMatchedComponents(route) {
-  let res = []
-  for (const record of route) {
-    res.push(record.component)
-    if (record.children) {
-      res = [...res, ...getMatchedComponents(record.children)]
-    }
-  }
-  return res
-}
-
-export default { router, store, handlers: [preLoadHandler] }
-```
-
-Arguments of `handler` function:
-
-- router: vue-router instance
-- store: vuex instance (only exists if you exported it in entry file)
-- isServer: 
-- isClient
-- deliverData: pass data down from server to client, eg: `deliverData({foo: 123})` then it will be available as `window.__REAM__.data.foo`
 
 ### webpack
 

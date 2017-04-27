@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "axios": "^0.15.3",
-    "nprogress": "^0.2.0"
-  }
-}

@@ -8,7 +8,7 @@ import About from './About.vue'
 Vue.use(Router)
 Vue.use(Vuex)
 
-const router = new Router({
+const createRouter = () => new Router({
   mode: 'history',
   routes: [{
     path: '/',
@@ -23,7 +23,7 @@ const router = new Router({
   }]
 })
 
-const store = new Vuex.Store({
+const createStore = () => new Vuex.Store({
   state: {
     bio: '',
     description: ''
@@ -48,4 +48,4 @@ const store = new Vuex.Store({
   }
 })
 
-export default { router, store }
+export default { createRouter, createStore }

@@ -5,7 +5,7 @@ Vue.use(Router)
 
 const Home = () => import('./Home.vue')
 
-const router = new Router({
+const createRouter = () => new Router({
   mode: 'history',
   routes: [{
     path: '/',
@@ -13,4 +13,4 @@ const router = new Router({
   }]
 })
 
-export default { router }
+export default { createRouter }
