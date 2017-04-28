@@ -116,7 +116,7 @@ Arguments:
 
 ### Progress bar
 
-When you're using `preFetch` or `asyncData` method, you will always need a progress bar to show the loading progress as well.
+When you're using `preFetch`, you will always need a progress bar to show the loading progress as well.
 
 This might the easiest part, since you can achieve it like a pro by using nprogress in router's hooks.
 
