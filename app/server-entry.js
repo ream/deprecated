@@ -22,8 +22,12 @@ export default ssrContext => {
         }
         return Promise.all(ps)
       })).then(() => {
-        ssrContext.state = store.state
-        ssrContext.meta = app.$meta && app.$meta()
+        if (store) {
+          ssrContext.state = store.state
+        }
+        if (app.$meta) {
+          ssrContext.meta = app.$meta()
+        }
         resolve(app)
       }).catch(reject)
     })
