@@ -1,7 +1,8 @@
 module.exports = {
   generate: {
     routes: {
-      '/': true
+      '/': true,
+      '/foo.html': true
     }
   },
   extendWebpack(config) {
