@@ -237,7 +237,7 @@ Note: we recommend putting `.ream` folder in your `.gitignore` file, since the g
 
 ### Here's a missing feature!
 
-**"Can you update webpack config *this way* so I can use that feature?"** If you have the same question, before we actually think this feature is necessary and add it, you can [extend webpack config](#extendwebpack) yourself to implement it. With [webpack-chain](https://github.com/mozilla-rpweb/webpack-chain) you have full control of our webpack config, check out the default [config instance](https://github.com/ream/ream/blob/master/lib/create-config.js).
+**"Can you update webpack config *this way* so I can use that feature?"** If you have the same question, before we actually think this feature is necessary and add it, you can [extend webpack config](/api#extendwebpack) yourself to implement it. With [webpack-chain](https://github.com/mozilla-rpweb/webpack-chain) you have full control of our webpack config, check out the default [config instance](https://github.com/ream/ream/blob/master/lib/create-config.js).
 
 ### How big is it?
 
