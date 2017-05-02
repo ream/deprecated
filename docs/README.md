@@ -95,7 +95,7 @@ export default { createStore }
 
 #### preFetch
 
-Every router-view component can have a `preFetch` property to pre-fetch data to fill Vuex store on the server side.
+Pre-fetch data before route components are resolved, usually you would use it to dispatch a Vuex action.
 
 ```js
 export default {
@@ -105,9 +105,7 @@ export default {
 }
 ```
 
-If the action you want to perform in `preFetch` method is async, it should return a Promise.
-
-`preFetch` will be executed after first paint on client-side as well.
+Notes: This function should return a Promise if it's async, and Vuex action always return a Promise.
 
 Arguments:
 
