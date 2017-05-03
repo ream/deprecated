@@ -185,7 +185,7 @@ Hot Reloading enabled
 
 3rd-party libraries are automatically extracted into a single `vendor` chunk.
 
-All output files are minifies and optimized.
+All output files are minified and optimized.
 
 ### Generate static website
 
