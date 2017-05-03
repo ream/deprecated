@@ -133,7 +133,7 @@ if (__BROWSER__) {
 }
 ```
 
-Since you would never want to display progress bar on server-side (and you can't), you need to call it only when `process.env.BROWSER` is `true`.
+Since you would never want to display progress bar on server-side (and you can't), you need to call it only when `__BROWSER__` is `true`.
 
 ### Modify `<head>`
 
@@ -170,6 +170,27 @@ yarn add sass-loader node-sass --dev
 ```
 
 We automatically load PostCSS config by default.
+
+#### Defined constants
+
+Some useful constants we defined using `webpack.DefinePlugin`:
+
+```js
+// `true` when running in Ream
+__IS_REAM__
+// `true` on client-side
+__BROWSER__
+// `true` on server-side
+__SERVER__
+// `true` in development mode
+__DEV__
+
+// `development` or `production`
+process.env.NODE_ENV
+
+// `server` or `client`
+process.env.VUE_ENV
+```
 
 #### Public folder
 
