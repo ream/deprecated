@@ -189,7 +189,7 @@ All output files are minified and optimized.
 
 ### Generate static website
 
-When you visit a web page, the only context we need it a `URL` at some point, so you can just provide an array of routes and we will generated corresponding static pages for you:
+When you visit a web page, the only context we need is a `URL` at some point, so you can just provide an array of routes and we will generate the corresponding static pages for you:
 
 ```js
 // ream.config.js
