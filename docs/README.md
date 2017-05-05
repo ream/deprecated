@@ -176,14 +176,10 @@ We automatically load PostCSS config by default.
 Some useful constants we defined using `webpack.DefinePlugin`:
 
 ```js
-// `true` when running in Ream
-__IS_REAM__
-// `true` on client-side
-__BROWSER__
-// `true` on server-side
-__SERVER__
-// `true` in development mode
-__DEV__
+// Running in browser
+process.browser
+// Running on server-side
+process.server
 
 // `development` or `production`
 process.env.NODE_ENV
