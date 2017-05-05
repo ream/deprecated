@@ -10,6 +10,8 @@
 
 Server-side rendered Vue.js app should be made easy, since vue-router is well optimized for SSR, we built ream on the top of it to make you build universal Vue.js app fast with fewer trade-offs, the only requirement is to export router instance in your entry file, which means you have full control of vue-router as well!
 
+[How does this compare to Next.js/Nuxt.js?](https://github.com/ream/ream/issues/23#issuecomment-299425295)
+
 ## Features
 
 - Server-side rendering with code-split support
