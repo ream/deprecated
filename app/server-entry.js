@@ -6,7 +6,7 @@ export default ssrContext => {
   const s = dev && Date.now()
 
   return new Promise((resolve, reject) => {
-    const { app, router, store } = createApp(ssrContext)
+    const { app, router, store } = createApp()
 
     router.push(ssrContext.url)
 
@@ -16,7 +16,7 @@ export default ssrContext => {
       Promise.all(matchedComponents.map((Component, index) => {
         // delete Component._Ctor
         const ps = []
-        const ctx = { route, store }
+        const ctx = { route, store, req: ssrContext.req }
         if (Component.preFetch) {
           ps.push(Component.preFetch(ctx))
         }

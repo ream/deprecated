@@ -25,7 +25,7 @@ Vue.mixin({
   }
 })
 
-export default ssrContext => {
+export default () => {
   const root = entry.root || '#app'
   const router = entry.createRouter()
   let store
