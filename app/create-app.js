@@ -34,7 +34,6 @@ export default ssrContext => {
   }
 
   const app = new Vue({
-    ssrContext,
     store,
     router,
     render: h => {
