@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 const importLocalFile = require('import-local-file')
 
-const localFile = importLocalFile()
+const localFile = importLocalFile(__filename)
 
 if (localFile) {
   console.log('> Using local installed version of Ream')
