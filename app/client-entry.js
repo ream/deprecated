@@ -29,19 +29,14 @@ router.onReady(() => {
      return next()
    }
 
-   // this is where we should trigger a loading indicator if there is one
-
    Promise.all(activated.map((Component, index) => {
      if (Component.preFetch) {
        return Component.preFetch({ store, route: to })
      }
    })).then(() => {
-
-     // stop loading indicator
-
      next()
    }).catch(next)
  })
 
- app.$mount(root)
+ app.$mount(document.getElementById(root))
 })

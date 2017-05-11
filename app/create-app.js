@@ -26,7 +26,7 @@ Vue.mixin({
 })
 
 export default () => {
-  const root = entry.root || '#app'
+  const root = entry.root || 'app'
   const router = entry.createRouter()
   let store
   if (entry.createStore) {
@@ -39,7 +39,7 @@ export default () => {
     render: h => {
       return h('div', {
         attrs: {
-          id: root.substring(1)
+          id: root
         }
       }, [h(entry.App || 'router-view')])
     }
