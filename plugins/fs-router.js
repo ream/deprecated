@@ -1,5 +1,5 @@
 const path = require('path')
-const fs = require('fs-promise')
+const fs = require('fs-extra')
 const chokidar = require('chokidar')
 const glob = require('glob')
 const _ = require('../lib/utils')
