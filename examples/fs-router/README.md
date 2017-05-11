@@ -19,17 +19,17 @@ Then you will have a `@alias/fs-router` alias in your webpack config, which poin
 And each router view is split as independent chunk!
 
 ```js
-import createRouter from '@alias/fs-router'
+import createFsRouter from '@alias/fs-router'
 
-const router = createRouter()
+const createRouter = () => createFsRouter(options)
 
-export default { router }
+export default { createRouter }
 ```
 
-Here `createRouter` accepts an option:
+Here `createFsRouter` accepts an option:
 
 ```js
-createRouter({
+createFsRouter({
   // extra options for creating Router instance
   // when we run: new Router()
   routerOptions,
