@@ -1,5 +1,10 @@
 {
+  "scripts": {
+    "dev": "ream dev",
+    "build": "ream build"
+  },
   "dependencies": {
-    "axios": "^0.15.3"
+    "axios": "^0.15.3",
+    "ream": "^1.0.0-rc.1"
   }
 }
