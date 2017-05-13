@@ -111,6 +111,7 @@ Arguments:
 
 - `route`: Current route in vue-router
 - `store`: Vuex store instance if any
+- `req`: [http.IncomingMessage](https://nodejs.org/api/http.html#http_class_http_incomingmessage)
 
 ### Progress bar
 
