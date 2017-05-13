@@ -120,7 +120,7 @@ When you're using `preFetch`, you will always need a progress bar to show the lo
 This might the easiest part, since you can achieve it like a pro by using nprogress in router's hooks.
 
 ```js
-if (__BROWSER__) {
+if (process.browser) {
   const nprogress = require('nprogress')
   require('nprogress/nprogress.css')
 
@@ -134,7 +134,7 @@ if (__BROWSER__) {
 }
 ```
 
-Since you would never want to display progress bar on server-side (and you can't), you need to call it only when `__BROWSER__` is `true`.
+Since you would never want to display progress bar on server-side (and you can't), you need to call it only when `process.browser` is `true`.
 
 ### Modify `<head>`
 
