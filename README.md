@@ -17,12 +17,12 @@ Server-side rendered Vue.js app should be made easy, since vue-router is well op
 - Server-side rendering with code-split support
 - Extensible webpack config
 - Plugin system
-- Next.js/Nuxt.js-like behavior via [plugin](https://ream.github.io/ream/#/plugin/fs-router)
-- [Generate static website](https://ream.github.io/ream/#/?id=generate-static-website)
+- Next.js/Nuxt.js-like behavior via [plugin](https://ream.js.org/#/plugin/fs-router)
+- [Generate static website](https://ream.js.org/#/?id=generate-static-website)
 - [Writing blogs using Markdown/Vue Component](https://github.com/ream/blog-plugin)
 - Exposed a fluent API
 
-[Check out online docs](https://ream.github.io/ream) *or* [Try writing server-rendered Vue.js app online!](https://glitch.com/edit/#!/project/ream)
+[Check out online docs](https://ream.js.org) *or* [Try writing server-rendered Vue.js app online!](https://glitch.com/edit/#!/project/ream)
 
 ## Install
 
@@ -64,7 +64,7 @@ Run `npm run dev` to start development server.
 
 To run in production server, run `npm run build && npm start`
 
-**Dive into the [documentation](https://ream.github.io/ream) to get more.**
+**Dive into the [documentation](https://ream.js.org) to get more.**
 
 ## Prior Art
 
