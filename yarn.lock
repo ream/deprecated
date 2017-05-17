@@ -1567,7 +1567,7 @@ deep-strict-equal@^0.2.0:
   dependencies:
     core-assert "^0.2.0"
 
-deepmerge@^1.2.0, deepmerge@^1.3.2:
+deepmerge@^1.3.2:
   version "1.3.2"
   resolved "https://registry.npmjs.org/deepmerge/-/deepmerge-1.3.2.tgz#1663691629d4dbfe364fa12a2a4f0aa86aa3a050"
 
@@ -5570,13 +5570,13 @@ vue-loader@^12.0.3:
     vue-style-loader "^3.0.0"
     vue-template-es2015-compiler "^1.2.2"
 
-vue-meta@^0.5.6:
-  version "0.5.6"
-  resolved "https://registry.npmjs.org/vue-meta/-/vue-meta-0.5.6.tgz#e4b56838167f0aa40a202f45e1eec6fb91861689"
+vue-meta@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.npmjs.org/vue-meta/-/vue-meta-1.0.4.tgz#17608970aa02f6346829845eb8a05b2d5bf485c3"
   dependencies:
-    deepmerge "^1.2.0"
+    deepmerge "^1.3.2"
     lodash.isplainobject "^4.0.6"
-    object-assign "^4.1.0"
+    object-assign "^4.1.1"
 
 vue-router@^2.5.3:
   version "2.5.3"
