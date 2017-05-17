@@ -32,7 +32,7 @@ yarn add ream
 
 ## Usage
 
-You may use [create-ream-app](https://github.com/ream/create-ream-app) kick start a new project, or add npm scripts manually:
+You may use [create-ream-app](https://github.com/ream/create-ream-app) to kick start a new project, or add npm scripts manually:
 
 ```js
 {
