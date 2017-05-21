@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Meta from 'vue-meta'
 import entry from '@alias/entry'
+import { sync } from 'vuex-router-sync'
 
 const meta = entry.meta || {
   keyName: 'head',
@@ -28,9 +29,10 @@ Vue.mixin({
 export default () => {
   const root = entry.root || 'app'
   const router = entry.createRouter()
-  let store
-  if (entry.createStore) {
-    store = entry.createStore()
+  const store = entry.createStore && entry.createStore()
+
+  if (store && router) {
+    sync(store, router)
   }
 
   const app = new Vue({
