@@ -14,13 +14,10 @@ export default ssrContext => {
       const route = router.currentRoute
       const matchedComponents = router.getMatchedComponents()
       Promise.all(matchedComponents.map((Component, index) => {
-        // delete Component._Ctor
-        const ps = []
-        const ctx = { route, store, req: ssrContext.req }
         if (Component.preFetch) {
-          ps.push(Component.preFetch(ctx))
+          const ctx = { route, store, req: ssrContext.req }
+          return Component.preFetch(ctx)
         }
-        return Promise.all(ps)
       })).then(() => {
         if (store) {
           ssrContext.state = store.state
