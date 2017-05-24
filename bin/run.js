@@ -53,7 +53,7 @@ if (fs.existsSync(argv.config)) {
 const generateOptions = config.generate
 delete config.generate
 
-co(function*() {
+co(function * () {
   const defaultOptions = {}
 
   if (typeof config.babel === 'undefined') {
@@ -63,9 +63,11 @@ co(function*() {
     defaultOptions.postcss = yield loadConfig.postcss()
   }
 
-  const app = ream(
-    Object.assign(defaultOptions, config, { dev: command === 'dev' })
-  )
+  const app = ream(Object.assign(
+    defaultOptions,
+    config,
+    { dev: command === 'dev' }
+  ))
 
   // Call when server is ready
   app.on('ready', () => {
@@ -81,24 +83,19 @@ co(function*() {
     ream.displayStats(app.stats)
     if (argv.stats) {
       console.log('> Generating stats file...')
-      fs.writeFileSync(
-        './client-stats.json',
-        JSON.stringify(app.stats.client.toJson()),
-        'utf8'
-      )
+      fs.writeFileSync('./client-stats.json', JSON.stringify(app.stats.client.toJson()), 'utf8')
       console.log(`> Generated at ./client-stats.json`)
     }
-    console.log(
-      `> Done, check out ${tildify(_.cwd(app.options.cwd, app.options.outputFolder, 'dist'))} folder`
-    )
+    console.log(`> Done, check out ${tildify(_.cwd(app.options.cwd, app.options.outputFolder, 'dist'))} folder`)
   } else if (command === 'generate') {
     console.log('> Generating...')
-    const opts = yield Promise.resolve().then(() => {
-      if (typeof generateOptions === 'function') {
-        return generateOptions()
-      }
-      return generateOptions
-    })
+    const opts = yield Promise.resolve()
+      .then(() => {
+        if (typeof generateOptions === 'function') {
+          return generateOptions()
+        }
+        return generateOptions
+      })
     let dir = yield app.generate(opts)
     dir = tildify(dir)
     console.log(`> Static website is generated into ${dir} folder`)
