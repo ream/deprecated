@@ -36,8 +36,7 @@
     "xo": "^0.18.2"
   },
   "xo": {
-    "extends": "rem",
-    "esnext": true,
+    "extends": "rem/prettier",
     "envs": [
       "jest"
     ],
@@ -53,7 +52,8 @@
     "rules": {
       "guard-for-in": 0,
       "import/no-dynamic-require": 0,
-      "capitalized-comments": 0
+      "capitalized-comments": 0,
+      "require-yield": 0
     }
   },
   "dependencies": {

@@ -10,10 +10,8 @@ describe('build', () => {
       cwd: __dirname,
       entry: 'fixture/index.js'
     })
-    await app.build()
-      .then(() => {
-        expect(fs.readdirSync(join(__dirname, '.ream/dist')).length)
-          .toBe(9)
-      })
+    await app.build().then(() => {
+      expect(fs.readdirSync(join(__dirname, '.ream/dist')).length).toBe(9)
+    })
   })
 })
