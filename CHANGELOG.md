@@ -1,3 +1,11 @@
+## [Version 1.0.0-rc.4](https://github.com/egoist/ream/releases/tag/v1.0.0-rc.4) (2017-5-25)
+
+### Bug fixes
+
+- fix vue-meta default option, closed [#45](https://github.com/egoist/ream/issues/45): [`7f69ef1`](https://github.com/egoist/ream/commit/7f69ef1)
+
+[...full changes](https://github.com/egoist/ream/compare/v1.0.0-rc.3...v1.0.0-rc.4)
+
 ## [Version 1.0.0-rc.3](https://github.com/egoist/ream/releases/tag/v1.0.0-rc.3) (2017-5-21)
 
 ### Bug fixes
