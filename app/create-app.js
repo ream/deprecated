@@ -3,12 +3,12 @@ import Meta from 'vue-meta'
 import entry from '@alias/entry'
 import { sync } from 'vuex-router-sync'
 
-const meta = entry.meta || {
+const meta = Object.assign({
   keyName: 'head',
   attribute: 'data-ream-head',
   ssrAttribute: 'data-ream-head-ssr',
-  tagIDKeyName: 'ream-head-id'
-}
+  tagIDKeyName: 'vmid'
+}, entry.meta)
 
 Vue.use(Meta, meta)
 
