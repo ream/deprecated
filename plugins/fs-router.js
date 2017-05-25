@@ -29,7 +29,7 @@ function writeRouter(cwd, to) {
         return `{
           ...(typeof routeOptions === 'function' ? routeOptions('${path}') : routeOptions),
           path: '${path}',
-          component: () => import('@cwd/pages${file.slice(5)}')
+          component: resolve => require(['@cwd/pages${file.slice(5)}'], resolve)
         }`
       }).join(',')}]
       const router = new Router({
@@ -62,7 +62,7 @@ function writeRouter(cwd, to) {
 
 module.exports = () => {
   return ctx => {
-    const tmp = path.join(ctx.options.cwd, '.ream', `fs-router.js`)
+    const tmp = path.resolve(ctx.options.cwd, '.ream', `fs-router.js`)
     writeRouter(ctx.options.cwd, tmp)
 
     ctx.extendWebpack(config => {
