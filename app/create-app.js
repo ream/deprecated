@@ -26,9 +26,9 @@ Vue.mixin({
   }
 })
 
-export default () => {
+export default (req) => {
   const root = entry.root || 'app'
-  const router = entry.createRouter()
+  const router = entry.createRouter(req)
   const store = entry.createStore && entry.createStore()
 
   if (store && router) {
