@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Meta from 'vue-meta'
 import entry from '@alias/entry'
 import { sync } from 'vuex-router-sync'
+import { warn } from './utils'
 
 const meta = Object.assign({
   keyName: 'head',
@@ -28,6 +29,14 @@ Vue.mixin({
 
 export default context => {
   const root = entry.root || 'app'
+
+  if (process.env.NODE_ENV !== 'production') {
+    warn(
+      typeof entry.createRouter === 'function',
+      `Expected "createRouter" to be a function but got ${typeof entry.createRouter}`
+    )
+  }
+
   const router = entry.createRouter(context)
   const store = entry.createStore && entry.createStore(context)
 
