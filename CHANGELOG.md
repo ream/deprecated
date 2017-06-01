@@ -1,3 +1,17 @@
+## [Version 1.0.0-rc.5](https://github.com/egoist/ream/releases/tag/v1.0.0-rc.5) (2017-6-1)
+
+### New features
+
+- pass request object to createRouter: [`babd888`](https://github.com/egoist/ream/commit/babd888) ([#46](https://github.com/egoist/ream/issues/46))
+
+### Bug fixes
+
+- fix cwd: [`fe1c69d`](https://github.com/egoist/ream/commit/fe1c69d)
+- tweak fs-router: [`1d7cac5`](https://github.com/egoist/ream/commit/1d7cac5)
+- ensure createRouter is a function: [`b791baa`](https://github.com/egoist/ream/commit/b791baa)
+
+[...full changes](https://github.com/egoist/ream/compare/v1.0.0-rc.4...v1.0.0-rc.5)
+
 ## [Version 1.0.0-rc.4](https://github.com/egoist/ream/releases/tag/v1.0.0-rc.4) (2017-5-25)
 
 ### Bug fixes
