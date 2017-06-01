@@ -6,7 +6,7 @@ export default ssrContext => {
   const s = dev && Date.now()
 
   return new Promise((resolve, reject) => {
-    const { app, router, store } = createApp()
+    const { app, router, store } = createApp(ssrContext)
 
     router.push(ssrContext.url)
 
