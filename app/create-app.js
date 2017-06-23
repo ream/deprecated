@@ -13,20 +13,6 @@ const meta = Object.assign({
 
 Vue.use(Meta, meta)
 
-Vue.mixin({
-  beforeRouteUpdate (to, from, next) {
-    const { preFetch } = this.$options
-    if (preFetch) {
-      preFetch({
-        store: this.$store,
-        route: to
-      }).then(next).catch(next)
-    } else {
-      next()
-    }
-  }
-})
-
 export default context => {
   const root = entry.root || 'app'
 

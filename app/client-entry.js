@@ -6,10 +6,29 @@ const { app, router, store, root } = createApp()
 
 const ream = window.__REAM__
 
-router.onReady(() => {
-  if (ream.state) {
-    store.replaceState(ream.state)
+// prime the store with server-initialized state.
+// the state is determined during SSR and inlined in the page markup.
+if (ream.state) {
+  store.replaceState(ream.state)
+}
+
+// a global mixin that calls `preFetch` when a route component's params change
+Vue.mixin({
+  beforeRouteUpdate (to, from, next) {
+    const { preFetch } = this.$options
+    if (preFetch) {
+      preFetch({
+        store: this.$store,
+        route: to
+      }).then(next).catch(next)
+    } else {
+      next()
+    }
   }
+})
+
+router.onReady(() => {
+
  // Add router hook for handling preFetch.
  // Doing it after initial route is resolved so that we don't double-fetch
  // the data that we already have. Using router.beforeResolve() so that all
