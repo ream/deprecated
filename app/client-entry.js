@@ -1,6 +1,7 @@
 import './polyfills'
 import Vue from 'vue'
 import createApp from './create-app'
+import { applyPreFetchData } from './utils'
 
 const { app, router, store, root } = createApp()
 
@@ -15,12 +16,14 @@ if (ream.state) {
 // a global mixin that calls `preFetch` when a route component's params change
 Vue.mixin({
   beforeRouteUpdate (to, from, next) {
-    const { preFetch } = this.$options
+    const { preFetch, name } = this.$options
     if (preFetch) {
       preFetch({
         store: this.$store,
         route: to
-      }).then(next).catch(next)
+      }).then(data => applyPreFetchData(window.__REAM__, data, name))
+        .then(next)
+        .catch(next)
     } else {
       next()
     }
@@ -51,6 +54,10 @@ router.onReady(() => {
    Promise.all(activated.map((Component, index) => {
      if (Component.preFetch) {
        return Component.preFetch({ store, route: to })
+        .then(data => {
+          const ream = window.__REAM__
+          applyPreFetchData(ream, data, Component.name)
+        })
      }
    })).then(() => {
      next()

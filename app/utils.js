@@ -9,3 +9,13 @@ if (process.env.NODE_ENV !== 'production') {
     }
   }
 }
+
+export function applyPreFetchData(context, data, namespace = 'default') {
+  if (data == null) return
+
+  context.data.preFetch = context.data.preFetch || {}
+  context.data.preFetch[namespace] = {
+    ...(context.data.preFetch[namespace] || {}),
+    ...data
+  }
+}

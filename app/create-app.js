@@ -13,6 +13,12 @@ const meta = Object.assign({
 
 Vue.use(Meta, meta)
 
+Vue.prototype.$preFetch = function (key) {
+  const name = this.$options.name || 'default'
+  const preFetch = process.server ? this.$ssrContext.data.preFetch : window.__REAM__.data.preFetch
+  return preFetch && preFetch[name] && preFetch[name][key]
+}
+
 export default context => {
   const root = entry.root || 'app'
 
