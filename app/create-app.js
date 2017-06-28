@@ -37,6 +37,7 @@ export default context => {
   }
 
   const app = new Vue({
+    ...(entry.rootOptions || {}),
     store,
     router,
     render: h => {
