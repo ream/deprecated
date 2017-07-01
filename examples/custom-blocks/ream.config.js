@@ -1,10 +1,10 @@
 module.exports = {
   extendWebpack(config) {
-    config
-      .plugin('loaderOptions')
-      .tap(args => {
-        args[0].options.vue.loaders.blog = require.resolve('./blog-loader')
-        return args
+    config.module.rule('vue')
+      .use('vue')
+      .tap(options => {
+        options.loaders.blog = require.resolve('./blog-loader')
+        return options
       })
   },
   generate: {
