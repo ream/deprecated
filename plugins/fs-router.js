@@ -24,7 +24,10 @@ function writeRouter(cwd, to) {
         const path = file.slice(5)
           .replace(/\.(vue|js)$/, '')
           .replace(/_/g, ':')
+          // /index -> /
           .replace(/^\/index$/, '/')
+          // /user/index -> /user
+          .replace(/\/index$/, '')
 
         return `{
           ...(typeof routeOptions === 'function' ? routeOptions('${path}') : routeOptions),
