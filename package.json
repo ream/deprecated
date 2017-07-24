@@ -1,6 +1,6 @@
 {
   "name": "ream",
-  "version": "1.0.0-rc.6",
+  "version": "1.0.0-rc.7",
   "description": "unopinionated, universal Vue.js app made simple.",
   "repository": {
     "url": "ream/ream",
