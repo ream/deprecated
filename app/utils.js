@@ -5,25 +5,32 @@ export let warn = noop
 if (process.env.NODE_ENV !== 'production') {
   warn = (condition, msg) => {
     if (!condition) {
-      console.error('[ream]', msg)
+      console.error('[REAM]', msg)
     }
   }
 }
 
-export function applyAsyncData(context, data, route, componentOptions) {
-  if (data == null) return
+export function handleAsyncData({
+  asyncData,
+  scopeContext,
+  context,
+  name
+}) {
+  if (!asyncData || !name) return
 
-  if (!componentOptions.name) throw new Error('Expected route component to have a unique name!')
+  const res = asyncData(scopeContext)
 
-  const namespace = createNamespace(route, componentOptions)
+  if (!res.then) return res
 
-  context.data.asyncData = context.data.asyncData || {}
-  context.data.asyncData[namespace] = {
-    ...(context.data.asyncData[namespace] || {}),
-    ...data
-  }
-}
+  return res.then(data => {
+    if (typeof data !== 'object') return
 
-export function createNamespace(route, componentOptions) {
-  return `${route.path}::${componentOptions.name}`
+    const namespace = `${scopeContext.route.path}::${name}`
+
+    context.data.asyncData = context.data.asyncData || {}
+    context.data.asyncData[namespace] = {
+      ...(context.data.asyncData[namespace] || {}),
+      ...data
+    }
+  })
 }

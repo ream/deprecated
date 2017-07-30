@@ -13,17 +13,24 @@ const meta = Object.assign({
 
 Vue.use(Meta, meta)
 
+// Inject this.$asyncData
 Vue.mixin({
   beforeCreate() {
-    if (this.$options.name === 'ream-root') return
+    const { name, asyncData } = this.$options
+    if (name === 'ream-root' || !asyncData) return
 
-    const name = `${this.$route.path}::${this.$options.name || 'default'}`
-
-    const asyncData = process.server ? this.$ssrContext.data.asyncData : window.__REAM__.data.asyncData
-
-    if (asyncData && asyncData[name]) {
-      this.$asyncData = asyncData[name]
+    if (process.env.NODE_ENV !== 'production' && !name) {
+      Object.defineProperty(this, '$asyncData', {
+        get() {
+          console.error(`[REAM] Expect route component to have a unique name in order to use $asyncData!`)
+        }
+      })
+      return
     }
+
+    const namespace = `${this.$route.path}::${name}`
+    const asyncDataStore = process.server ? this.$ssrContext.data.asyncData : window.__REAM__.data.asyncData
+    this.$asyncData = asyncDataStore && asyncDataStore[namespace]
   }
 })
 
@@ -38,6 +45,7 @@ export default context => {
   }
 
   const router = entry.router ? entry.router : entry.createRouter(context)
+
   const store = entry.store ? entry.store : (entry.createStore && entry.createStore(context))
 
   if (store && router) {

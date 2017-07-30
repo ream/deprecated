@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import createApp from './create-app'
-import { applyAsyncData } from './utils'
+import { handleAsyncData } from './utils'
 
 export default context => {
   const dev = context.dev
@@ -15,10 +15,14 @@ export default context => {
       const route = router.currentRoute
       const matchedComponents = router.getMatchedComponents()
       Promise.all(matchedComponents.map((Component, index) => {
+        const { name, asyncData } = Component
         if (Component.asyncData) {
           const ctx = { route, store, req: context.req }
-          return Component.asyncData(ctx).then(data => {
-            applyAsyncData(context, data, route, Component)
+          return handleAsyncData({
+            name,
+            asyncData,
+            scopeContext: { route, store, req: context.req },
+            context
           })
         }
       })).then(() => {

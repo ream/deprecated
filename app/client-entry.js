@@ -1,7 +1,7 @@
 import './polyfills'
 import Vue from 'vue'
 import createApp from './create-app'
-import { applyAsyncData } from './utils'
+import { handleAsyncData } from './utils'
 
 const { app, router, store, root } = createApp()
 
@@ -16,14 +16,17 @@ if (ream.state) {
 // a global mixin that calls `asyncData` when a route component's params change
 Vue.mixin({
   beforeRouteUpdate (to, from, next) {
-    const { asyncData } = this.$options
+    const { asyncData, name } = this.$options
     if (asyncData) {
-      asyncData({
-        store: this.$store,
-        route: to
-      }).then(data => applyAsyncData(window.__REAM__, data, to, this.$options))
-        .then(next)
-        .catch(next)
+      const handled = handleAsyncData({
+        name,
+        asyncData,
+        scopeContext: { store: this.$store, route: to },
+        context: ream
+      })
+      if (handled && handled.then) {
+        handled.then(next, next)
+      }
     } else {
       next()
     }
@@ -52,16 +55,16 @@ router.onReady(() => {
    }
 
    Promise.all(activated.map((Component, index) => {
-     if (Component.asyncData) {
-       return Component.asyncData({ store, route: to })
-        .then(data => {
-          const ream = window.__REAM__
-          applyAsyncData(ream, data, to, Component)
-        })
+     const { asyncData, name } = Component
+     if (asyncData) {
+      return handleAsyncData({
+        scopeContext: { store, route: to },
+        context: ream,
+        name,
+        asyncData
+      })
      }
-   })).then(() => {
-     next()
-   }).catch(next)
+   })).then(() => next()).catch(next)
  })
 
  app.$mount(document.getElementById(root))
