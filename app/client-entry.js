@@ -1,7 +1,7 @@
 import './polyfills'
 import Vue from 'vue'
 import createApp from './create-app'
-import { applyPreFetchData } from './utils'
+import { applyFetchData } from './utils'
 
 const { app, router, store, root } = createApp()
 
@@ -13,15 +13,15 @@ if (ream.state) {
   store.replaceState(ream.state)
 }
 
-// a global mixin that calls `preFetch` when a route component's params change
+// a global mixin that calls `fetch` when a route component's params change
 Vue.mixin({
   beforeRouteUpdate (to, from, next) {
-    const { preFetch, name } = this.$options
-    if (preFetch) {
-      preFetch({
+    const { fetch } = this.$options
+    if (fetch) {
+      fetch({
         store: this.$store,
         route: to
-      }).then(data => applyPreFetchData(window.__REAM__, data, name))
+      }).then(data => applyFetchData(window.__REAM__, data, to, this.$options))
         .then(next)
         .catch(next)
     } else {
@@ -32,7 +32,7 @@ Vue.mixin({
 
 router.onReady(() => {
 
- // Add router hook for handling preFetch.
+ // Add router hook for handling fetch.
  // Doing it after initial route is resolved so that we don't double-fetch
  // the data that we already have. Using router.beforeResolve() so that all
  // async components are resolved.
@@ -52,11 +52,11 @@ router.onReady(() => {
    }
 
    Promise.all(activated.map((Component, index) => {
-     if (Component.preFetch) {
-       return Component.preFetch({ store, route: to })
+     if (Component.fetch) {
+       return Component.fetch({ store, route: to })
         .then(data => {
           const ream = window.__REAM__
-          applyPreFetchData(ream, data, Component.name)
+          applyFetchData(ream, data, to, Component)
         })
      }
    })).then(() => {

@@ -11,7 +11,7 @@
 
   export default {
     name: 'hi',
-    preFetch({ store }) {
+    fetch({ store }) {
       return store.dispatch('updateDescription')
     },
     computed: mapState(['description'])

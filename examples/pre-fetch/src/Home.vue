@@ -1,7 +1,7 @@
 <template>
   <div class="page">
     <h1>Home</h1>
-    <h2>{{ $preFetch('msg') }}</h2>
+    <h2>{{ $fetched.msg }}</h2>
     <ul>
       <li>
         <router-link to="/lol">Child View</router-link>
@@ -18,8 +18,13 @@
 <script>
 export default {
   name: 'home',
-  preFetch() {
+  fetch() {
     return Promise.resolve({ msg: 'hello from home' })
+  },
+  data() {
+    return {
+      msg: this.$fetched.msg
+    }
   }
 }
 </script>

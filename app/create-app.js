@@ -13,11 +13,19 @@ const meta = Object.assign({
 
 Vue.use(Meta, meta)
 
-Vue.prototype.$preFetch = function (key) {
-  const name = this.$options.name || 'default'
-  const preFetch = process.server ? this.$ssrContext.data.preFetch : window.__REAM__.data.preFetch
-  return preFetch && preFetch[name] && preFetch[name][key]
-}
+Vue.mixin({
+  beforeCreate() {
+    if (this.$options.name === 'ream-root') return
+
+    const name = `${this.$route.path}::${this.$options.name || 'default'}`
+
+    const fetchedStore = process.server ? this.$ssrContext.data.fetchedStore : window.__REAM__.data.fetchedStore
+
+    if (fetchedStore && fetchedStore[name]) {
+      this.$fetched = fetchedStore[name]
+    }
+  }
+})
 
 export default context => {
   const root = entry.root || 'app'
@@ -38,6 +46,7 @@ export default context => {
 
   const app = new Vue({
     ...(entry.rootOptions || {}),
+    name: 'ream-root',
     store,
     router,
     render: h => {

@@ -10,12 +10,20 @@ if (process.env.NODE_ENV !== 'production') {
   }
 }
 
-export function applyPreFetchData(context, data, namespace = 'default') {
+export function applyFetchData(context, data, route, componentOptions) {
   if (data == null) return
 
-  context.data.preFetch = context.data.preFetch || {}
-  context.data.preFetch[namespace] = {
-    ...(context.data.preFetch[namespace] || {}),
+  if (!componentOptions.name) throw new Error('Expected route component to have a unique name!')
+
+  const namespace = createNamespace(route, componentOptions)
+
+  context.data.fetchedStore = context.data.fetchedStore || {}
+  context.data.fetchedStore[namespace] = {
+    ...(context.data.fetchedStore[namespace] || {}),
     ...data
   }
+}
+
+export function createNamespace(route, componentOptions) {
+  return `${route.path}::${componentOptions.name}`
 }

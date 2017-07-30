@@ -6,7 +6,7 @@
 
 <script>
   export default {
-    preFetch({ store }) {
+    fetch({ store }) {
       return store.dispatch('rename', 'egoistian')
     },
     head() {

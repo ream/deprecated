@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import createApp from './create-app'
-import { applyPreFetchData } from './utils'
+import { applyFetchData } from './utils'
 
 export default context => {
   const dev = context.dev
@@ -15,10 +15,10 @@ export default context => {
       const route = router.currentRoute
       const matchedComponents = router.getMatchedComponents()
       Promise.all(matchedComponents.map((Component, index) => {
-        if (Component.preFetch) {
+        if (Component.fetch) {
           const ctx = { route, store, req: context.req }
-          return Component.preFetch(ctx).then(data => {
-            applyPreFetchData(context, data, Component.name)
+          return Component.fetch(ctx).then(data => {
+            applyFetchData(context, data, route, Component)
           })
         }
       })).then(() => {
