@@ -11,7 +11,7 @@
 
   export default {
     name: 'hi',
-    fetch({ store }) {
+    asyncData({ store }) {
       return store.dispatch('updateDescription')
     },
     computed: mapState(['description'])

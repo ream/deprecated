@@ -19,10 +19,10 @@ Vue.mixin({
 
     const name = `${this.$route.path}::${this.$options.name || 'default'}`
 
-    const fetchedStore = process.server ? this.$ssrContext.data.fetchedStore : window.__REAM__.data.fetchedStore
+    const asyncData = process.server ? this.$ssrContext.data.asyncData : window.__REAM__.data.asyncData
 
-    if (fetchedStore && fetchedStore[name]) {
-      this.$fetched = fetchedStore[name]
+    if (asyncData && asyncData[name]) {
+      this.$asyncData = asyncData[name]
     }
   }
 })

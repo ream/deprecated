@@ -1,7 +1,7 @@
 <template>
   <div class="page">
     <h1>Home</h1>
-    <h2>{{ $fetched.msg }}</h2>
+    <h2>{{ $asyncData.msg }}</h2>
     <ul>
       <li>
         <router-link to="/lol">Child View</router-link>
@@ -18,12 +18,12 @@
 <script>
 export default {
   name: 'home',
-  fetch() {
+  asyncData() {
     return Promise.resolve({ msg: 'hello from home' })
   },
   data() {
     return {
-      msg: this.$fetched.msg
+      msg: this.$asyncData.msg
     }
   }
 }

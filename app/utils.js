@@ -10,16 +10,16 @@ if (process.env.NODE_ENV !== 'production') {
   }
 }
 
-export function applyFetchData(context, data, route, componentOptions) {
+export function applyAsyncData(context, data, route, componentOptions) {
   if (data == null) return
 
   if (!componentOptions.name) throw new Error('Expected route component to have a unique name!')
 
   const namespace = createNamespace(route, componentOptions)
 
-  context.data.fetchedStore = context.data.fetchedStore || {}
-  context.data.fetchedStore[namespace] = {
-    ...(context.data.fetchedStore[namespace] || {}),
+  context.data.asyncData = context.data.asyncData || {}
+  context.data.asyncData[namespace] = {
+    ...(context.data.asyncData[namespace] || {}),
     ...data
   }
 }

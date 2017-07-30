@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import createApp from './create-app'
-import { applyFetchData } from './utils'
+import { applyAsyncData } from './utils'
 
 export default context => {
   const dev = context.dev
@@ -15,10 +15,10 @@ export default context => {
       const route = router.currentRoute
       const matchedComponents = router.getMatchedComponents()
       Promise.all(matchedComponents.map((Component, index) => {
-        if (Component.fetch) {
+        if (Component.asyncData) {
           const ctx = { route, store, req: context.req }
-          return Component.fetch(ctx).then(data => {
-            applyFetchData(context, data, route, Component)
+          return Component.asyncData(ctx).then(data => {
+            applyAsyncData(context, data, route, Component)
           })
         }
       })).then(() => {

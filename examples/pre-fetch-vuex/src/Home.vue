@@ -10,7 +10,7 @@
   import { mapState } from 'vuex'
 
   export default {
-    fetch({ store }) {
+    asyncData({ store }) {
       return store.dispatch('updateBio')
     },
     computed: mapState(['bio'])

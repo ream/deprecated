@@ -6,7 +6,7 @@
 
 <script>
   export default {
-    fetch({ store }) {
+    asyncData({ store }) {
       return store.dispatch('rename', 'egoistian')
     },
     head() {

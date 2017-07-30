@@ -1,7 +1,7 @@
 import './polyfills'
 import Vue from 'vue'
 import createApp from './create-app'
-import { applyFetchData } from './utils'
+import { applyAsyncData } from './utils'
 
 const { app, router, store, root } = createApp()
 
@@ -21,7 +21,7 @@ Vue.mixin({
       fetch({
         store: this.$store,
         route: to
-      }).then(data => applyFetchData(window.__REAM__, data, to, this.$options))
+      }).then(data => applyAsyncData(window.__REAM__, data, to, this.$options))
         .then(next)
         .catch(next)
     } else {
@@ -56,7 +56,7 @@ router.onReady(() => {
        return Component.fetch({ store, route: to })
         .then(data => {
           const ream = window.__REAM__
-          applyFetchData(ream, data, to, Component)
+          applyAsyncData(ream, data, to, Component)
         })
      }
    })).then(() => {
