@@ -30,7 +30,7 @@
     "npm": ">=3"
   },
   "devDependencies": {
-    "eslint-config-rem": "^3.1.0",
+    "eslint-config-rem": "^3.2.0",
     "husky": "^0.14.3",
     "jest-cli": "^20.0.4",
     "xo": "^0.18.2"
@@ -99,10 +99,10 @@
     "vue-template-compiler": "^2.4.2",
     "vuex": "^2.3.1",
     "vuex-router-sync": "^4.2.0",
-    "webpack": "^3.3.0",
+    "webpack": "^3.4.1",
     "webpack-chain": "^3.3.0",
     "webpack-dev-middleware": "^1.11.0",
-    "webpack-handle-css-loader": "^1.2.0",
+    "webpack-handle-css-loader": "^2.0.1",
     "webpack-hot-middleware": "^2.18.2",
     "webpack-node-externals": "^1.6.0",
     "yargs": "^8.0.2"
