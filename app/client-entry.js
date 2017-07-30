@@ -13,12 +13,12 @@ if (ream.state) {
   store.replaceState(ream.state)
 }
 
-// a global mixin that calls `fetch` when a route component's params change
+// a global mixin that calls `asyncData` when a route component's params change
 Vue.mixin({
   beforeRouteUpdate (to, from, next) {
-    const { fetch } = this.$options
-    if (fetch) {
-      fetch({
+    const { asyncData } = this.$options
+    if (asyncData) {
+      asyncData({
         store: this.$store,
         route: to
       }).then(data => applyAsyncData(window.__REAM__, data, to, this.$options))
@@ -32,7 +32,7 @@ Vue.mixin({
 
 router.onReady(() => {
 
- // Add router hook for handling fetch.
+ // Add router hook for handling asyncData.
  // Doing it after initial route is resolved so that we don't double-fetch
  // the data that we already have. Using router.beforeResolve() so that all
  // async components are resolved.
@@ -52,8 +52,8 @@ router.onReady(() => {
    }
 
    Promise.all(activated.map((Component, index) => {
-     if (Component.fetch) {
-       return Component.fetch({ store, route: to })
+     if (Component.asyncData) {
+       return Component.asyncData({ store, route: to })
         .then(data => {
           const ream = window.__REAM__
           applyAsyncData(ream, data, to, Component)
