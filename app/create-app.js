@@ -37,14 +37,7 @@ Vue.mixin({
 export default context => {
   const root = entry.root || 'app'
 
-  if (process.env.NODE_ENV !== 'production') {
-    warn(
-      typeof entry.createRouter === 'function',
-      `Expected "createRouter" to be a function but got ${typeof entry.createRouter}`
-    )
-  }
-
-  const router = entry.router ? entry.router : entry.createRouter(context)
+  const router = entry.router || entry.createRouter(context)
 
   const store = entry.store ? entry.store : (entry.createStore && entry.createStore(context))
 
