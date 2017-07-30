@@ -29,8 +29,8 @@ export default context => {
     )
   }
 
-  const router = entry.createRouter(context)
-  const store = entry.createStore && entry.createStore(context)
+  const router = entry.router ? entry.router : entry.createRouter(context)
+  const store = entry.store ? entry.store : (entry.createStore && entry.createStore(context))
 
   if (store && router) {
     sync(store, router)
