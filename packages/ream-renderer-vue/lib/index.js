@@ -111,7 +111,6 @@ module.exports = class RendererVue {
 
   handleRequests(req, res) {
     if (!this.serverRenderer) {
-      this.createServerRenderer()
       return res.end('wait for compiling...')
     }
 
