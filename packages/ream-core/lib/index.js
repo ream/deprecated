@@ -34,7 +34,7 @@ module.exports = class Ream {
     this.serverConfig = createConfig(this, 'server')
     this.clientConfig = createConfig(this, 'client')
 
-    this.renderer.init(this)
+    this.renderer.rendererInit(this)
   }
 
   ownDir(...args) {
@@ -57,7 +57,7 @@ module.exports = class Ream {
   }
 
   prepare() {
-    this.renderer.prepare()
+    this.renderer.rendererPrepareRequests()
     if (this.dev) {
       require('./setup-dev-server')(this)
     }
@@ -101,7 +101,7 @@ module.exports = class Ream {
       serveStatic(this.getCwd('public'), !this.dev)(req, res, finalhandler(req, res))
     }
 
-    routes['*'] = this.renderer.handleRequests.bind(this.renderer)
+    routes['*'] = this.renderer.rendererHandleRequests.bind(this.renderer)
 
     for (const method of ['GET', 'HEAD']) {
       for (const p of Object.keys(routes)) {

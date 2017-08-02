@@ -42,7 +42,7 @@ module.exports = class RendererVue {
     this.appPath = path.join(__dirname, '../app')
   }
 
-  init(ream) {
+  rendererInit(ream) {
     this.ream = ream
     handleWebpackConfig(this, 'server')
     handleWebpackConfig(this, 'client')
@@ -58,7 +58,7 @@ module.exports = class RendererVue {
     return this
   }
 
-  prepare() {
+  rendererPrepareRequests() {
     if (this.ream.dev) {
       const { serverConfig, clientConfig } = this.ream
 
@@ -109,7 +109,7 @@ module.exports = class RendererVue {
     }
   }
 
-  handleRequests(req, res) {
+  rendererHandleRequests(req, res) {
     if (!this.serverRenderer) {
       return res.end('wait for compiling...')
     }
