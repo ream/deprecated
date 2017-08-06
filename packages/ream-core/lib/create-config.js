@@ -22,6 +22,11 @@ module.exports = (ctx, type) => {
     .set('net', 'empty')
     .set('tls', 'empty')
 
+  if (type === 'client') {
+    config.entry('main')
+      .add(ctx.ownDir('app/client-polyfills.js'))
+  }
+
   config.entry('main')
     .add(path.join(ctx.renderer.appPath, `${type}.js`))
 
@@ -31,13 +36,22 @@ module.exports = (ctx, type) => {
   config.resolve.symlinks(true)
 
   config.resolve.modules
+    .add('node_modules')
     .add(path.resolve('node_modules'))
     .add(ctx.ownDir('node_modules'))
 
   config.resolveLoader.modules
+    .add('node_modules')
     .add(path.resolve('node_modules'))
     .add(ctx.ownDir('node_modules'))
 
+  // Transform core app
+  config.module.rule('ream-js')
+    .test(/\.js$/)
+    .include
+      .add(ctx.ownDir('app'))
+
+  // Transform user app
   config.module.rule('js')
     .test(/\.js$/)
     .exclude
@@ -46,7 +60,7 @@ module.exports = (ctx, type) => {
     .use('babel-loader')
       .loader('babel-loader')
       .options({
-        presets: [require.resolve('babel-preset-env')]
+        presets: [require.resolve('babel-preset-ream')]
       })
 
   config.plugin('constants')
@@ -66,6 +80,10 @@ module.exports = (ctx, type) => {
       version: false
     }
     console.log(stats.toString(statsOption))
+
+    if (ctx.dev && type === 'client') {
+      console.log(`> Open http://${ctx.host}:${ctx.port}`)
+    }
   }
 
   config.plugin('report-stats')
@@ -110,7 +128,7 @@ module.exports = (ctx, type) => {
 
     if (ctx.dev) {
       config.entry('main')
-        .prepend('webpack-hot-middleware/client?reload=true')
+        .prepend(ctx.ownDir('app/dev-client.js'))
 
       config.plugin('hmr')
         .use(webpack.HotModuleReplacementPlugin)

@@ -1,0 +1,58 @@
+#!/usr/bin/env node
+const cac = require('cac')
+const readConfig = require('../lib/read-config')
+
+const cli = cac()
+
+const startServer = (dev, flags) => {
+  console.log(`> Starting ${dev ? 'development' : 'production'} server...`)
+  const config = readConfig()
+  const options = Object.assign({
+    host: '0.0.0.0',
+    port: 5000
+  }, config, flags, {
+    dev
+  })
+  const Ream = require('ream-core')
+  const app = require('express')()
+
+  const ream = new Ream(options)
+  ream.prepare()
+  app.get('*', ream.getRequestHandler())
+  app.listen(options.port, options.host)
+  if (!dev) {
+    console.log(`> Open http://${options.host}:${options.port}`)
+  }
+}
+
+cli.command('dev', {
+  desc: 'Run app in dev mode'
+}, (input, flags) => {
+  startServer(true, flags)
+})
+
+cli.command('build', {
+  desc: 'Build app in production mode'
+}, (input, flags) => {
+  console.log('> Building...')
+  const config = readConfig()
+  const options = Object.assign({}, config, flags, {
+    dev: false
+  })
+  const Ream = require('ream-core')
+  const ream = new Ream(options)
+  ream.build().then(() => {
+    console.log(`Done! check out ${ream.output.path}`)
+  }, err => {
+    console.error(err)
+    process.exit(1)
+  })
+})
+
+cli.command('start', {
+  desc: 'Run app in production mode'
+}, (input, flags) => {
+  startServer(false, flags)
+})
+
+cli.parse()

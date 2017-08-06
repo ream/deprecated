@@ -3,6 +3,9 @@ const fs = require('fs-extra')
 const serverRenderer = require('vue-server-renderer')
 const PostCompilePlugin = require('post-compile-webpack-plugin')
 const handleWebpackConfig = require('./handle-config')
+const {
+  renderTemplate
+} = require('./utils')
 
 class SendFilesServer {
   constructor(cb, ream) {
@@ -50,10 +53,11 @@ module.exports = class RendererVue {
 
 
   createServerRenderer({ bundle, clientManifest, template }) {
+    this.template = template
     this.serverRenderer = serverRenderer.createBundleRenderer(bundle, {
       runInNewContext: false,
       clientManifest,
-      template
+      inject: false
     })
     return this
   }
@@ -114,19 +118,31 @@ module.exports = class RendererVue {
       return res.end('wait for compiling...')
     }
 
-    const context = { req }
+    const context = {
+      req,
+      url: req.url,
+      dev: this.ream.dev,
+      data: {}
+    }
 
-    const stream = this.serverRenderer.renderToStream(context)
+    const renderStream = this.serverRenderer.renderToStream(context)
 
-    stream.on('data', chunk => {
+    let splitContent
+
+    renderStream.once('data', () => {
+      splitContent = renderTemplate(this.template, context)
+      res.write(splitContent.start)
+    })
+
+    renderStream.on('data', chunk => {
       res.write(chunk)
     })
 
-    stream.on('end', () => {
-      res.end()
+    renderStream.on('end', () => {
+      res.end(splitContent.end)
     })
 
-    stream.on('error', err => {
+    renderStream.on('error', err => {
       res.end(err.stack)
     })
   }

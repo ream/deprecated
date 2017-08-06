@@ -1,25 +1,39 @@
-import { createApp } from './create-app'
+import Vue from 'vue'
+import createApp from './create-app'
+import { handleAsyncData } from './utils'
 
 export default context => {
-  // since there could potentially be asynchronous route hooks or components,
-  // we will be returning a Promise so that the server can wait until
-  // everything is ready before rendering.
+  const dev = context.dev
+  const s = dev && Date.now()
+
   return new Promise((resolve, reject) => {
-    const { app, router } = createApp()
+    const { app, router, store } = createApp(context)
 
-    // set server-side router's location
-    router.push(context.req.url)
+    router.push(context.url)
 
-    // wait until router has resolved possible async components and hooks
     router.onReady(() => {
+      const route = router.currentRoute
       const matchedComponents = router.getMatchedComponents()
-      // no matched routes, reject with 404
-      if (!matchedComponents.length) {
-        return reject({ code: 404 })
-      }
-
-      // the Promise should resolve to the app instance so it can be rendered
-      resolve(app)
-    }, reject)
+      Promise.all(matchedComponents.map((Component, index) => {
+        const { name, asyncData } = Component
+        if (Component.asyncData) {
+          const ctx = { route, store, req: context.req }
+          return handleAsyncData({
+            name,
+            asyncData,
+            scopeContext: { route, store, req: context.req },
+            context
+          })
+        }
+      })).then(() => {
+        if (store) {
+          context.state = store.state
+        }
+        if (app.$meta) {
+          context.meta = app.$meta()
+        }
+        resolve(app)
+      }).catch(reject)
+    })
   })
 }

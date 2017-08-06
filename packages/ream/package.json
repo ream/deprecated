@@ -1,0 +1,16 @@
+{
+  "name": "ream",
+  "description": "Framework for universal web app",
+  "version": "0.0.0",
+  "files": [
+    "bin",
+    "lib"
+  ],
+  "bin": "bin/cli.js",
+  "license": "MIT",
+  "dependencies": {
+    "cac": "^4.2.0",
+    "express": "^4.15.3",
+    "ream-core": "*"
+  }
+}

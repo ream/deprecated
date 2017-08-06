@@ -8,6 +8,9 @@ const cssLoaders = require('./css-loaders')
 module.exports = ({ ream, opts }, type) => {
   const config = type === 'server' ? ream.serverConfig : ream.clientConfig
 
+  config.resolve.modules
+    .add(path.join(__dirname, '../node_modules'))
+
   config.resolveLoader.modules
     .add(path.join(__dirname, '../node_modules'))
 

@@ -17,8 +17,12 @@ module.exports = class Ream {
     output,
     dev,
     cwd = process.cwd(),
-    devServer
+    devServer,
+    host,
+    port
   } = {}) {
+    this.host = host
+    this.port = port
     this.dev = dev
     this.entry = entry
     this.cwd = cwd
