@@ -2,7 +2,7 @@
 
 ```js
 // ream.config.js
-const renderer = require('ream-renderer-vue')
+const Renderer = require('ream-renderer-vue')
 
 module.exports = {
   entry: './src/index.js', // default value
