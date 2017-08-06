@@ -136,6 +136,21 @@ module.exports = (ctx, type) => {
   }
 
   if (!ctx.dev) {
+    // Do not tend to continue bundling when there's error
+    config.bail(true)
+
+    if (type === 'client') {
+      const ProgressPlugin = require('webpack/lib/ProgressPlugin')
+
+      config.plugin('progress')
+        .use(ProgressPlugin)
+
+      const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
+
+      config.plugin('bundle-report')
+        .use(BundleAnalyzerPlugin)
+    }
+
     config.plugin('uglifyjs')
       .use(webpack.optimize.UglifyJsPlugin, [{
         sourceMap: true,

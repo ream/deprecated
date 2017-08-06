@@ -19,11 +19,13 @@ module.exports = class Ream {
     cwd = process.cwd(),
     devServer,
     host,
-    port
+    port,
+    bundleReport
   } = {}) {
     this.host = host
     this.port = port
     this.dev = dev
+    this.bundleReport = bundleReport
     this.entry = entry
     this.cwd = cwd
     this.devServerOptions = Object.assign({

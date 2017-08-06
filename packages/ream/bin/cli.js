@@ -31,7 +31,7 @@ cli.command('dev', {
   startServer(true, flags)
 })
 
-cli.command('build', {
+const build = cli.command('build', {
   desc: 'Build app in production mode'
 }, (input, flags) => {
   console.log('> Building...')
@@ -42,11 +42,15 @@ cli.command('build', {
   const Ream = require('ream-core')
   const ream = new Ream(options)
   ream.build().then(() => {
-    console.log(`Done! check out ${ream.output.path}`)
+    console.log(`> Done! check out ${ream.output.path}`)
   }, err => {
     console.error(err)
     process.exit(1)
   })
+})
+
+build.option('bundle-report', {
+  desc: 'Display bundle report in brower'
 })
 
 cli.command('start', {
