@@ -72,6 +72,7 @@ cli.command('generate', {
   const Ream = require('ream-core')
   const ream = new Ream(options)
   ream.build().then(() => {
+    ream.prepare()
     return ream.generate(generateConfig).then(() => {
       console.log(`> Done! check out ${generateConfig.dist || './dist'}`)
     })

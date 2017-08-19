@@ -67,8 +67,6 @@ module.exports = class Ream {
   generate({ routes, dist = './dist' } = {}) {
     if (!routes) return Promise.reject(new Error('Expected to provide routes!'))
 
-    this.prepare()
-
     return Promise.all(parseRoutes(routes).map(route => {
       return this.renderer.renderToString(route)
         .then(html => {
