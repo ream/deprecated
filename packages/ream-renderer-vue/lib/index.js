@@ -113,6 +113,22 @@ module.exports = class RendererVue {
     }
   }
 
+  renderToString(route) {
+    const context = {
+      url: route,
+      dev: false,
+      data: {}
+    }
+
+    return new Promise((resolve, reject) => {
+      this.serverRenderer.renderToString(context, (err, html) => {
+        if (err) return reject(err)
+        const { start, end } = renderTemplate(this.template, context)
+        resolve(start + html + end)
+      })
+    })
+  }
+
   rendererHandleRequests(req, res) {
     if (!this.serverRenderer) {
       return res.end('wait for compiling...')

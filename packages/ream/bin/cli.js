@@ -59,4 +59,26 @@ cli.command('start', {
   startServer(false, flags)
 })
 
+cli.command('generate', {
+  desc: 'Generate static website'
+}, (input, flags) => {
+  console.log('> Generating...')
+  const config = readConfig()
+  const generateConfig = config.generate || {}
+  delete config.generate
+  const options = Object.assign({}, config, flags, {
+    dev: false
+  })
+  const Ream = require('ream-core')
+  const ream = new Ream(options)
+  ream.build().then(() => {
+    return ream.generate(generateConfig).then(() => {
+      console.log(`> Done! check out ${generateConfig.dist || './dist'}`)
+    })
+  }, err => {
+    console.error(err)
+    process.exit(1)
+  })
+})
+
 cli.parse()

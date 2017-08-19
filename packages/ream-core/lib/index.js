@@ -1,10 +1,12 @@
 const path = require('path')
 const url = require('url')
 const express = require('express')
+const fs = require('fs-extra')
 const finalhandler = require('finalhandler')
 const createConfig = require('./create-config')
 const runWebpack = require('./run-webpack')
 const Router = require('./router')
+const { handleRoute, parseRoutes } = require('./utils')
 
 const serveStatic = (path, cache) => express.static(path, {
   maxAge: cache ? '1d' : 0
@@ -60,6 +62,26 @@ module.exports = class Ream {
       runWebpack(this.serverConfig.toConfig()),
       runWebpack(this.clientConfig.toConfig())
     ])
+  }
+
+  generate({ routes, dist = './dist' } = {}) {
+    if (!routes) return Promise.reject(new Error('Expected to provide routes!'))
+
+    this.prepare()
+
+    return Promise.all(parseRoutes(routes).map(route => {
+      return this.renderer.renderToString(route)
+        .then(html => {
+          const outputPath = this.resolvePath(dist, `.${handleRoute(route)}`)
+          return fs.ensureDir(path.dirname(outputPath))
+            .then(() => fs.writeFile(outputPath, html, 'utf8'))
+        })
+    })).then(() => {
+      return fs.copy(
+        this.resolveDistPath('client'),
+        this.resolvePath(dist, '_ream')
+      ).then(() => fs.remove(this.resolvePath(dist, '_ream', 'index.html')))
+    })
   }
 
   prepare() {

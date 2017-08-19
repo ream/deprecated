@@ -145,10 +145,12 @@ module.exports = (ctx, type) => {
       config.plugin('progress')
         .use(ProgressPlugin)
 
-      const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
+      if (ctx.bundleReport) {
+        const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 
-      config.plugin('bundle-report')
-        .use(BundleAnalyzerPlugin)
+        config.plugin('bundle-report')
+          .use(BundleAnalyzerPlugin)
+      }
     }
 
     config.plugin('uglifyjs')

@@ -8,6 +8,11 @@ const cssLoaders = require('./css-loaders')
 module.exports = ({ ream, opts }, type) => {
   const config = type === 'server' ? ream.serverConfig : ream.clientConfig
 
+  // Ensure that we don't bundle duplicated vue/vue-router
+  config.resolve.alias
+    .set('vue$', ream.resolvePath('node_modules/vue/dist/vue.runtime.esm'))
+    .set('vue-router$', ream.resolvePath('node_modules/vue-router'))
+
   config.resolve.modules
     .add(path.join(__dirname, '../node_modules'))
 
@@ -17,7 +22,7 @@ module.exports = ({ ream, opts }, type) => {
   const cssOptions = {
     minimize: !ream.dev,
     sourceMap: ream.dev,
-    extract: !ream.dev,
+    extract: false,
     postcss: opts.postcss || { plugins: [] },
     fallbackLoader: require.resolve('vue-style-loader')
   }
