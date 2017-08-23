@@ -35,9 +35,25 @@ Default: `process.cwd()`
 
 The path to resolve your app entry from.
 
+### host
+
+*CLI only*
+
+Default: `0.0.0.0`
+
+Server host.
+
+### port
+
+*CLI only*
+
+Default: `5000`
+
+Server port.
+
 ### devServer
 
-Options for [webpack-dev-server](https://webpack.js.org/configuration/dev-server/#devserver).
+Options for [webpack-dev-server](https://webpack.js.org/configuration/dev-server/#devserver). We use the dev-server to build client-side app.
 
 ## Generate options
 

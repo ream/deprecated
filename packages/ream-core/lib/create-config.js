@@ -54,8 +54,21 @@ module.exports = (ctx, type) => {
   // Transform user app
   config.module.rule('js')
     .test(/\.js$/)
-    .exclude
-      .add(/node_modules/)
+    .include
+      .add(filepath => {
+        if (
+          filepath.indexOf(ctx.renderer.appPath) >= 0 ||
+          filepath.indexOf(ctx.ownDir('app')) >= 0
+        ) {
+          return true
+        }
+
+        if (/node_modules/.test(filepath)) {
+          return false
+        }
+
+        return true
+      })
       .end()
     .use('babel-loader')
       .loader('babel-loader')
@@ -81,7 +94,7 @@ module.exports = (ctx, type) => {
     }
     console.log(stats.toString(statsOption))
 
-    if (ctx.dev && type === 'client') {
+    if (ctx.dev && type === 'client' && ctx.host && ctx.port) {
       console.log(`> Open http://${ctx.host}:${ctx.port}`)
     }
   }
