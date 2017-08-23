@@ -20,12 +20,8 @@ module.exports = class Ream {
     dev,
     cwd = process.cwd(),
     devServer,
-    host,
-    port,
     bundleReport
   } = {}) {
-    this.host = host
-    this.port = port
     this.dev = dev
     this.bundleReport = bundleReport
     this.entry = entry
@@ -35,8 +31,7 @@ module.exports = class Ream {
       port: 34592
     }, devServer)
     this.output = Object.assign({
-      path: path.resolve('.ream'),
-      dist: 'dist'
+      path: path.resolve('.ream')
     }, output)
     this.renderer = renderer
     this.serverConfig = createConfig(this, 'server')
