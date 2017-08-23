@@ -39,11 +39,11 @@ The path to resolve your app entry from.
 
 Options for [webpack-dev-server](https://webpack.js.org/configuration/dev-server/#devserver).
 
-### Generate options
+## Generate options
 
 Options for `ream generate` command.
 
-#### routes
+### routes
 
 Type: `Array` `object`
 
@@ -65,14 +65,14 @@ module.exports = {
       '/about': true,
       '/user/:name': [
         { name: 'egoist' },
-        { name: 'trump }
+        { name: 'trump' }
       ]
     }
   }
 }
 ```
 
-#### dist
+### dist
 
 Default: `dist`
 
