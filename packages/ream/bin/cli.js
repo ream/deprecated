@@ -76,7 +76,7 @@ cli.command('generate', {
     return ream.generate(generateConfig).then(() => {
       console.log(`> Done! check out ${generateConfig.dist || './dist'}`)
     })
-  }, err => {
+  }).catch(err => {
     console.error(err)
     process.exit(1)
   })
