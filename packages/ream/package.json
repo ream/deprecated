@@ -1,7 +1,7 @@
 {
   "name": "ream",
   "description": "Framework for universal web app",
-  "version": "0.0.0",
+  "version": "2.0.0-alpha.2",
   "files": [
     "bin",
     "lib"
@@ -11,6 +11,6 @@
   "dependencies": {
     "cac": "^4.2.0",
     "express": "^4.15.3",
-    "ream-core": "*"
+    "ream-core": "^2.0.0-alpha.2"
   }
 }
