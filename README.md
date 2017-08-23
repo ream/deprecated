@@ -5,11 +5,11 @@ Framework for server-rendered and statically generated web apps.
 ## Install
 
 ```bash
-yarn add ream
+yarn add ream@next
 
 # If you're using Vue
 # Install this too:
-yarn add ream-renderer-vue
+yarn add ream-renderer-vue@next
 ```
 
 ## Usage
