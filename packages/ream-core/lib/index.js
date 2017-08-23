@@ -22,7 +22,8 @@ module.exports = class Ream {
     devServer,
     bundleReport,
     host,
-    port
+    port,
+    jsx = 'vue'
   } = {}) {
     this.dev = dev
     this.bundleReport = bundleReport
@@ -30,6 +31,7 @@ module.exports = class Ream {
     this.cwd = cwd
     this.host = host
     this.port = port
+    this.jsx = jsx
     this.devServerOptions = Object.assign({
       host: '0.0.0.0',
       port: 34592

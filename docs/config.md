@@ -55,6 +55,13 @@ Server port.
 
 Options for [webpack-dev-server](https://webpack.js.org/configuration/dev-server/#devserver). We use the dev-server to build client-side app.
 
+### jsx
+
+Type: `string`<br>
+Default: `vue`
+
+Support custom JSX syntax, you can set it to `vue` `react` or a JSX pragma like `h`.
+
 ## Generate options
 
 Options for `ream generate` command.

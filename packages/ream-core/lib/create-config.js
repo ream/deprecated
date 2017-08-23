@@ -73,7 +73,11 @@ module.exports = (ctx, type) => {
     .use('babel-loader')
       .loader('babel-loader')
       .options({
-        presets: [require.resolve('babel-preset-ream')]
+        presets: [
+          [require.resolve('babel-preset-ream'), {
+            jsx: ctx.jsx
+          }]
+        ]
       })
 
   config.plugin('constants')
