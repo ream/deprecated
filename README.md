@@ -1,3 +1,17 @@
+# Ream
+
+Framework for server-rendered and statically generated web apps.
+
+## Install
+
+```bash
+yarn add ream
+
+# If you're using Vue
+# Install this too:
+yarn add ream-renderer-vue
+```
+
 ## Usage
 
 ```js
@@ -12,23 +26,6 @@ module.exports = {
 
 Then run `ream dev` to start dev server.
 
-## Custom server
+## LICENSE
 
-```js
-const app = require('express')()
-const Ream = require('ream')
-const Renderer = require('ream-renderer-vue')
-
-const renderer = new Renderer()
-
-const ream = new Ream({
-  renderer,
-  dev: process.env.NODE_ENV === 'development'
-})
-
-ream.prepare()
-
-app.get('*', ream.getRequestHandler())
-
-app.listen(4000)
-```
+MIT &copy; [EGOIST](https://github.com/egoist)
