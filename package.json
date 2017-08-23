@@ -1,5 +1,6 @@
 {
   "scripts": {
+    "test": "lerna bootstrap && npm run lint && lerna exec -- npm test",
     "lint": "xo"
   },
   "xo": {
