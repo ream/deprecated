@@ -14,8 +14,29 @@ yarn add ream-renderer-vue
 
 ## Usage
 
+First, populate an entry file `src/index.js`:
+
 ```js
-// ream.config.js
+import Vue from 'vue'
+import Router from 'vue-router'
+
+Vue.use(Router)
+
+const createRouter = () => new Router({
+  mode: 'history',
+  routes: [{
+    path: '/',
+    // And your component for homepage
+    component: () => import('./Home.vue')
+  }]
+})
+
+export default { createRouter }
+```
+
+Then configure the `vue` renderer in config file `ream.config.js`:
+
+```js
 const Renderer = require('ream-renderer-vue')
 
 module.exports = {
@@ -24,7 +45,7 @@ module.exports = {
 }
 ```
 
-Then run `ream dev` to start dev server.
+Finally run `ream dev` to start dev server.
 
 ## LICENSE
 
