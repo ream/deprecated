@@ -126,7 +126,11 @@ module.exports = class Ream {
       serveStatic(this.getCwd('public'), !this.dev)(req, res, finalhandler(req, res))
     }
 
-    routes['*'] = this.renderer.rendererHandleRequests.bind(this.renderer)
+    routes['*'] = (req, res) => {
+      res.setHeader('Content-Type', 'text/html')
+      res.setHeader('Server', serverInfo)
+      this.renderer.rendererHandleRequests(req, res)
+    }
 
     for (const method of ['GET', 'HEAD']) {
       for (const p of Object.keys(routes)) {

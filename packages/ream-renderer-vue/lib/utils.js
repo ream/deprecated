@@ -1,6 +1,6 @@
 const serialize = require('serialize-javascript')
 
-exports.renderTemplate = function renderTemplate(template, context) {
+exports.renderTemplate = (template, context) => {
   const {
     title, link, style, script, noscript, meta
   } = context.meta.inject()

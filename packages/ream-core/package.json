@@ -20,6 +20,7 @@
     "memory-fs": "^0.4.1",
     "object-assign": "^4.1.1",
     "path-match": "^1.2.4",
+    "path-to-regexp": "^1.7.0",
     "post-compile-webpack-plugin": "^0.1.1",
     "promise-polyfill": "^6.0.2",
     "webpack": "^3.4.1",
@@ -29,5 +30,6 @@
     "webpack-hot-middleware": "^2.18.2",
     "webpack-node-externals": "^1.6.0"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "xo": false
 }

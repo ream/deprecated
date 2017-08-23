@@ -80,7 +80,7 @@ module.exports = (ctx, type) => {
     .use(webpack.DefinePlugin, [{
       'process.env.NODE_ENV': JSON.stringify(ctx.dev ? 'development' : 'production'),
       'process.isServer': JSON.stringify(type === 'server'),
-      'process.isBrowser': JSON.stringify(type === 'client'),
+      'process.isBrowser': JSON.stringify(type === 'client')
     }])
 
   const logStats = stats => {

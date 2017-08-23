@@ -4,7 +4,6 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const VueSSRClientPlugin = require('vue-server-renderer/client-plugin')
 const cssLoaders = require('./css-loaders')
 
-
 module.exports = ({ ream, opts }, type) => {
   const config = type === 'server' ? ream.serverConfig : ream.clientConfig
 

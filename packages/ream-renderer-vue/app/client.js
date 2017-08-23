@@ -14,7 +14,7 @@ if (ream.state) {
 
 // a global mixin that calls `asyncData` when a route component's params change
 Vue.mixin({
-  beforeRouteUpdate (to, from, next) {
+  beforeRouteUpdate(to, from, next) {
     const { asyncData, name } = this.$options
     if (asyncData) {
       const handled = handleAsyncData({
@@ -37,33 +37,33 @@ router.onReady(() => {
  // Doing it after initial route is resolved so that we don't double-fetch
  // the data that we already have. Using router.beforeResolve() so that all
  // async components are resolved.
- router.beforeResolve((to, from, next) => {
-   const matched = router.getMatchedComponents(to)
-   const prevMatched = router.getMatchedComponents(from)
+  router.beforeResolve((to, from, next) => {
+    const matched = router.getMatchedComponents(to)
+    const prevMatched = router.getMatchedComponents(from)
 
    // we only care about none-previously-rendered components,
    // so we compare them until the two matched lists differ
-   let diffed = false
-   const activated = matched.filter((c, i) => {
-     return diffed || (diffed = (prevMatched[i] !== c))
-   })
+    let diffed = false
+    const activated = matched.filter((c, i) => {
+      return diffed || (diffed = (prevMatched[i] !== c))
+    })
 
-   if (!activated.length) {
-     return next()
-   }
+    if (!activated.length) {
+      return next()
+    }
 
-   Promise.all(activated.map((Component, index) => {
-     const { asyncData, name } = Component
-     if (asyncData) {
-      return handleAsyncData({
-        scopeContext: { store, route: to },
-        context: ream,
-        name,
-        asyncData
-      })
-     }
-   })).then(() => next()).catch(next)
- })
+    Promise.all(activated.map((Component, index) => {
+      const { asyncData, name } = Component
+      if (asyncData) {
+        return handleAsyncData({
+          scopeContext: { store, route: to },
+          context: ream,
+          name,
+          asyncData
+        })
+      }
+    })).then(() => next()).catch(next)
+  })
 
- app.$mount(document.getElementById(root))
+  app.$mount(document.getElementById(root))
 })

@@ -1,7 +1,6 @@
 const path = require('path')
 const fs = require('fs-extra')
 const serverRenderer = require('vue-server-renderer')
-const PostCompilePlugin = require('post-compile-webpack-plugin')
 const handleWebpackConfig = require('./handle-config')
 const {
   renderTemplate
@@ -14,7 +13,7 @@ class SendFilesServer {
   }
 
   apply(compiler) {
-    compiler.plugin('done', stats => {
+    compiler.plugin('done', () => {
       const mfs = compiler.outputFileSystem
       const bundlePath = this.ream.resolveDistPath('server', 'vue-ssr-server-bundle.json')
       const bundle = JSON.parse(mfs.readFileSync(bundlePath, 'utf-8'))
@@ -30,7 +29,7 @@ class SendFilesClient {
   }
 
   apply(compiler) {
-    compiler.plugin('done', stats => {
+    compiler.plugin('done', () => {
       const mfs = compiler.outputFileSystem
       const template = mfs.readFileSync(this.ream.resolveDistPath('client', 'index.html'), 'utf8')
       const clientManifest = JSON.parse(mfs.readFileSync(this.ream.resolveDistPath('client', 'vue-ssr-client-manifest.json'), 'utf8'))
@@ -50,7 +49,6 @@ module.exports = class RendererVue {
     handleWebpackConfig(this, 'server')
     handleWebpackConfig(this, 'client')
   }
-
 
   createServerRenderer({ bundle, clientManifest, template }) {
     this.template = template

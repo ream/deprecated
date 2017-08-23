@@ -1,4 +1,6 @@
-function handleRoute (route) {
+const pathToRegexp = require('path-to-regexp')
+
+function handleRoute(route) {
   if (route.endsWith('.html')) {
     return route
   }
