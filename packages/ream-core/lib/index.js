@@ -63,12 +63,12 @@ module.exports = class Ream {
     return path.join(__dirname, '../', ...args)
   }
 
-  resolvePath(...args) {
+  resolveCwd(...args) {
     return path.resolve(this.cwd, ...args)
   }
 
-  resolveDistPath(type, ...args) {
-    return this.resolvePath(this.output.path, `dist-${type}`, ...args)
+  resolveDist(type, ...args) {
+    return this.resolveCwd(this.output.path, `dist-${type}`, ...args)
   }
 
   build() {
@@ -84,15 +84,15 @@ module.exports = class Ream {
     return Promise.all(parseRoutes(routes).map(route => {
       return this.renderer.renderToString(route)
         .then(html => {
-          const outputPath = this.resolvePath(dist, `.${handleRoute(route)}`)
+          const outputPath = this.resolveCwd(dist, `.${handleRoute(route)}`)
           return fs.ensureDir(path.dirname(outputPath))
             .then(() => fs.writeFile(outputPath, html, 'utf8'))
         })
     })).then(() => {
       return fs.copy(
-        this.resolveDistPath('client'),
-        this.resolvePath(dist, '_ream')
-      ).then(() => fs.remove(this.resolvePath(dist, '_ream', 'index.html')))
+        this.resolveDist('client'),
+        this.resolveCwd(dist, '_ream')
+      ).then(() => fs.remove(this.resolveCwd(dist, '_ream', 'index.html')))
     })
   }
 
@@ -133,7 +133,7 @@ module.exports = class Ream {
 
       req.url = req.url.replace(/^\/_ream/, '')
 
-      serveStatic(this.resolvePath(this.output.path, 'dist-client'), !this.dev)(req, res, finalhandler(req, res))
+      serveStatic(this.resolveCwd(this.output.path, 'dist-client'), !this.dev)(req, res, finalhandler(req, res))
     }
 
     routes['/public/*'] = (req, res) => {

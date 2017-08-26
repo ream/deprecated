@@ -31,7 +31,7 @@ module.exports = (ctx, type) => {
     .add(path.join(ctx.renderer.appPath, `${type}.js`))
 
   config.resolve.alias
-    .set('entry-of-user-app$', ctx.resolvePath(ctx.entry))
+    .set('entry-of-user-app$', ctx.resolveCwd(ctx.entry))
 
   config.resolve.symlinks(true)
 

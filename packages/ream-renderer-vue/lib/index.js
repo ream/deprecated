@@ -15,7 +15,7 @@ class SendFilesServer {
   apply(compiler) {
     compiler.plugin('done', () => {
       const mfs = compiler.outputFileSystem
-      const bundlePath = this.ream.resolveDistPath('server', 'vue-ssr-server-bundle.json')
+      const bundlePath = this.ream.resolveDist('server', 'vue-ssr-server-bundle.json')
       const bundle = JSON.parse(mfs.readFileSync(bundlePath, 'utf-8'))
       this.cb(bundle)
     })
@@ -31,8 +31,8 @@ class SendFilesClient {
   apply(compiler) {
     compiler.plugin('done', () => {
       const mfs = compiler.outputFileSystem
-      const template = mfs.readFileSync(this.ream.resolveDistPath('client', 'index.html'), 'utf8')
-      const clientManifest = JSON.parse(mfs.readFileSync(this.ream.resolveDistPath('client', 'vue-ssr-client-manifest.json'), 'utf8'))
+      const template = mfs.readFileSync(this.ream.resolveDist('client', 'index.html'), 'utf8')
+      const clientManifest = JSON.parse(mfs.readFileSync(this.ream.resolveDist('client', 'vue-ssr-client-manifest.json'), 'utf8'))
       this.cb({ template, clientManifest })
     })
   }
@@ -99,9 +99,9 @@ module.exports = class RendererVue {
           this.ream
         ])
     } else {
-      const bundle = require(this.ream.resolveDistPath('server', 'vue-ssr-server-bundle.json'))
-      const template = fs.readFileSync(this.ream.resolveDistPath('client', 'index.html'), 'utf8')
-      const clientManifest = require(this.ream.resolveDistPath('client', 'vue-ssr-client-manifest.json'))
+      const bundle = require(this.ream.resolveDist('server', 'vue-ssr-server-bundle.json'))
+      const template = fs.readFileSync(this.ream.resolveDist('client', 'index.html'), 'utf8')
+      const clientManifest = require(this.ream.resolveDist('client', 'vue-ssr-client-manifest.json'))
 
       this.createServerRenderer({
         bundle,

@@ -9,8 +9,8 @@ module.exports = ({ ream, opts }, type) => {
 
   // Ensure that we don't bundle duplicated vue/vue-router
   config.resolve.alias
-    .set('vue$', ream.resolvePath('node_modules/vue/dist/vue.runtime.esm'))
-    .set('vue-router$', ream.resolvePath('node_modules/vue-router'))
+    .set('vue$', ream.resolveCwd('node_modules/vue/dist/vue.runtime.esm'))
+    .set('vue-router$', ream.resolveCwd('node_modules/vue-router'))
 
   config.resolve.modules
     .add(path.join(__dirname, '../node_modules'))
