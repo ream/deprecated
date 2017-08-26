@@ -23,7 +23,8 @@ module.exports = class Ream {
     bundleReport,
     host,
     port,
-    jsx = 'vue'
+    jsx = 'vue',
+    extendWebpack
   } = {}) {
     this.dev = dev
     this.bundleReport = bundleReport
@@ -44,6 +45,18 @@ module.exports = class Ream {
     this.clientConfig = createConfig(this, 'client')
 
     this.renderer.rendererInit(this)
+    if (typeof extendWebpack === 'function') {
+      this.extendWebpack(extendWebpack)
+    }
+  }
+
+  extendWebpack(fn) {
+    if (typeof fn !== 'function') {
+      throw new Error('Expected the first argument of extendWebpack to be a function')
+    }
+    fn(this.serverConfig, { type: 'server', dev: this.dev })
+    fn(this.clientConfig, { type: 'client', dev: this.dev })
+    return this
   }
 
   ownDir(...args) {

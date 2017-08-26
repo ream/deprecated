@@ -62,6 +62,20 @@ Default: `vue`
 
 Support custom JSX syntax, you can set it to `vue` `react` or a JSX pragma like `h`.
 
+### extendWebpack
+
+Type: `function`
+
+Extend internal webpack config which is handled by [webpack-chain](https://github.com/mozilla-neutrino/webpack-chain).
+
+
+Parameters:
+
+- config: Webpack-chain instance.
+- context
+  - dev: `boolean` Whether Ream is running in development mode
+  - type: `string` Either `client` or `server`
+
 ## Generate options
 
 Options for `ream generate` command.
