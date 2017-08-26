@@ -11,6 +11,7 @@
     "babel-core": "^6.25.0",
     "babel-loader": "^7.1.1",
     "babel-preset-ream": "^1.0.1",
+    "copy-webpack-plugin": "^4.0.1",
     "eventsource-polyfill": "^0.9.6",
     "express": "^4.15.3",
     "finalhandler": "^1.0.3",

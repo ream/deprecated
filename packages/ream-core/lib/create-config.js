@@ -1,3 +1,4 @@
+const fs = require('fs')
 const path = require('path')
 const webpack = require('webpack')
 const Config = require('webpack-chain')
@@ -142,6 +143,17 @@ module.exports = (ctx, type) => {
       .use(webpack.optimize.CommonsChunkPlugin, [{
         name: 'manifest'
       }])
+
+    const staticFolder = ctx.resolveCwd('static')
+    if (fs.existsSync(staticFolder)) {
+      const CopyPlugin = require('copy-webpack-plugin')
+
+      config.plugin('copy-static')
+        .use(CopyPlugin, [[{
+          from: staticFolder,
+          to: '.'
+        }]])
+    }
 
     if (ctx.dev) {
       config.entry('main')

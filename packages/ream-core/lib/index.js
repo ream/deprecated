@@ -121,11 +121,6 @@ module.exports = class Ream {
       routes['/__webpack_hmr'] = proxyDevServer
     }
 
-    routes['/favicon.ico'] = (req, res) => {
-      res.statucCode = 404
-      res.end('404')
-    }
-
     routes['/_ream/*'] = (req, res) => {
       if (this.dev) {
         return proxyDevServer(req, res)
@@ -141,7 +136,7 @@ module.exports = class Ream {
       serveStatic(this.resolvePath('public'), !this.dev)(req, res, finalhandler(req, res))
     }
 
-    routes['*'] = (req, res) => {
+    routes['/:path*'] = (req, res) => {
       res.setHeader('Content-Type', 'text/html')
       res.setHeader('Server', serverInfo)
       this.renderer.rendererHandleRequests(req, res)
