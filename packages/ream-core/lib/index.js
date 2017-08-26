@@ -138,7 +138,7 @@ module.exports = class Ream {
 
     routes['/public/*'] = (req, res) => {
       req.url = req.url.replace(/^\/public/, '')
-      serveStatic(this.getCwd('public'), !this.dev)(req, res, finalhandler(req, res))
+      serveStatic(this.resolvePath('public'), !this.dev)(req, res, finalhandler(req, res))
     }
 
     routes['*'] = (req, res) => {
