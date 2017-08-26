@@ -52,7 +52,7 @@ module.exports = class Ream {
 
   extendWebpack(fn) {
     if (typeof fn !== 'function') {
-      throw new Error('Expected the first argument of extendWebpack to be a function')
+      throw new TypeError('Expected the first argument of extendWebpack to be a function')
     }
     fn(this.serverConfig, { type: 'server', dev: this.dev })
     fn(this.clientConfig, { type: 'client', dev: this.dev })
