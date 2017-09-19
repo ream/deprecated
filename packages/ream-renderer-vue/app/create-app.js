@@ -29,7 +29,7 @@ Vue.mixin({
     }
 
     const namespace = `${this.$route.path}::${name}`
-    const asyncDataStore = process.server ? this.$ssrContext.data.asyncData : window.__REAM__.data.asyncData
+    const asyncDataStore = process.isServer ? this.$ssrContext.data.asyncData : window.__REAM__.data.asyncData
     this.$asyncData = asyncDataStore && asyncDataStore[namespace]
   }
 })
