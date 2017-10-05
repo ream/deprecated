@@ -73,8 +73,8 @@ cli.command('generate', {
   const ream = new Ream(options)
   ream.build().then(() => {
     ream.prepare()
-    return ream.generate(generateConfig).then(() => {
-      console.log(`> Done! check out ${generateConfig.dist || './dist'}`)
+    return ream.generate(generateConfig).then(folderPath => {
+      console.log(`> Done! check out ${folderPath}`)
     })
   }).catch(err => {
     console.error(err)

@@ -109,8 +109,8 @@ module.exports = {
 }
 ```
 
-### dist
+### folder
 
-Default: `dist`
+Default: `generated`
 
-The path to output generated static files.
+The folder to output generated static files, it's relave to `output.path`.

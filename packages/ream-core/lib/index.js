@@ -83,21 +83,25 @@ module.exports = class Ream {
     ])
   }
 
-  generate({ routes, dist = './dist' } = {}) {
+  generate({ routes, folder = 'generated' } = {}) {
     if (!routes) return Promise.reject(new Error('Expected to provide routes!'))
-
+    const folderPath = this.resolveCwd(this.buildOptions.output.path, folder)
     return Promise.all(parseRoutes(routes).map(route => {
       return this.renderer.renderToString(route)
         .then(html => {
-          const outputPath = this.resolveCwd(dist, `.${handleRoute(route)}`)
+          const outputPath = this.resolveCwd(
+            folderPath,
+            `.${handleRoute(route)}`
+          )
+          console.log(folderPath, '***', `.${handleRoute(route)}`)
           return fs.ensureDir(path.dirname(outputPath))
             .then(() => fs.writeFile(outputPath, html, 'utf8'))
         })
     })).then(() => {
       return fs.copy(
         this.resolveDist('client'),
-        this.resolveCwd(dist, '_ream')
-      ).then(() => fs.remove(this.resolveCwd(dist, '_ream', 'index.html')))
+        this.resolveCwd(folderPath, '_ream')
+      ).then(() => fs.remove(this.resolveCwd(folderPath, '_ream', 'index.html'))).then(() => folderPath)
     })
   }
 
