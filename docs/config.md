@@ -113,4 +113,4 @@ module.exports = {
 
 Default: `generated`
 
-The folder to output generated static files, it's relave to `output.path`.
+The folder to output generated static files, it's relative to `output.path`.
