@@ -93,7 +93,6 @@ module.exports = class Ream {
             folderPath,
             `.${handleRoute(route)}`
           )
-          console.log(folderPath, '***', `.${handleRoute(route)}`)
           return fs.ensureDir(path.dirname(outputPath))
             .then(() => fs.writeFile(outputPath, html, 'utf8'))
         })
