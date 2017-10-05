@@ -10,11 +10,12 @@ module.exports = (ctx, type) => {
   const config = new Config()
 
   const dist = `dist-${type}`
-  const outputPath = path.join(ctx.output.path, dist)
+  const outputPath = path.join(ctx.buildOptions.output.path, dist)
   config.output
     .path(outputPath)
-    .filename('[name].js')
+    .filename(ctx.buildOptions.output.filename.js)
     .publicPath('/_ream/')
+    .chunkFilename(ctx.buildOptions.output.filename.chunk)
 
   config.performance.hints(false)
 
@@ -32,7 +33,7 @@ module.exports = (ctx, type) => {
     .add(path.join(ctx.renderer.appPath, `${type}.js`))
 
   config.resolve.alias
-    .set('entry-of-user-app$', ctx.resolveCwd(ctx.entry))
+    .set('entry-of-user-app$', ctx.resolveCwd(ctx.buildOptions.entry))
 
   config.resolve.symlinks(true)
 
@@ -76,10 +77,41 @@ module.exports = (ctx, type) => {
       .options({
         presets: [
           [require.resolve('babel-preset-ream'), {
-            jsx: ctx.jsx
+            jsx: ctx.buildOptions.jsx
           }]
         ]
       })
+
+  config.module
+    .rule('image')
+      .test([/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/])
+      .use('url-loader')
+        .loader('url-loader')
+        .options({
+          name: 'static',
+          // inline the file if < max size (hard-coded 10kb)
+          limit: 10000
+        })
+        .end()
+      .end()
+    // SVG files use file-loader directly, why?
+    // See https://github.com/facebookincubator/create-react-app/pull/1180
+    .rule('svg')
+      .test(/\.(svg)(\?.*)?$/)
+      .use('file-loader')
+        .loader('file-loader')
+        .options({
+          name: ctx.buildOptions.output.filename.static
+        })
+        .end()
+      .end()
+    .rule('font')
+      .test(/\.(eot|otf|webp|ttf|woff|woff2)(\?.*)?$/)
+      .use('file-loader')
+        .loader('file-loader')
+        .options({
+          name: ctx.buildOptions.output.filename.static
+        })
 
   config.plugin('constants')
     .use(webpack.DefinePlugin, [{
@@ -174,7 +206,7 @@ module.exports = (ctx, type) => {
       config.plugin('progress')
         .use(ProgressPlugin)
 
-      if (ctx.bundleReport) {
+      if (ctx.buildOptions.bundleReport) {
         const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 
         config.plugin('bundle-report')

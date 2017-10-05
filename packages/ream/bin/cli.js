@@ -42,7 +42,7 @@ const build = cli.command('build', {
   const Ream = require('ream-core')
   const ream = new Ream(options)
   ream.build().then(() => {
-    console.log(`> Done! check out ${ream.output.path}`)
+    console.log(`> Done! check out ${ream.buildOptions.output.path}`)
   }, err => {
     console.error(err)
     process.exit(1)

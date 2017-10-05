@@ -7,6 +7,7 @@ const createConfig = require('./create-config')
 const runWebpack = require('./run-webpack')
 const Router = require('./router')
 const { handleRoute, parseRoutes } = require('./utils')
+const { getFilename } = require('./build-utils')
 
 const serveStatic = (path, cache) => express.static(path, {
   maxAge: cache ? '1d' : 0
@@ -16,7 +17,7 @@ module.exports = class Ream {
   constructor({
     entry = 'src/index.js',
     renderer,
-    output,
+    output = {},
     dev,
     cwd = process.cwd(),
     devServer,
@@ -27,19 +28,23 @@ module.exports = class Ream {
     extendWebpack
   } = {}) {
     this.dev = dev
-    this.bundleReport = bundleReport
-    this.entry = entry
     this.cwd = cwd
     this.host = host
     this.port = port
-    this.jsx = jsx
+    this.buildOptions = {
+      entry,
+      output: Object.assign({
+        path: path.resolve('.ream')
+      }, output, {
+        filename: getFilename(!this.dev, output.filename)
+      }),
+      bundleReport,
+      jsx
+    }
     this.devServerOptions = Object.assign({
       host: '0.0.0.0',
       port: 34592
     }, devServer)
-    this.output = Object.assign({
-      path: path.resolve('.ream')
-    }, output)
     this.renderer = renderer
     this.serverConfig = createConfig(this, 'server')
     this.clientConfig = createConfig(this, 'client')
@@ -68,7 +73,7 @@ module.exports = class Ream {
   }
 
   resolveDist(type, ...args) {
-    return this.resolveCwd(this.output.path, `dist-${type}`, ...args)
+    return this.resolveCwd(this.buildOptions.output.path, `dist-${type}`, ...args)
   }
 
   build() {
@@ -128,7 +133,7 @@ module.exports = class Ream {
 
       req.url = req.url.replace(/^\/_ream/, '')
 
-      serveStatic(this.resolveCwd(this.output.path, 'dist-client'), !this.dev)(req, res, finalhandler(req, res))
+      serveStatic(this.resolveCwd(this.buildOptions.output.path, 'dist-client'), !this.dev)(req, res, finalhandler(req, res))
     }
 
     routes['/public/*'] = (req, res) => {

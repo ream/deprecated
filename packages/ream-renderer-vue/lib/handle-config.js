@@ -27,13 +27,17 @@ module.exports = ({ ream, opts }, type) => {
   }
   cssLoaders.standalone(config, cssOptions)
 
+  const babelOptions = config.module.rule('js').use('babel-loader').store.get('options')
   config.module.rule('vue')
     .test(/\.vue$/)
     .use('vue-loader')
       .loader('vue-loader')
       .options({
         loaders: Object.assign({}, cssLoaders.vue(cssOptions), {
-          js: 'babel-loader'
+          js: {
+            loader: 'babel-loader',
+            options: babelOptions
+          }
         })
       })
 
