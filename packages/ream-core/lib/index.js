@@ -77,10 +77,10 @@ module.exports = class Ream {
   }
 
   build() {
-    return Promise.all([
+    return fs.remove(this.buildOptions.output.path).then(() => Promise.all([
       runWebpack(this.serverConfig.toConfig()),
       runWebpack(this.clientConfig.toConfig())
-    ])
+    ]))
   }
 
   generate({ routes, folder = 'generated' } = {}) {
