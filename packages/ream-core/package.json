@@ -15,7 +15,7 @@
     "eventsource-polyfill": "^0.9.6",
     "express": "^4.15.3",
     "file-loader": "^1.1.5",
-    "finalhandler": "^1.0.3",
+    "finalhandler": "^1.1.0",
     "fs-extra": "^4.0.1",
     "html-webpack-plugin": "^2.30.1",
     "http-proxy": "^1.16.2",

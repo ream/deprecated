@@ -10,7 +10,8 @@ const { handleRoute, parseRoutes } = require('./utils')
 const { getFilename } = require('./build-utils')
 
 const serveStatic = (path, cache) => express.static(path, {
-  maxAge: cache ? '1d' : 0
+  maxAge: cache ? '1d' : 0,
+  dotfiles: 'allow'
 })
 
 module.exports = class Ream {
@@ -99,10 +100,17 @@ module.exports = class Ream {
             .then(() => fs.writeFile(outputPath, html, 'utf8'))
         })
     })).then(() => {
-      return fs.copy(
-        this.resolveDist('client'),
-        this.resolveCwd(folderPath, '_ream')
-      ).then(() => fs.remove(this.resolveCwd(folderPath, '_ream', 'index.html'))).then(() => folderPath)
+      return Promise.all([
+        fs.copy(
+          this.resolveDist('client'),
+          this.resolveCwd(folderPath, '_ream')
+        ),
+        fs.copy(
+          this.resolveCwd('static'),
+          this.resolveCwd(folderPath)
+        )
+      ])
+      .then(() => fs.remove(this.resolveCwd(folderPath, '_ream', 'index.html'))).then(() => folderPath)
     }))
   }
 
@@ -147,9 +155,13 @@ module.exports = class Ream {
     }
 
     routes['/:path*'] = (req, res) => {
-      res.setHeader('Content-Type', 'text/html')
-      res.setHeader('Server', serverInfo)
-      this.renderer.rendererHandleRequests(req, res)
+      const render = () => {
+        res.setHeader('Content-Type', 'text/html')
+        res.setHeader('Server', serverInfo)
+        this.renderer.rendererHandleRequests(req, res)
+      }
+
+      serveStatic(this.resolveCwd('static'), !this.dev)(req, res, render)
     }
 
     for (const method of ['GET', 'HEAD']) {
