@@ -77,16 +77,18 @@ module.exports = class Ream {
   }
 
   build() {
-    return fs.remove(this.buildOptions.output.path).then(() => Promise.all([
-      runWebpack(this.serverConfig.toConfig()),
-      runWebpack(this.clientConfig.toConfig())
-    ]))
+    const serverConfig = this.serverConfig.toConfig()
+    const clientConfig = this.clientConfig.toConfig()
+    return Promise.all([
+      fs.remove(serverConfig.output.path).then(() => runWebpack(serverConfig)),
+      fs.remove(clientConfig.output.path).then(() => runWebpack(clientConfig))
+    ])
   }
 
   generate({ routes, folder = 'generated' } = {}) {
     if (!routes) return Promise.reject(new Error('Expected to provide routes!'))
     const folderPath = this.resolveCwd(this.buildOptions.output.path, folder)
-    return Promise.all(parseRoutes(routes).map(route => {
+    return fs.remove(folderPath).then(() => Promise.all(parseRoutes(routes).map(route => {
       return this.renderer.renderToString(route)
         .then(html => {
           const outputPath = this.resolveCwd(
@@ -101,7 +103,7 @@ module.exports = class Ream {
         this.resolveDist('client'),
         this.resolveCwd(folderPath, '_ream')
       ).then(() => fs.remove(this.resolveCwd(folderPath, '_ream', 'index.html'))).then(() => folderPath)
-    })
+    }))
   }
 
   prepare() {
