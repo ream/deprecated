@@ -77,12 +77,17 @@ module.exports = class Ream {
     return this.resolveCwd(this.buildOptions.output.path, `dist-${type}`, ...args)
   }
 
+  createCompilers() {
+    this.serverCompiler = require('webpack')(this.serverConfig.toConfig())
+    this.clientCompiler = require('webpack')(this.clientConfig.toConfig())
+    return this
+  }
+
   build() {
-    const serverConfig = this.serverConfig.toConfig()
-    const clientConfig = this.clientConfig.toConfig()
+    this.createCompilers()
     return Promise.all([
-      fs.remove(serverConfig.output.path).then(() => runWebpack(serverConfig)),
-      fs.remove(clientConfig.output.path).then(() => runWebpack(clientConfig))
+      fs.remove(this.serverCompiler.options.output.path).then(() => runWebpack(this.serverCompiler)),
+      fs.remove(this.clientCompiler.options.output.path).then(() => runWebpack(this.clientCompiler))
     ])
   }
 
@@ -117,6 +122,7 @@ module.exports = class Ream {
   prepare() {
     this.renderer.rendererPrepareRequests()
     if (this.dev) {
+      this.createCompilers()
       require('./setup-dev-server')(this)
     }
     return this
