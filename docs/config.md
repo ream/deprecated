@@ -27,6 +27,15 @@ Required: `true`
 
 A renderer instance.
 
+### build
+
+#### staticFolder
+
+Type: `string`<br>
+Default: `static`
+
+The static folder.
+
 ### output
 
 #### path
