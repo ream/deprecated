@@ -1,9 +1,11 @@
+const fs = require('fs')
 const path = require('path')
 const webpack = require('webpack')
 const Config = require('webpack-chain')
 const nodeExternals = require('webpack-node-externals')
 const HtmlPlugin = require('html-webpack-plugin')
 const PostCompilePlugin = require('post-compile-webpack-plugin')
+const CopyPlugin = require('copy-webpack-plugin')
 
 module.exports = (ctx, type) => {
   const config = new Config()
@@ -87,7 +89,7 @@ module.exports = (ctx, type) => {
       .use('url-loader')
         .loader('url-loader')
         .options({
-          name: 'static',
+          name: ctx.buildOptions.output.filename.images,
           // inline the file if < max size (hard-coded 10kb)
           limit: 10000
         })
@@ -100,7 +102,7 @@ module.exports = (ctx, type) => {
       .use('file-loader')
         .loader('file-loader')
         .options({
-          name: ctx.buildOptions.output.filename.static
+          name: ctx.buildOptions.output.filename.images
         })
         .end()
       .end()
@@ -109,7 +111,7 @@ module.exports = (ctx, type) => {
       .use('file-loader')
         .loader('file-loader')
         .options({
-          name: ctx.buildOptions.output.filename.static
+          name: ctx.buildOptions.output.filename.fonts
         })
 
   config.plugin('constants')
@@ -153,6 +155,15 @@ module.exports = (ctx, type) => {
 
   if (type === 'client') {
     config.devtool(ctx.dev ? 'eval-source-map' : 'source-map')
+
+    const staticFolder = ctx.resolveCwd('static')
+    if (fs.existsSync(staticFolder)) {
+      config.plugin('copy-static')
+        .use(CopyPlugin, [[{
+          from: staticFolder,
+          to: 'static'
+        }]])
+    }
 
     config.plugin('html')
       .use(HtmlPlugin, [{}])

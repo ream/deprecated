@@ -4,7 +4,7 @@ const readConfig = require('../lib/read-config')
 
 const cli = cac()
 
-const startServer = (dev, flags) => {
+const startServer = async (dev, flags) => {
   console.log(`> Starting ${dev ? 'development' : 'production'} server...`)
   const config = readConfig(flags.config)
   const options = Object.assign({
@@ -17,7 +17,7 @@ const startServer = (dev, flags) => {
   const app = require('express')()
 
   const ream = new Ream(options)
-  ream.prepare()
+  await ream.prepare()
   app.get('*', ream.getRequestHandler())
   app.listen(options.port, options.host)
   if (!dev) {
@@ -28,7 +28,7 @@ const startServer = (dev, flags) => {
 cli.command('dev', {
   desc: 'Run app in dev mode'
 }, (input, flags) => {
-  startServer(true, flags)
+  return startServer(true, flags)
 })
 
 const build = cli.command('build', {
@@ -56,14 +56,14 @@ build.option('bundle-report', {
 cli.command('start', {
   desc: 'Run app in production mode'
 }, (input, flags) => {
-  startServer(false, flags)
+  return startServer(false, flags)
 })
 
 cli.command('generate', {
   desc: 'Generate static website'
 }, (input, flags) => {
   console.log('> Generating...')
-  const config = readConfig()
+  const config = readConfig(flags.config)
   const generateConfig = config.generate || {}
   delete config.generate
   const options = Object.assign({}, config, flags, {

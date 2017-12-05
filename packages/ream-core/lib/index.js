@@ -2,6 +2,7 @@ const path = require('path')
 const url = require('url')
 const express = require('express')
 const fs = require('fs-extra')
+const globby = require('globby')
 const finalhandler = require('finalhandler')
 const createConfig = require('./create-config')
 const runWebpack = require('./run-webpack')
@@ -27,6 +28,10 @@ module.exports = class Ream {
     jsx = 'vue',
     extendWebpack
   } = {}) {
+    if (!renderer) {
+      throw new Error('Requires a renderer to start Ream.')
+    }
+
     this.dev = dev
     this.cwd = cwd
     this.host = host
@@ -95,21 +100,24 @@ module.exports = class Ream {
             .then(() => fs.writeFile(outputPath, html, 'utf8'))
         })
     })).then(() => {
+      const distStaticPath = this.resolveDist('client', 'static')
       return Promise.all([
         fs.copy(
           this.resolveDist('client'),
           this.resolveCwd(folderPath, '_ream')
         ),
-        fs.copy(
-          this.resolveCwd('static'),
-          this.resolveCwd(folderPath)
-        )
+        fs.pathExists(distStaticPath)
+          .then(exists => {
+            if (!exists) return
+            return fs.copy(distStaticPath, this.resolveCwd(folderPath))
+          })
       ])
       .then(() => fs.remove(this.resolveCwd(folderPath, '_ream', 'index.html'))).then(() => folderPath)
     }))
   }
 
-  prepare() {
+  async prepare() {
+    this.staticFilePaths = await globby(['**'], { cwd: this.resolveCwd('static') })
     this.renderer.rendererPrepareRequests()
     if (this.dev) {
       this.webpackMiddleware = require('./setup-dev-server')(this)
@@ -136,7 +144,7 @@ module.exports = class Ream {
 
     routes['/public/*'] = (req, res) => {
       req.url = req.url.replace(/^\/public/, '')
-      serveStatic(this.resolvePath('public'), !this.dev)(req, res, finalhandler(req, res))
+      serveStatic(this.resolveCwd('public'), !this.dev)(req, res, finalhandler(req, res))
     }
 
     routes['/:path*'] = (req, res) => {
@@ -146,7 +154,17 @@ module.exports = class Ream {
         this.renderer.rendererHandleRequests(req, res)
       }
 
-      serveStatic(this.resolveCwd('static'), !this.dev)(req, res, render)
+      const r = req.path.slice(1)
+      const inStatic = this.staticFilePaths.some(filepath => {
+        return r.startsWith(filepath)
+      })
+      if (inStatic) {
+        return serveStatic(this.resolveCwd('static'), !this.dev)(req, res, () => {
+          res.statusCode = 404
+          res.end('404')
+        })
+      }
+      render()
     }
 
     for (const method of ['GET', 'HEAD']) {
