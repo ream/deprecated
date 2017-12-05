@@ -20,7 +20,7 @@ module.exports = ({ ream, opts }, type) => {
 
   const cssOptions = {
     minimize: !ream.dev,
-    sourceMap: ream.dev,
+    sourceMap: ream.dev && (type === 'client'),
     extract: false,
     postcss: opts.postcss || { plugins: [] },
     fallbackLoader: require.resolve('vue-style-loader')
