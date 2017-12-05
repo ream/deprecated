@@ -2,6 +2,12 @@
 
 ## Top-level options
 
+### config
+
+Default: `ream.config.js`
+
+Use a config file if it exists.
+
 ### entry
 
 Default: `src/index.js`
@@ -50,10 +56,6 @@ Server host.
 Default: `5000`
 
 Server port.
-
-### devServer
-
-Options for [webpack-dev-server](https://webpack.js.org/configuration/dev-server/#devserver). We use the dev-server to build client-side app.
 
 ### jsx
 

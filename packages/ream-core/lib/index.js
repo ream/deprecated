@@ -21,7 +21,6 @@ module.exports = class Ream {
     output = {},
     dev,
     cwd = process.cwd(),
-    devServer,
     bundleReport,
     host,
     port,
@@ -42,10 +41,6 @@ module.exports = class Ream {
       bundleReport,
       jsx
     }
-    this.devServerOptions = Object.assign({
-      host: '0.0.0.0',
-      port: 34592
-    }, devServer)
     this.renderer = renderer
     this.serverConfig = createConfig(this, 'server')
     this.clientConfig = createConfig(this, 'client')
@@ -117,7 +112,7 @@ module.exports = class Ream {
   prepare() {
     this.renderer.rendererPrepareRequests()
     if (this.dev) {
-      require('./setup-dev-server')(this)
+      this.webpackMiddleware = require('./setup-dev-server')(this)
     }
     return this
   }
@@ -127,21 +122,11 @@ module.exports = class Ream {
 
     const serverInfo = `ream/${require('../package.json').version}`
 
-    const proxyDevServer = (req, res) => {
-      require('http-proxy').createProxyServer({
-        target: `http://${this.devServerOptions.host}:${this.devServerOptions.port}`
-      }).web(req, res)
-    }
-
     const routes = {}
-
-    if (this.dev) {
-      routes['/__webpack_hmr'] = proxyDevServer
-    }
 
     routes['/_ream/*'] = (req, res) => {
       if (this.dev) {
-        return proxyDevServer(req, res)
+        return this.webpackMiddleware(req, res)
       }
 
       req.url = req.url.replace(/^\/_ream/, '')

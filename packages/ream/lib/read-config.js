@@ -1,8 +1,8 @@
 const fs = require('fs')
 const path = require('path')
 
-module.exports = () => {
-  const filepath = path.resolve('ream.config.js')
+module.exports = config => {
+  const filepath = path.resolve(config || 'ream.config.js')
   if (!fs.existsSync(filepath)) {
     return {}
   }

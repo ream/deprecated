@@ -6,7 +6,7 @@ const cli = cac()
 
 const startServer = (dev, flags) => {
   console.log(`> Starting ${dev ? 'development' : 'production'} server...`)
-  const config = readConfig()
+  const config = readConfig(flags.config)
   const options = Object.assign({
     host: '0.0.0.0',
     port: 5000
@@ -35,7 +35,7 @@ const build = cli.command('build', {
   desc: 'Build app in production mode'
 }, (input, flags) => {
   console.log('> Building...')
-  const config = readConfig()
+  const config = readConfig(flags.config)
   const options = Object.assign({}, config, flags, {
     dev: false
   })

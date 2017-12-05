@@ -1,14 +1,10 @@
 
 const webpack = require('webpack')
-const express = require('express')
 const MFS = require('memory-fs')
 
 module.exports = function (ctx) {
-  const devServer = express()
-
   const serverConfig = ctx.serverConfig.toConfig()
   const clientConfig = ctx.clientConfig.toConfig()
-  const { host, port } = ctx.devServerOptions
 
   // Dev middleware
   let clientCompiler
@@ -29,12 +25,11 @@ module.exports = function (ctx) {
     publicPath: clientConfig.output.publicPath,
     quiet: true
   })
-  devServer.use(devMiddleware)
 
-  // Hot middleware
-  devServer.use(require('webpack-hot-middleware')(clientCompiler, {
-    log: () => {}
-  }))
+  const hotMiddleware = require('webpack-hot-middleware')(clientCompiler, {
+    log: () => {},
+    path: '/_ream/__hmr'
+  })
 
   const mfs = new MFS()
   serverCompiler.outputFileSystem = mfs
@@ -42,5 +37,8 @@ module.exports = function (ctx) {
     if (err) console.error(err)
   })
 
-  devServer.listen(port, host)
+  return (req, res) => {
+    devMiddleware(req, res, () => {})
+    hotMiddleware(req, res, () => {})
+  }
 }
