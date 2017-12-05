@@ -156,7 +156,7 @@ module.exports = (ctx, type) => {
   if (type === 'client') {
     config.devtool(ctx.dev ? 'eval-source-map' : 'source-map')
 
-    const staticFolder = ctx.resolveCwd('static')
+    const staticFolder = ctx.resolveCwd(ctx.buildOptions.staticFolder)
     if (fs.existsSync(staticFolder)) {
       config.plugin('copy-static')
         .use(CopyPlugin, [[{

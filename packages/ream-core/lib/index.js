@@ -22,11 +22,10 @@ module.exports = class Ream {
     output = {},
     dev,
     cwd = process.cwd(),
-    bundleReport,
     host,
     port,
-    jsx = 'vue',
-    extendWebpack
+    extendWebpack,
+    build = {}
   } = {}) {
     if (!renderer) {
       throw new Error('Requires a renderer to start Ream.')
@@ -43,8 +42,9 @@ module.exports = class Ream {
       }, output, {
         filename: getFilename(!this.dev, output.filename)
       }),
-      bundleReport,
-      jsx
+      bundleReport: build.bundleReport,
+      jsx: build.jsx || 'vue',
+      staticFolder: build.staticFolder || 'static'
     }
     this.renderer = renderer
     this.serverConfig = createConfig(this, 'server')

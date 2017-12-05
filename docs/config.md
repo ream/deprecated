@@ -1,70 +1,38 @@
 # Config
 
-## Top-level options
-
-### config
+## config
 
 Default: `ream.config.js`
 
 Use a config file if it exists.
 
-### entry
+## entry
 
 Default: `src/index.js`
 
 Path to entry file of your app.
 
-### dev
+## dev
 
 Type: `boolean`<br>
 Default: `undefined`
 
 Run Ream in development mode (i.e. with dev-server and hot reloading).
 
-### renderer
+## renderer
 
 Required: `true`
 
 A renderer instance.
 
-### build
+## build
 
-#### staticFolder
+### staticFolder
 
 Type: `string`<br>
 Default: `static`
 
 The static folder.
-
-### output
-
-#### path
-
-Default: `.ream`
-
-The path to generate webpack bundles (for server-side and client-side).
-
-### cwd
-
-Default: `process.cwd()`
-
-The path to resolve your app entry from.
-
-### host
-
-*CLI only*
-
-Default: `0.0.0.0`
-
-Server host.
-
-### port
-
-*CLI only*
-
-Default: `5000`
-
-Server port.
 
 ### jsx
 
@@ -73,7 +41,37 @@ Default: `vue`
 
 Support custom JSX syntax, you can set it to `vue` `react` or a JSX pragma like `h`.
 
-### extendWebpack
+## cwd
+
+Default: `process.cwd()`
+
+The path to resolve your app entry from.
+
+## output
+
+### path
+
+Default: `.ream`
+
+The path to generate webpack bundles (for server-side and client-side).
+
+## host
+
+*CLI only*
+
+Default: `0.0.0.0`
+
+Server host.
+
+## port
+
+*CLI only*
+
+Default: `5000`
+
+Server port.
+
+## extendWebpack
 
 Type: `function`
 
@@ -87,7 +85,7 @@ Parameters:
   - dev: `boolean` Whether Ream is running in development mode
   - type: `string` Either `client` or `server`
 
-## Generate options
+## generate
 
 Options for `ream generate` command.
 
