@@ -39,7 +39,7 @@ module.exports = class Ream {
     this.buildOptions = {
       entry,
       output: Object.assign({
-        path: path.resolve('.ream')
+        path: this.resolveCwd('.ream')
       }, output, {
         filename: getFilename(!this.dev, output.filename)
       }),

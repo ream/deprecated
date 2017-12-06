@@ -36,8 +36,13 @@ module.exports = (ctx, type) => {
 
   config.resolve.alias
     .set('entry-of-user-app$', ctx.resolveCwd(ctx.buildOptions.entry))
+    .set('@cwd', ctx.resolveCwd())
 
   config.resolve.symlinks(true)
+
+  config.resolve.extensions
+    .add('.js')
+    .add('.json')
 
   config.resolve.modules
     .add('node_modules')
