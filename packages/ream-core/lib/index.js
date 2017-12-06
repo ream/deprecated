@@ -50,7 +50,7 @@ module.exports = class Ream {
     this.renderer = renderer
     this.serverConfig = createConfig(this, 'server')
     this.clientConfig = createConfig(this, 'client')
-    this.plugins = []
+    this.plugins = plugins
     this.predefinedRoutes = []
 
     this.renderer.rendererInit(this)
