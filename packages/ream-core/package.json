@@ -26,6 +26,7 @@
     "path-to-regexp": "^1.7.0",
     "post-compile-webpack-plugin": "^0.1.1",
     "promise-polyfill": "^6.0.2",
+    "time-fix-plugin": "^1.0.0",
     "url-loader": "^0.6.2",
     "webpack": "^3.4.1",
     "webpack-bundle-analyzer": "^2.9.0",
