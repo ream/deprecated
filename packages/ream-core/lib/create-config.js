@@ -6,6 +6,7 @@ const nodeExternals = require('webpack-node-externals')
 const HtmlPlugin = require('html-webpack-plugin')
 const PostCompilePlugin = require('post-compile-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
+const TimeFixPlugin = require('time-fix-plugin')
 
 module.exports = (ctx, type) => {
   const config = new Config()
@@ -120,6 +121,9 @@ module.exports = (ctx, type) => {
       'process.isServer': JSON.stringify(type === 'server'),
       'process.isBrowser': JSON.stringify(type === 'client')
     }])
+
+  config.plugin('timefix')
+    .use(TimeFixPlugin)
 
   const logStats = stats => {
     const statsOption = {

@@ -25,7 +25,8 @@ module.exports = class Ream {
     host,
     port,
     extendWebpack,
-    build = {}
+    build = {},
+    plugins = []
   } = {}) {
     if (!renderer) {
       throw new Error('Requires a renderer to start Ream.')
@@ -49,11 +50,18 @@ module.exports = class Ream {
     this.renderer = renderer
     this.serverConfig = createConfig(this, 'server')
     this.clientConfig = createConfig(this, 'client')
+    this.plugins = []
+    this.predefinedRoutes = []
 
     this.renderer.rendererInit(this)
     if (typeof extendWebpack === 'function') {
       this.extendWebpack(extendWebpack)
     }
+  }
+
+  addPredefinedRoutes(routes = []) {
+    this.predefinedRoutes = this.predefinedRoutes.concat(routes)
+    return this
   }
 
   extendWebpack(fn) {
@@ -86,8 +94,9 @@ module.exports = class Ream {
     ])
   }
 
-  generate({ routes, folder = 'generated' } = {}) {
-    if (!routes) return Promise.reject(new Error('Expected to provide routes!'))
+  generate({ routes = [], folder = 'generated' } = {}) {
+    routes = [...new Set(this.predefinedRoutes.concat(routes))]
+    if (route.length === 0) return Promise.reject(new Error('Expected to provide routes!'))
     const folderPath = this.resolveCwd(this.buildOptions.output.path, folder)
     return fs.remove(folderPath).then(() => Promise.all(parseRoutes(routes).map(route => {
       return this.renderer.renderToString(route)
@@ -117,6 +126,7 @@ module.exports = class Ream {
   }
 
   async prepare() {
+    await Promise.all(this.plugins.map(plugin => plugin(this)))
     this.staticFilePaths = await globby(['**'], { cwd: this.resolveCwd('static') })
     this.renderer.rendererPrepareRequests()
     if (this.dev) {
