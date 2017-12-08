@@ -44,10 +44,12 @@ module.exports = class RendererVue {
     this.appPath = path.join(__dirname, '../app')
   }
 
-  rendererInit(ream) {
+  apply(ream) {
     this.ream = ream
     handleWebpackConfig(this, 'server')
     handleWebpackConfig(this, 'client')
+
+    ream.on('before-run', this.rendererPrepareRequests)
   }
 
   createServerRenderer({ bundle, clientManifest, template }) {

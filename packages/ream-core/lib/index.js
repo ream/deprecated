@@ -45,18 +45,12 @@ module.exports = class Ream {
       }),
       bundleReport: build.bundleReport,
       jsx: build.jsx || 'vue',
-      staticFolder: build.staticFolder || 'static'
+      staticFolder: build.staticFolder || 'static',
+      extendWebpack
     }
     this.renderer = renderer
-    this.serverConfig = createConfig(this, 'server')
-    this.clientConfig = createConfig(this, 'client')
     this.plugins = plugins
     this.predefinedRoutes = []
-
-    this.renderer.rendererInit(this)
-    if (typeof extendWebpack === 'function') {
-      this.extendWebpack(extendWebpack)
-    }
   }
 
   addPredefinedRoutes(routes = []) {
@@ -96,7 +90,7 @@ module.exports = class Ream {
 
   generate({ routes = [], folder = 'generated' } = {}) {
     routes = [...new Set(this.predefinedRoutes.concat(routes))]
-    if (route.length === 0) return Promise.reject(new Error('Expected to provide routes!'))
+    if (routes.length === 0) return Promise.reject(new Error('Expected to provide routes!'))
     const folderPath = this.resolveCwd(this.buildOptions.output.path, folder)
     return fs.remove(folderPath).then(() => Promise.all(parseRoutes(routes).map(route => {
       return this.renderer.renderToString(route)
@@ -126,9 +120,16 @@ module.exports = class Ream {
   }
 
   async prepare() {
+    this.serverConfig = createConfig(this, 'server')
+    this.clientConfig = createConfig(this, 'client')
+    this.renderer.apply(this)
+    if (this.buildOptions.extendWebpack) {
+      this.extendWebpack(this.buildOptions.extendWebpack)
+    }
+
     await Promise.all(this.plugins.map(plugin => plugin(this)))
     this.staticFilePaths = await globby(['**'], { cwd: this.resolveCwd('static') })
-    this.renderer.rendererPrepareRequests()
+    this.emit('before-run')
     if (this.dev) {
       this.webpackMiddleware = require('./setup-dev-server')(this)
     }
