@@ -8,7 +8,7 @@ Use a config file if it exists.
 
 ## entry
 
-Default: `src/index.js`
+Default: `index.js`
 
 Path to entry file of your app.
 

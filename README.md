@@ -24,7 +24,7 @@ yarn add ream-renderer-vue@next
 
 ## Usage
 
-First, populate an entry file `src/index.js`:
+First, populate an entry file `index.js`:
 
 ```js
 import Vue from 'vue'
@@ -50,7 +50,7 @@ Then configure the `vue` renderer in config file `ream.config.js`:
 const Renderer = require('ream-renderer-vue')
 
 module.exports = {
-  entry: './src/index.js', // default value
+  entry: 'index.js', // default value
   renderer: new Renderer()
 }
 ```

@@ -19,7 +19,7 @@ const serveStatic = (path, cache) => express.static(path, {
 
 module.exports = class Ream extends EventEmitter {
   constructor({
-    entry = 'src/index.js',
+    entry = 'index.js',
     renderer,
     output = {},
     dev,

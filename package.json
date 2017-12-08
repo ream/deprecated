@@ -1,7 +1,8 @@
 {
   "scripts": {
     "test": "lerna bootstrap && npm run lint && lerna exec -- npm test",
-    "lint": "xo"
+    "lint": "xo",
+    "precommit": "npm test"
   },
   "xo": {
     "extends": "rem",
@@ -12,6 +13,7 @@
   },
   "devDependencies": {
     "eslint-config-rem": "^3.2.0",
+    "husky": "^0.14.3",
     "lerna": "^2.0.0",
     "xo": "^0.18.2"
   },
