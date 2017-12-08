@@ -49,7 +49,7 @@ module.exports = class RendererVue {
     handleWebpackConfig(this, 'server')
     handleWebpackConfig(this, 'client')
 
-    ream.on('before-run', this.rendererPrepareRequests)
+    ream.on('before-run', this.rendererPrepareRequests.bind(this))
   }
 
   createServerRenderer({ bundle, clientManifest, template }) {

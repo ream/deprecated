@@ -2,9 +2,7 @@ const path = require('path')
 
 const env = process.env.BABEL_ENV || process.env.NODE_ENV
 
-module.exports = (ctx, {
-  jsx = 'vue'
-} = {}) => {
+module.exports = () => {
   const presets = [
     env === 'test' ? [require('babel-preset-env').default, {
       targets: {
@@ -17,7 +15,8 @@ module.exports = (ctx, {
         ie: 9,
         uglify: true
       }
-    }]
+    }],
+    require.resolve('babel-preset-vue')
   ]
 
   const plugins = [
@@ -34,17 +33,6 @@ module.exports = (ctx, {
     // For dynamic import that you will use a lot in code-split
     require.resolve('babel-plugin-syntax-dynamic-import')
   ]
-
-  if (jsx === 'vue') {
-    presets.push(require.resolve('babel-preset-vue'))
-  } else if (jsx === 'react') {
-    plugins.push(require.resolve('babel-plugin-transform-react-jsx'))
-  } else {
-    plugins.push([
-      require.resolve('babel-plugin-transform-react-jsx'),
-      { pragma: jsx }
-    ])
-  }
 
   return {
     presets,

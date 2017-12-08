@@ -22,7 +22,7 @@ module.exports = ({ ream, opts }, type) => {
     minimize: !ream.dev,
     sourceMap: ream.dev && (type === 'client'),
     extract: false,
-    postcss: opts.postcss || { plugins: [] },
+    postcss: ream.buildOptions.postcss || { plugins: [] },
     fallbackLoader: require.resolve('vue-style-loader')
   }
   cssLoaders.standalone(config, cssOptions)

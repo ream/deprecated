@@ -1,5 +1,6 @@
 const path = require('path')
 const url = require('url')
+const EventEmitter = require('events')
 const express = require('express')
 const fs = require('fs-extra')
 const globby = require('globby')
@@ -9,13 +10,14 @@ const runWebpack = require('./run-webpack')
 const Router = require('./router')
 const { handleRoute, parseRoutes } = require('./utils')
 const { getFilename } = require('./build-utils')
+const loadConfig = require('./load-config')
 
 const serveStatic = (path, cache) => express.static(path, {
   maxAge: cache ? '1d' : 0,
   dotfiles: 'allow'
 })
 
-module.exports = class Ream {
+module.exports = class Ream extends EventEmitter {
   constructor({
     entry = 'src/index.js',
     renderer,
@@ -28,6 +30,8 @@ module.exports = class Ream {
     build = {},
     plugins = []
   } = {}) {
+    super()
+
     if (!renderer) {
       throw new Error('Requires a renderer to start Ream.')
     }
@@ -44,7 +48,6 @@ module.exports = class Ream {
         filename: getFilename(!this.dev, output.filename)
       }),
       bundleReport: build.bundleReport,
-      jsx: build.jsx || 'vue',
       staticFolder: build.staticFolder || 'static',
       extendWebpack
     }
@@ -120,6 +123,10 @@ module.exports = class Ream {
   }
 
   async prepare() {
+    const { babel, postcss } = await loadConfig(this.cwd)
+    this.buildOptions.babel = babel
+    this.buildOptions.postcss = postcss
+
     this.serverConfig = createConfig(this, 'server')
     this.clientConfig = createConfig(this, 'client')
     this.renderer.apply(this)

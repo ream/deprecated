@@ -81,13 +81,7 @@ module.exports = (ctx, type) => {
       .end()
     .use('babel-loader')
       .loader('babel-loader')
-      .options({
-        presets: [
-          [require.resolve('babel-preset-ream'), {
-            jsx: ctx.buildOptions.jsx
-          }]
-        ]
-      })
+      .options(ctx.buildOptions.babel)
 
   config.module
     .rule('image')

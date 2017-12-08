@@ -34,13 +34,6 @@ Default: `static`
 
 The static folder.
 
-### jsx
-
-Type: `string`<br>
-Default: `vue`
-
-Support custom JSX syntax, you can set it to `vue` `react` or a JSX pragma like `h`.
-
 ## cwd
 
 Default: `process.cwd()`
