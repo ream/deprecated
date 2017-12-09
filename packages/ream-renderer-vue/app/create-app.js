@@ -35,6 +35,12 @@ export default context => {
     name: 'ream-root',
     store,
     router,
+    ream: {
+      error: null
+    },
+    beforeCreate () {
+      Vue.util.defineReactive(this, '$ream', this.$options.ream)
+    },
     render: h => {
       return h('div', {
         attrs: {

@@ -7,7 +7,9 @@ export default {
   name: 'RootComponent',
 
   render() {
-    if (this.$reamError) return <ErrorComponent error={this.$reamError} />
+    const error = this.$ream.error
+
+    if (error) return <ErrorComponent error={error} />
 
     return <router-view />
   }

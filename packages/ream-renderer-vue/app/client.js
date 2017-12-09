@@ -12,6 +12,10 @@ if (ream.state) {
   store.replaceState(ream.state)
 }
 
+if (ream.error) {
+  app.$ream.error = ream.error
+}
+
 // a global mixin that calls `asyncData` when a route component's params change
 Vue.mixin({
   beforeRouteUpdate(to, from, next) {
@@ -48,7 +52,8 @@ router.onReady(() => {
       return diffed || (diffed = (prevMatched[i] !== c))
     })
 
-    if (!activated.length) {
+    if (activated.length === 0) {
+      app.$ream.error = { statusCode: 404, message: 'Page not found' }
       return next()
     }
 

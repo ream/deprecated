@@ -1,5 +1,5 @@
 <template>
-  <h1>{{ error.statusMessage }}</h1>
+  <h1>{{ error.statusCode }}</h1>
 </template>
 
 <script>

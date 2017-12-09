@@ -28,7 +28,7 @@ export default async context => {
   }
 
   if (matchedComponents.length === 0) {
-    context.error = { statusCode: 404, statusMessage: 'Page not found' }
+    app.$ream.error = context.error = { statusCode: 404, statusMessage: 'Page not found' }
     return app
   }
 
