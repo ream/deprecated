@@ -82,7 +82,9 @@ module.exports = class Ream extends EventEmitter {
     return this.resolveCwd(this.buildOptions.output.path, `dist-${type}`, ...args)
   }
 
-  build() {
+  async build() {
+    await this.init()
+
     const serverConfig = this.serverConfig.toConfig()
     const clientConfig = this.clientConfig.toConfig()
     return Promise.all([
@@ -94,6 +96,9 @@ module.exports = class Ream extends EventEmitter {
   generate({ routes = [], folder = 'generated' } = {}) {
     routes = [...new Set(this.predefinedRoutes.concat(routes))]
     if (routes.length === 0) return Promise.reject(new Error('Expected to provide routes!'))
+
+    this.emit('before-request')
+
     const folderPath = this.resolveCwd(this.buildOptions.output.path, folder)
     return fs.remove(folderPath).then(() => Promise.all(parseRoutes(routes).map(route => {
       return this.renderer.renderToString(route)
@@ -122,28 +127,44 @@ module.exports = class Ream extends EventEmitter {
     }))
   }
 
-  async prepare() {
-    const { babel, postcss } = await loadConfig(this.cwd)
-    this.buildOptions.babel = babel
-    this.buildOptions.postcss = postcss
+  async init({ webpack = true } = {}) {
+    if (this._hasInit) {
+      return
+    }
 
-    this.serverConfig = createConfig(this, 'server')
-    this.clientConfig = createConfig(this, 'client')
-    this.renderer.apply(this)
-    if (this.buildOptions.extendWebpack) {
+    this._hasInit = true
+
+    if (webpack) {
+      const { babel, postcss } = await loadConfig(this.cwd)
+      this.buildOptions.babel = babel
+      this.buildOptions.postcss = postcss
+
+      this.serverConfig = createConfig(this, 'server')
+      this.clientConfig = createConfig(this, 'client')
+    }
+
+    this.renderer.init(this, { webpack })
+
+    if (webpack && this.buildOptions.extendWebpack) {
       this.extendWebpack(this.buildOptions.extendWebpack)
     }
 
+    await this.loadPlugins()
+  }
+
+  async loadPlugins() {
     await Promise.all(this.plugins.map(plugin => plugin(this)))
+  }
+
+  async getRequestHandler() {
+    await this.init({ webpack: this.dev })
+
     this.staticFilePaths = await globby(['**'], { cwd: this.resolveCwd('static') })
-    this.emit('before-run')
     if (this.dev) {
       this.webpackMiddleware = require('./setup-dev-server')(this)
     }
-    return this
-  }
+    this.emit('before-request')
 
-  getRequestHandler() {
     const router = new Router()
 
     const serverInfo = `ream/${require('../package.json').version}`

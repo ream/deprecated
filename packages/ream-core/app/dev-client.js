@@ -6,3 +6,10 @@ hotClient.subscribe(event => {
     window.location.reload()
   }
 })
+
+hotClient.subscribeAll(event => {
+  // Refresh browser when there's ream error
+  if (event.action === 'built' && document.querySelector('.ream-error')) {
+    window.location.reload()
+  }
+})

@@ -44,12 +44,15 @@ module.exports = class RendererVue {
     this.appPath = path.join(__dirname, '../app')
   }
 
-  apply(ream) {
+  init(ream, { webpack }) {
     this.ream = ream
-    handleWebpackConfig(this, 'server')
-    handleWebpackConfig(this, 'client')
 
-    ream.on('before-run', this.rendererPrepareRequests.bind(this))
+    if (webpack) {
+      handleWebpackConfig(this, 'server')
+      handleWebpackConfig(this, 'client')
+    }
+
+    ream.on('before-request', this.rendererPrepareRequests.bind(this))
   }
 
   createServerRenderer({ bundle, clientManifest, template }) {
@@ -129,7 +132,7 @@ module.exports = class RendererVue {
     })
   }
 
-  rendererHandleRequests(req, res) {
+  async rendererHandleRequests(req, res) {
     if (!this.serverRenderer) {
       return res.end('wait for compiling...')
     }
@@ -138,28 +141,48 @@ module.exports = class RendererVue {
       req,
       url: req.url,
       dev: this.ream.dev,
-      data: {}
+      initialData: {}
     }
 
-    const renderStream = this.serverRenderer.renderToStream(context)
+    try {
+      const html = await this.serverRenderer.renderToString(context)
+      const splitContent = renderTemplate(this.template, context)
 
-    let splitContent
+      if (context.error && context.error.statusCode) {
+        res.statusCode = context.error.statusCode
+      }
 
-    renderStream.once('data', () => {
-      splitContent = renderTemplate(this.template, context)
       res.write(splitContent.start)
-    })
-
-    renderStream.on('data', chunk => {
-      res.write(chunk)
-    })
-
-    renderStream.on('end', () => {
+      res.write(html)
       res.end(splitContent.end)
-    })
+    } catch (err) {
+      res.send(`
+      <div class="ream-error">
+        <pre><code><span class="ream-error-span">500</span> refresh this page when you fixed the error:\n\n${this.ream.dev ? err.stack : 'server error'}</code></pre>
+      </div>
+      <style>
+      .ream-error {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        padding: 8px;
+        background: white;
+      }
 
-    renderStream.on('error', err => {
-      res.end(err.stack)
-    })
+      .ream-error pre {
+        margin: 0;
+      }
+
+      .ream-error-span {
+        background: red;
+        padding: 2px 5px;
+        border-radius: 3px;
+        color: white;
+      }
+      </style>
+      `)
+    }
   }
 }

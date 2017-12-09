@@ -3,6 +3,8 @@ import Meta from 'vue-meta'
 import entry from 'entry-of-user-app'
 import { sync } from 'vuex-router-sync'
 import { warn } from './utils'
+import DefaultRootComponent from './components/Root'
+import InstallMixins from './mixins'
 
 const meta = Object.assign({
   keyName: 'head',
@@ -12,32 +14,13 @@ const meta = Object.assign({
 }, entry.meta)
 
 Vue.use(Meta, meta)
+Vue.use(InstallMixins)
 
-// Inject this.$asyncData
-Vue.mixin({
-  beforeCreate() {
-    const { name, asyncData } = this.$options
-    if (name === 'ream-root' || !asyncData) return
-
-    if (process.env.NODE_ENV !== 'production' && !name) {
-      Object.defineProperty(this, '$asyncData', {
-        get() {
-          console.error(`[REAM] Expect route component to have a unique name in order to use $asyncData!`)
-        }
-      })
-      return
-    }
-
-    const namespace = `${this.$route.path}::${name}`
-    const asyncDataStore = process.isServer ? this.$ssrContext.data.asyncData : window.__REAM__.data.asyncData
-    this.$asyncData = asyncDataStore && asyncDataStore[namespace]
-  }
-})
-
-const REAM_ROOT = 'ream-root'
+const RootComponent = entry.RootComponent || DefaultRootComponent
 
 export default context => {
-  const root = entry.root || REAM_ROOT
+  // Should give this a better name, like `rootId`
+  const root = entry.root || 'ream-root'
 
   const router = entry.router || entry.createRouter(context)
 
@@ -49,15 +32,21 @@ export default context => {
 
   const app = new Vue({
     ...(entry.rootOptions || {}),
-    name: REAM_ROOT,
+    name: 'ream-root',
     store,
     router,
+    ream: {
+      error: null
+    },
+    beforeCreate () {
+      Vue.util.defineReactive(this, '$ream', this.$options.ream)
+    },
     render: h => {
       return h('div', {
         attrs: {
           id: root
         }
-      }, [h(entry.App || 'router-view')])
+      }, [h(RootComponent)])
     }
   })
 

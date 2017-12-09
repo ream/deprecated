@@ -10,15 +10,15 @@ if (process.env.NODE_ENV !== 'production') {
   }
 }
 
-export function handleAsyncData({
-  asyncData,
+export function handleInitialData({
+  getInitialData,
   scopeContext,
   context,
   name
 }) {
-  if (!asyncData || !name) return
+  if (!getInitialData || !name) return
 
-  const res = asyncData(scopeContext)
+  const res = getInitialData(scopeContext)
 
   if (!res.then) return res
 
@@ -27,9 +27,9 @@ export function handleAsyncData({
 
     const namespace = `${scopeContext.route.path}::${name}`
 
-    context.data.asyncData = context.data.asyncData || {}
-    context.data.asyncData[namespace] = {
-      ...(context.data.asyncData[namespace] || {}),
+    context.initialData = context.initialData || {}
+    context.initialData[namespace] = {
+      ...(context.initialData[namespace] || {}),
       ...data
     }
   })

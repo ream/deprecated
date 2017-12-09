@@ -19,7 +19,8 @@ exports.renderTemplate = (template, context) => {
 
   end = `<script>window.__REAM__=${serialize({
     state: context.state,
-    data: context.data
+    initialData: context.initialData,
+    error: context.error
   }, { isJSON: true })}</script>` + end.replace('<!--ream-scripts-placeholder-->', context.renderScripts())
 
   return {
