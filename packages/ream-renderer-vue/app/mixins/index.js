@@ -1,7 +1,7 @@
-import AsynData from './async-data'
-import HandleError from './error'
+import InitialData from './initial-data'
+import Ream from './ream'
 
 export default Vue => {
-  Vue.mixin(AsynData)
-  Vue.mixin(HandleError)
+  Vue.mixin(InitialData)
+  Vue.mixin(Ream)
 }

@@ -138,7 +138,7 @@ module.exports = class RendererVue {
       req,
       url: req.url,
       dev: this.ream.dev,
-      data: {}
+      initialData: {}
     }
 
     try {

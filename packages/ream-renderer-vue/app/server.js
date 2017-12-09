@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import createApp from './create-app'
-import { handleAsyncData } from './utils'
+import { handleInitialData } from './utils'
 
 export default async context => {
   const dev = context.dev
@@ -33,12 +33,12 @@ export default async context => {
   }
 
   await Promise.all(matchedComponents.map((Component, index) => {
-    const { name, asyncData } = Component
-    if (Component.asyncData) {
+    const { name, getInitialData } = Component
+    if (getInitialData) {
       const ctx = { route, store, req: context.req }
-      return handleAsyncData({
+      return handleInitialData({
         name,
-        asyncData,
+        getInitialData,
         scopeContext: { route, store, req: context.req },
         context
       })

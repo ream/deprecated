@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import createApp from './create-app'
-import { handleAsyncData } from './utils'
+import { handleInitialData } from './utils'
 
 const { app, router, store, root } = createApp()
 
@@ -16,14 +16,14 @@ if (ream.error) {
   app.$ream.error = ream.error
 }
 
-// a global mixin that calls `asyncData` when a route component's params change
+// a global mixin that calls `getInitialData` when a route component's params change
 Vue.mixin({
   beforeRouteUpdate(to, from, next) {
-    const { asyncData, name } = this.$options
-    if (asyncData) {
-      const handled = handleAsyncData({
+    const { getInitialData, name } = this.$options
+    if (getInitialData) {
+      const handled = handleInitialData({
         name,
-        asyncData,
+        getInitialData,
         scopeContext: { store: this.$store, route: to },
         context: ream
       })
@@ -37,11 +37,14 @@ Vue.mixin({
 })
 
 router.onReady(() => {
- // Add router hook for handling asyncData.
+ // Add router hook for handling getInitialData.
  // Doing it after initial route is resolved so that we don't double-fetch
  // the data that we already have. Using router.beforeResolve() so that all
  // async components are resolved.
   router.beforeResolve((to, from, next) => {
+    // Reset error
+    app.$ream.error = null
+
     const matched = router.getMatchedComponents(to)
     const prevMatched = router.getMatchedComponents(from)
 
@@ -58,13 +61,13 @@ router.onReady(() => {
     }
 
     Promise.all(activated.map((Component, index) => {
-      const { asyncData, name } = Component
-      if (asyncData) {
-        return handleAsyncData({
+      const { getInitialData, name } = Component
+      if (getInitialData) {
+        return handleInitialData({
           scopeContext: { store, route: to },
           context: ream,
           name,
-          asyncData
+          getInitialData
         })
       }
     })).then(() => next()).catch(next)
