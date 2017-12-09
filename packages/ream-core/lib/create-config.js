@@ -117,6 +117,7 @@ module.exports = (ctx, type) => {
   config.plugin('constants')
     .use(webpack.DefinePlugin, [{
       'process.env.NODE_ENV': JSON.stringify(ctx.dev ? 'development' : 'production'),
+      'process.isDev': JSON.stringify(ctx.dev),
       'process.isServer': JSON.stringify(type === 'server'),
       'process.isBrowser': JSON.stringify(type === 'client')
     }])

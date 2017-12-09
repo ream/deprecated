@@ -17,8 +17,7 @@ const startServer = async (dev, flags) => {
   const app = require('express')()
 
   const ream = new Ream(options)
-  await ream.prepare()
-  app.get('*', ream.getRequestHandler())
+  app.get('*', await ream.getRequestHandler())
   app.listen(options.port, options.host)
   if (!dev) {
     console.log(`> Open http://${options.host}:${options.port}`)
@@ -33,7 +32,7 @@ cli.command('dev', {
 
 const build = cli.command('build', {
   desc: 'Build app in production mode'
-}, (input, flags) => {
+}, async (input, flags) => {
   console.log('> Building...')
   const config = readConfig(flags.config)
   const options = Object.assign({}, config, flags, {
@@ -41,12 +40,8 @@ const build = cli.command('build', {
   })
   const Ream = require('ream-core')
   const ream = new Ream(options)
-  ream.build().then(() => {
-    console.log(`> Done! check out ${ream.buildOptions.output.path}`)
-  }, err => {
-    console.error(err)
-    process.exit(1)
-  })
+  await ream.build()
+  console.log(`> Done! check out ${ream.buildOptions.output.path}`)
 })
 
 build.option('bundle-report', {
@@ -61,7 +56,7 @@ cli.command('start', {
 
 cli.command('generate', {
   desc: 'Generate static website'
-}, (input, flags) => {
+}, async (input, flags) => {
   console.log('> Generating...')
   const config = readConfig(flags.config)
   const generateConfig = config.generate || {}
@@ -71,15 +66,9 @@ cli.command('generate', {
   })
   const Ream = require('ream-core')
   const ream = new Ream(options)
-  ream.build().then(() => {
-    ream.prepare()
-    return ream.generate(generateConfig).then(folderPath => {
-      console.log(`> Done! check out ${folderPath}`)
-    })
-  }).catch(err => {
-    console.error(err)
-    process.exit(1)
-  })
+  await ream.build()
+  const folderPath = await ream.generate(generateConfig)
+  console.log(`> Done! check out ${folderPath}`)
 })
 
 cli.parse()
