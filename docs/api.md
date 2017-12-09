@@ -23,7 +23,10 @@ await app.build()
 ```js
 const app = new Ream(options)
 
-app.start()
+const handle = await app.getRequestHandler()
+http.createServer((req, res) => {
+  handle(req, res)
+})
 ```
 
 ### generate
