@@ -129,7 +129,7 @@ module.exports = class RendererVue {
     })
   }
 
-  rendererHandleRequests(req, res) {
+  async rendererHandleRequests(req, res) {
     if (!this.serverRenderer) {
       return res.end('wait for compiling...')
     }
@@ -141,25 +141,20 @@ module.exports = class RendererVue {
       data: {}
     }
 
-    const renderStream = this.serverRenderer.renderToStream(context)
+    try {
+      const html = await this.serverRenderer.renderToString(context)
+      const splitContent = renderTemplate(this.template, context)
 
-    let splitContent
+      if (context.error && context.error.statusCode) {
+        res.statusCode = context.error.statusCode
+      }
 
-    renderStream.once('data', () => {
-      splitContent = renderTemplate(this.template, context)
       res.write(splitContent.start)
-    })
-
-    renderStream.on('data', chunk => {
-      res.write(chunk)
-    })
-
-    renderStream.on('end', () => {
+      res.write(html)
       res.end(splitContent.end)
-    })
-
-    renderStream.on('error', err => {
-      res.end(err.stack)
-    })
+    } catch (err) {
+      console.error(err.stack)
+      res.end(this.ream.dev ? err.stack : 'server error')
+    }
   }
 }

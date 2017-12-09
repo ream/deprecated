@@ -1,11 +1,9 @@
 <template>
-  <div class="page">
-    Home!!!
-  </div>
+  <h1>{{ error.statusMessage }}</h1>
 </template>
 
 <script>
 export default {
-  name: 'Home'
+  props: ['error']
 }
 </script>
