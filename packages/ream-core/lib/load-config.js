@@ -6,21 +6,15 @@ const buildConfigChain = require('babel-core/lib/transformation/file/options/bui
 async function loadBabel(load) {
   let babel
 
-  const { useConfig, file } = await load.babel(buildConfigChain)
+  try {
+    const { useConfig, file } = await load.babel(buildConfigChain)
+    babel = useConfig ? { cacheDirectory: true, babelrc: true } : { cacheDirectory: true, babelrc: false };
 
-  if (useConfig) {
-    console.log('> Using external babel configuration')
-    console.log(chalk.dim(`> location: "${tildify(file)}"`))
-    babel = {
-      cacheDirectory: true,
-      babelrc: true
-    }
-  } else {
-    babel = {
-      cacheDirectory: true,
-      babelrc: false
-    }
+  } catch (e) {
+    console.log('Loading babel failed', e);
+    babel = { cacheDirectory: true, babelrc: false }
   }
+
   if (babel.babelrc === false) {
     // Use our default preset when no babelrc was found
     babel.presets = [
