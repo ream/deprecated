@@ -4,25 +4,32 @@ const LoadExternalConfig = require('poi-load-config')
 const buildConfigChain = require('babel-core/lib/transformation/file/options/build-config-chain')
 
 async function loadBabel(load) {
-  let babel
+  const babel = {}
 
-  const { useConfig, file } = await load.babel(buildConfigChain)
+  const externalBabelConfig = await load.babel(buildConfigChain)
 
-  if (useConfig) {
+  if (externalBabelConfig) {
+    // If root babel config file is found
+    // We set `babelrc` to the its path
+    // To prevent `babel-loader` from loading it again
     console.log('> Using external babel configuration')
-    console.log(chalk.dim(`> location: "${tildify(file)}"`))
-    babel = {
-      cacheDirectory: true,
-      babelrc: true
+    console.log(
+      chalk.dim(`> location: "${tildify(externalBabelConfig.loc)}"`)
+    )
+    // You can use `babelrc: false` to disable the config file itself
+    if (externalBabelConfig.options.babelrc === false) {
+      babel.babelrc = false
+    } else {
+      babel.babelrc = externalBabelConfig.loc
     }
   } else {
-    babel = {
-      cacheDirectory: true,
-      babelrc: false
-    }
+    // If not found
+    // We set `babelrc` to `false` for the same reason
+    babel.babelrc = false
   }
+
   if (babel.babelrc === false) {
-    // Use our default preset when no babelrc was found
+    // Use our default preset when no babelrc was specified
     babel.presets = [
       [require.resolve('babel-preset-ream')]
     ]
