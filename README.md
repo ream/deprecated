@@ -1,7 +1,8 @@
+<p align="center">
+<img src="https://user-images.githubusercontent.com/8784712/36352897-581670e6-14fa-11e8-98e6-163f10bd8ab5.png" width="400">
+</p>
 
-# Ream
-
-[![NPM version](https://img.shields.io/npm/v/ream.svg?style=for-the-badge)](https://npmjs.com/package/ream) [![NPM downloads](https://img.shields.io/npm/dm/ream.svg?style=for-the-badge)](https://npmjs.com/package/ream) [![CircleCI](https://img.shields.io/circleci/project/github/ream/ream/master.svg?style=for-the-badge)](https://circleci.com/gh/ream/ream/tree/master)  [![donate](https://img.shields.io/badge/$-donate-ff69b4.svg?maxAge=2592000&style=for-the-badge)](https://github.com/egoist/donate) [![chat](https://img.shields.io/badge/chat-on%20discord-7289DA.svg?style=for-the-badge)](https://chat.egoist.moe)
+<p align="center"><a href="https://npmjs.com/package/ream"><img src="https://img.shields.io/npm/v/ream.svg?style=for-the-badge" alt="NPM version"></a> <a href="https://npmjs.com/package/ream"><img src="https://img.shields.io/npm/dm/ream.svg?style=for-the-badge" alt="NPM downloads"></a> <a href="https://circleci.com/gh/ream/ream/tree/master"><img src="https://img.shields.io/circleci/project/github/ream/ream/master.svg?style=for-the-badge" alt="CircleCI"></a>  <br><a href="https://github.com/egoist/donate"><img src="https://img.shields.io/badge/$-donate-ff69b4.svg?maxAge=2592000&amp;style=for-the-badge" alt="donate"></a> <a href="https://chat.egoist.moe"><img src="https://img.shields.io/badge/chat-on%20discord-7289DA.svg?style=for-the-badge" alt="chat"></a></p>
 
 ## Install
 
