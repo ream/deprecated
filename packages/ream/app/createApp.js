@@ -26,10 +26,7 @@ export default () => {
 
   const appOptions = {
     router,
-    store,
-    head: {
-      title: 'Ream Application'
-    }
+    store
   }
   if (extendAppOptions) {
     extendAppOptions(appOptions)
