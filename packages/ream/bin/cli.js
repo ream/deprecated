@@ -21,7 +21,7 @@ const getOptions = (dev, input, flags) => {
   return options
 }
 
-const build = cli
+cli
   .command('build', 'Build your application', (input, flags) => {
     const options = getOptions(false, input, flags)
     const app = require('../lib')(options)
