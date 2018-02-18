@@ -1,0 +1,25 @@
+{
+  "private": true,
+  "scripts": {
+    "test": "npm run lint && lerna bootstrap && lerna run test",
+    "lint": "xo",
+    "prepublishOnly": "npm test",
+    "postinstall": "node -e \"console.log('\\u001b[35m\\u001b[1mLove Ream? You can now donate to support the author:\\u001b[22m\\u001b[39m\\n> \\u001b[34mhttps://patreon.com/egoist\\u001b[0m')\""
+  },
+  "license": "MIT",
+  "xo": {
+    "extends": "rem",
+    "rules": {
+      "unicorn/filename-case": "off"
+    },
+    "globals": ["__DEV__"]
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "eslint-config-rem": "^4.0.0",
+    "lerna": "^2.9.0",
+    "xo": "^0.20.1"
+  }
+}
