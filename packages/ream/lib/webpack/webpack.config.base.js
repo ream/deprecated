@@ -24,6 +24,10 @@ module.exports = (api, config, isServer) => {
 
   config.set('resolve.alias.#app-entry', api.options.entry)
 
+  config.set('performance', {
+    hints: false
+  })
+
   config.set('output', {
     filename: '[name].js',
     publicPath: '/_ream/',

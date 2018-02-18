@@ -1,11 +1,8 @@
 const webpack = require('webpack')
 const VueSSRClientPlugin = require('vue-server-renderer/client-plugin')
-const chalk = require('chalk')
 const { ownDir } = require('../utils/dir')
-const emoji = require('../emoji')
-const prettyPath = require('../utils/prettyPath')
-const logger = require('../logger')
 const baseConfig = require('./webpack.config.base')
+const ProgressPlugin = require('./ProgressPlugin')
 
 const addHMRSupport = config => {
   config.plugins.add('hmr', webpack.HotModuleReplacementPlugin)
@@ -57,34 +54,11 @@ module.exports = (api, config) => {
     splitChunks(config)
   }
 
-  config.plugins.add(
-    'progress',
-    class extends webpack.ProgressPlugin {
-      constructor() {
-        super((percent, msg, ...details) => {
-          if (msg && api.options.progress !== false) {
-            let modulePath = details[details.length - 1] || ''
-            if (modulePath) {
-              modulePath = prettyPath(modulePath)
-            }
-            logger.status(
-              emoji.progress,
-              `${Math.floor(percent * 100)}% ${msg} ${modulePath}`,
-              true
-            )
-          }
-        })
-      }
+  config.plugins.add('no-emit', webpack.NoEmitOnErrorsPlugin)
 
-      apply(compiler) {
-        super.apply(compiler)
-        compiler.plugin('done', stats => {
-          if (stats.hasErrors()) {
-            return logger.log(stats.toString('errors-only'))
-          }
-          logger.status(emoji.success, chalk.green(`Compiled successfully!`))
-        })
-      }
+  config.plugins.add('progress', ProgressPlugin, [
+    {
+      progress: api.options.progress
     }
-  )
+  ])
 }
