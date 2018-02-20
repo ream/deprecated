@@ -43,3 +43,27 @@ export default {
 }
 </script>
 ````
+
+## Async root component
+
+Root component can also be a function which return an actual component object:
+
+```js
+export default {
+  root: async params => {
+    const items = await fetchItems()
+    return {
+      render(h) {
+        return h('list', {
+          props: { items }
+        })
+      }
+    }
+  }
+}
+```
+
+The `params` contains:
+
+- `store`: Vuex store instance, if any.
+- `req`: HTTP IncomingMessage, only on server-side.

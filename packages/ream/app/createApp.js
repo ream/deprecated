@@ -12,8 +12,12 @@ Vue.use(Meta, {
   tagIDKeyName: 'rhid'
 })
 
-export default () => {
+export default async req => {
   let { router, store, root = 'router-view', extendAppOptions } = entry
+
+  if (typeof root === 'function') {
+    root = await root({ store, req })
+  }
 
   if (__DEV__) {
     if (!router) {

@@ -29,3 +29,5 @@ Note that this method accepts an argument which has following properties:
   req // HTTP incoming message, only available on server-side
 }
 ```
+
+Note that in `ream generate`, the `req` object only contains a property: `url`.

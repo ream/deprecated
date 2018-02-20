@@ -10,7 +10,8 @@
   "xo": {
     "extends": "rem",
     "rules": {
-      "unicorn/filename-case": "off"
+      "unicorn/filename-case": "off",
+      "import/prefer-default-export": "off"
     },
     "globals": ["__DEV__"]
   },

@@ -168,7 +168,8 @@ class Ream extends Event {
 
     await Promise.all(
       routes.map(async route => {
-        const context = { url: route }
+        // Fake req
+        const context = { req: { url: route } }
         const html = await this.renderer.renderToString(context)
         const { start, end } = renderTemplate(this.template, context)
         const targetPath = this.resolveDist(
@@ -239,7 +240,7 @@ class Ream extends Event {
         return res.end('Please wait for compilation...')
       }
 
-      const context = { url: req.url }
+      const context = { req }
 
       const renderStream = this.renderer.renderToStream(context)
 

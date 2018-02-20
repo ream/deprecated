@@ -3,6 +3,7 @@ import Vue from 'vue'
 // eslint-disable-next-line import/no-unassigned-import
 import 'es6-promise/auto'
 import createApp from '../createApp'
+import { routerReady } from '../utils'
 
 // A global mixin that calls `getInitialData` when a route component's params change
 Vue.mixin({
@@ -21,17 +22,19 @@ Vue.mixin({
   }
 })
 
-const { app, router, store } = createApp()
-
-// Prime the store with server-initialized state.
-// the state is determined during SSR and inlined in the page markup.
-if (window.__REAM__.state && store) {
-  store.replaceState(window.__REAM__.state)
-}
-
 // Wait until router has resolved all async before hooks
 // and async components...
-router.onReady(() => {
+async function main() {
+  const { app, router, store } = await createApp()
+
+  // Prime the store with server-initialized state.
+  // the state is determined during SSR and inlined in the page markup.
+  if (window.__REAM__.state && store) {
+    store.replaceState(window.__REAM__.state)
+  }
+
+  await routerReady(router)
+
   // Add router hook for handling getInitialData.
   // Doing it after initial route is resolved so that we don't double-fetch
   // the data that we already have. Using router.beforeResolve() so that all
@@ -61,4 +64,6 @@ router.onReady(() => {
 
   // Actually mount to DOM
   app.$mount('#_ream')
-})
+}
+
+main().catch(console.error)
