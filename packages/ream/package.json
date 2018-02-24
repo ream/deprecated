@@ -1,6 +1,6 @@
 {
   "name": "ream",
-  "version": "3.0.0-rc.2",
+  "version": "3.0.0-rc.3",
   "description": "Framework for building unversal web apps.",
   "repository": {
     "url": "ream/ream",
@@ -23,7 +23,7 @@
     "@babel/core": "^7.0.0-beta.39",
     "async-to-gen": "^1.4.0",
     "babel-loader": "^8.0.0-beta.0",
-    "babel-preset-ream": "^3.0.0-rc.1",
+    "babel-preset-ream": "^3.0.0-rc.2",
     "cac": "^4.4.1",
     "chalk": "^2.3.1",
     "chokidar": "^2.0.1",
