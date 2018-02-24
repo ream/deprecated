@@ -58,7 +58,7 @@ module.exports = (api, config, isServer) => {
   const cssOptions = {
     minimize: !api.options.dev && api.options.minimize !== false,
     extract: false,
-    sourceMap: true,
+    sourceMap: api.options.dev,
     fallbackLoader: 'vue-style-loader',
     postcss: api.options.postcss || { plugins: [] }
   }
