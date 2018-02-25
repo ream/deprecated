@@ -75,16 +75,6 @@ class Ream extends Event {
     this.clientConpack = new Conpack()
     this.extendWebpackFns = []
     this.loadPlugins()
-
-    this.on('renderer-ready', type => {
-      if (type === 'generate') return
-
-      logger.log(
-        `\n  App running at:\n\n  - Local: ${chalk.bold(
-          `http://localhost:${this.options.server.port}`
-        )}\n`
-      )
-    })
   }
 
   extendWebpack(fn) {

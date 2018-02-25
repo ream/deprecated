@@ -1,0 +1,13 @@
+{
+  "private": true,
+  "name": "custom-server-express",
+  "scripts": {
+    "start": "NODE_ENV=production node server",
+    "dev": "node server",
+    "build": "ream build"
+  },
+  "dependencies": {
+    "ream": "latest",
+    "express": "^4.0.0"
+  }
+}

@@ -13,7 +13,8 @@
       "unicorn/filename-case": "off",
       "import/prefer-default-export": "off"
     },
-    "globals": ["__DEV__"]
+    "globals": ["__DEV__"],
+    "ignores": ["examples/**"]
   },
   "workspaces": [
     "packages/*"
