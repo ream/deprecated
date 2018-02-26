@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Meta from 'vue-meta'
 // eslint-disable-next-line import/no-unresolved
 import entry from '#app-entry'
+import { interopDefault } from './utils'
 
 Vue.config.productionTip = false
 
@@ -16,7 +17,7 @@ export default async req => {
   let { router, store, root = 'router-view', extendAppOptions } = entry
 
   if (typeof root === 'function') {
-    root = await root({ store, req })
+    root = await root({ store, req }).then(interopDefault)
   }
 
   if (__DEV__) {

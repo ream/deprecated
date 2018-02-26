@@ -1,0 +1,11 @@
+{
+  "name": "custom-root-component",
+  "scripts": {
+    "dev": "ream dev",
+    "start": "ream start",
+    "build": "ream build"
+  },
+  "dependencies": {
+    "ream": "latest"
+  }
+}
