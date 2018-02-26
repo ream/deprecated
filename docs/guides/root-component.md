@@ -18,7 +18,7 @@ In your entry file, you can export your own root component:
 + import root from './Root.vue'
 
 export default {
-  createRouter, // Your router
+  router, // Your router
 + root
 }
 ```
