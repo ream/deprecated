@@ -37,6 +37,18 @@ export default {
 
 And that's it, run `ream dev` and have fun playing your app at `http://localhost:4000`.
 
+## Roadmap
+
+- [ ] [Prefetch data for route components](https://github.com/ream/ream/issues/74).
+- [ ] Documentation website.
+- [ ] Add proper tests.
+
+To make things happen faster, you may consider becoming a patron to support the development:
+
+<a href="https://patreon.com/egoist">
+<img src="https://c5.patreon.com/external/logo/become_a_patron_button@2x.png" height="50">
+</a>
+
 ## Contributing
 
 1. Fork it!
