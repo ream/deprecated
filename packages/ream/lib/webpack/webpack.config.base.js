@@ -106,15 +106,12 @@ module.exports = (api, config, isServer) => {
 
   config.plugins.add('timefix', TimeFixPlugin)
 
-  // Uglify JS
-  // Remove and use `optimization.minimize` instead in webpack v4
-  if (!api.options.dev && api.options.minimize !== false) {
-    config.plugins.add('uglifyjs', require('uglifyjs-webpack-plugin'), [
-      {
-        parallel: true
-      }
-    ])
-  }
+  config.set(
+    'optimization.minimize',
+    typeof api.options.minimize === 'boolean'
+      ? api.options.minimize
+      : !api.options.dev
+  )
 
   config.plugins.add(
     'watch-missing',
