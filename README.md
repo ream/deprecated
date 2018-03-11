@@ -40,6 +40,7 @@ And that's it, run `ream dev` and have fun playing your app at `http://localhost
 ## Roadmap
 
 - [ ] [Prefetch data for route components](https://github.com/ream/ream/issues/74).
+- [ ] Document how to modify internal webpack config.
 - [ ] Documentation website.
 - [ ] Add proper tests.
 
