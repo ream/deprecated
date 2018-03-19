@@ -1,0 +1,11 @@
+{
+  "name": "route-guard",
+  "scripts": {
+    "dev": "ream dev",
+    "start": "ream start",
+    "build": "ream build"
+  },
+  "dependencies": {
+    "ream": "latest"
+  }
+}
