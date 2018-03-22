@@ -35,7 +35,7 @@ export default {
 }
 ```
 
-And that's it, run `ream dev` and have fun playing your app at `http://localhost:4000`.
+And that's it, run `ream dev` and have fun playing with your app at `http://localhost:4000`.
 
 ## Roadmap
 
