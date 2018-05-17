@@ -58,7 +58,7 @@ module.exports = ({ isServer } = {}) => {
             'chunk-' +
             name
               .replace(/\.[a-z0-9]{2,5}$/, '')
-              .replace(/[^a-z0-9]/gi, '-')
+              .replace(/[^a-z0-9]+/gi, '-')
               .toLowerCase()
           )
         }
