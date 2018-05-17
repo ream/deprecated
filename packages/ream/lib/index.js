@@ -1,7 +1,7 @@
 const path = require('path')
 const Event = require('events')
 const fs = require('fs-extra')
-const Conpack = require('conpack')
+const Config = require('webpack-chain')
 const polka = require('polka')
 const chalk = require('chalk')
 const merge = require('lodash.merge')
@@ -71,8 +71,8 @@ class Ream extends Event {
     ]
     logger.debug('ream options', inspect(this.options))
 
-    this.serverConpack = new Conpack()
-    this.clientConpack = new Conpack()
+    this.serverConfig = new Config()
+    this.clientConfig = new Config()
     this.extendWebpackFns = []
     this.loadPlugins()
   }
@@ -83,13 +83,13 @@ class Ream extends Event {
 
   runExtendWebpackFns() {
     for (const fn of this.extendWebpackFns) {
-      fn(this.serverConpack, {
+      fn(this.serverConfig, {
         type: 'server',
         isServer: true,
         isClient: false,
         dev: this.options.dev
       })
-      fn(this.clientConpack, {
+      fn(this.clientConfig, {
         type: 'client',
         isServer: false,
         isClient: true,
@@ -104,13 +104,15 @@ class Ream extends Event {
   }
 
   createCompilers() {
-    const serverConfig = this.serverConpack.toConfig()
+    if (this.options.debugWebpack) {
+      console.log('server config', chalk.dim(this.serverConfig.toString()))
+      console.log('client config', chalk.dim(this.clientConfig.toString()))
+    }
 
-    logger.debug('server config', inspect(serverConfig))
+    const serverConfig = this.serverConfig.toConfig()
     const serverCompiler = require('webpack')(serverConfig)
 
-    const clientConfig = this.clientConpack.toConfig()
-    logger.debug('client config', inspect(clientConfig))
+    const clientConfig = this.clientConfig.toConfig()
     const clientCompiler = require('webpack')(clientConfig)
 
     return {

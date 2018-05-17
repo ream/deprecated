@@ -5,14 +5,13 @@ const chokidar = require('chokidar')
 module.exports = api => {
   const { serverCompiler, clientCompiler } = api.createCompilers()
 
-  const devMiddleware = require('webpack-dev-middleware')(clientCompiler, {
-    publicPath: clientCompiler.options.output.publicPath,
-    logLevel: 'silent'
+  require('webpack-hot-client')(clientCompiler, {
+    logLevel: 'error'
   })
 
-  const hotMiddleware = require('webpack-hot-middleware')(clientCompiler, {
-    log: () => {},
-    path: '/_ream/__hmr'
+  const devMiddleware = require('webpack-dev-middleware')(clientCompiler, {
+    publicPath: clientCompiler.options.output.publicPath,
+    logLevel: 'error'
   })
 
   let clientManifest
@@ -59,6 +58,5 @@ module.exports = api => {
 
   return server => {
     server.use(devMiddleware)
-    server.use(hotMiddleware)
   }
 }
