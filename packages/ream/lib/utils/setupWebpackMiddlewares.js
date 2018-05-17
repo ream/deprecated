@@ -11,7 +11,7 @@ module.exports = api => {
 
   const devMiddleware = require('webpack-dev-middleware')(clientCompiler, {
     publicPath: clientCompiler.options.output.publicPath,
-    logLevel: 'error'
+    logLevel: 'silent'
   })
 
   let clientManifest

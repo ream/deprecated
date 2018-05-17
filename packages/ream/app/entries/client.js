@@ -2,7 +2,8 @@
 import Vue from 'vue'
 // eslint-disable-next-line import/no-unassigned-import
 import 'es6-promise/auto'
-import createApp from '../createApp'
+// eslint-disable-next-line import/no-unresolved
+import createApp from '#create-app'
 import { routerReady } from '../utils'
 
 // A global mixin that calls `getInitialData` when a route component's params change

@@ -2,7 +2,7 @@ const path = require('path')
 const Event = require('events')
 const fs = require('fs-extra')
 const Config = require('webpack-chain')
-const polka = require('polka')
+const express = require('express')
 const chalk = require('chalk')
 const merge = require('lodash.merge')
 const { createBundleRenderer } = require('vue-server-renderer')
@@ -71,18 +71,21 @@ class Ream extends Event {
     ]
     logger.debug('ream options', inspect(this.options))
 
+    this.hooks = require('./hooks')
+    this.configureServerFns = new Set()
+    this.enhanceAppFiles = new Set()
     this.serverConfig = new Config()
     this.clientConfig = new Config()
-    this.extendWebpackFns = []
+    this.chainWebpackFns = []
     this.loadPlugins()
   }
 
-  extendWebpack(fn) {
-    this.extendWebpackFns.push(fn)
+  chainWebpack(fn) {
+    this.chainWebpackFns.push(fn)
   }
 
-  runExtendWebpackFns() {
-    for (const fn of this.extendWebpackFns) {
+  runChainWebpackFns() {
+    for (const fn of this.chainWebpackFns) {
       fn(this.serverConfig, {
         type: 'server',
         isServer: true,
@@ -98,9 +101,16 @@ class Ream extends Event {
     }
   }
 
+  hasPlugin(name) {
+    return this.plugins && this.plugins.find(plugin => plugin.name === name)
+  }
+
   loadPlugins() {
-    const plugins = [basePlugin].concat(this.options.plugins)
-    plugins.forEach(plugin => plugin(this))
+    this.plugins = [basePlugin, require('./plugins/pwa')]
+      .concat(this.options.plugins)
+      .filter(Boolean)
+
+    this.plugins.forEach(plugin => plugin.apply(this))
   }
 
   createCompilers() {
@@ -123,13 +133,23 @@ class Ream extends Event {
 
   async build() {
     await fs.remove(this.resolveDist())
-    this.runExtendWebpackFns()
-
+    await this.prepareWebpack()
+    this.runChainWebpackFns()
     const { serverCompiler, clientCompiler } = this.createCompilers()
-    return Promise.all([runWebpack(serverCompiler), runWebpack(clientCompiler)])
+    await Promise.all([runWebpack(serverCompiler), runWebpack(clientCompiler)])
+    if (!this.isGenerating) {
+      await this.hooks.run('onFinished', 'build')
+    }
   }
 
-  async generate({ routes } = this.options.generate) {
+  async generate(opts) {
+    this.isGenerating = true
+    await this.build()
+    await this.generateOnly(opts)
+    await this.hooks.run('onFinished', 'generate')
+  }
+
+  async generateOnly({ routes } = this.options.generate) {
     // Not an actually server
     // Don't emit `server-ready` event
     this.prepareProduction({ serverType: 'generate' })
@@ -186,17 +206,34 @@ class Ream extends Event {
     )
   }
 
+  configureServer(fn) {
+    this.configureServerFns.add(fn)
+  }
+
+  async prepareFiles() {
+    const createAppFile = this.resolveDist('create-app.js')
+    await fs.ensureDir(path.dirname(createAppFile))
+    await fs.writeFile(
+      createAppFile,
+      require('../app/create-app-template')(this)
+    )
+  }
+
   async getServer() {
     const notFound = (req, res) => () => {
       res.statusCode = 404
       res.end('not found')
     }
 
-    const server = polka()
+    const server = express()
+
+    for (const fn of this.configureServerFns) {
+      fn(server)
+    }
 
     if (this.options.dev) {
       await this.prepareWebpack()
-      this.runExtendWebpackFns()
+      this.runChainWebpackFns()
       require('./utils/setupWebpackMiddlewares')(this)(server)
     } else {
       this.prepareProduction({ serverType: 'production' })
@@ -204,7 +241,7 @@ class Ream extends Event {
         req.url = req.url.replace(/^\/_ream/, '')
         serveStatic(
           this.resolveDist('client'),
-          true // Cache
+          typeof req.shouldCache === 'boolean' ? req.shouldCache : true // Cache
         )(req, res, notFound(req, res))
       })
     }
@@ -268,7 +305,7 @@ class Ream extends Event {
 
   async getRequestHandler() {
     const server = await this.getServer()
-    return (req, res) => server.handler(req, res)
+    return (req, res) => server(req, res)
   }
 
   async start() {
@@ -296,6 +333,8 @@ class Ream extends Event {
       this.options.postcss = postcssConfig.options
       logger.debug('postcss options', this.options.postcss)
     }
+
+    await this.prepareFiles()
   }
 
   prepareProduction({ serverType } = {}) {

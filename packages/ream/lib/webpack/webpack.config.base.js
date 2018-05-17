@@ -14,8 +14,11 @@ const resolveModules = config => {
 }
 
 module.exports = (api, config, isServer) => {
-  config.resolve.alias.set('#app-entry', api.options.entry)
+  config.resolve.alias
+    .set('#app-entry$', api.options.entry)
+    .set('#create-app$', api.resolveDist('create-app.js'))
 
+  const publicPath = '/_ream/'
   config.merge({
     mode: api.options.dev ? 'development' : 'production',
     performance: {
@@ -23,7 +26,7 @@ module.exports = (api, config, isServer) => {
     },
     output: {
       filename: '[name].js',
-      publicPath: '/_ream/'
+      publicPath
     },
     optimization: {
       minimize: false
@@ -65,7 +68,8 @@ module.exports = (api, config, isServer) => {
       'process.env.NODE_ENV': `"${process.env.NODE_ENV}"`,
       'process.server': isServer,
       'process.browser': !isServer,
-      __DEV__: Boolean(api.options.dev)
+      __DEV__: Boolean(api.options.dev),
+      __PUBLIC_PATH__: JSON.stringify(publicPath)
     }
   ])
 
@@ -102,6 +106,10 @@ module.exports = (api, config, isServer) => {
     .test(/\.js$/)
     .include
     .add(filepath => {
+      // Transpile enhanceAppFiles
+      if ([...api.enhanceAppFiles].some(p => filepath.startsWith(p))) {
+        return true
+      }
       return !/node_modules/.test(filepath)
     })
     .end()
@@ -259,4 +267,23 @@ module.exports = (api, config, isServer) => {
       }
     ])
   }
+
+  config.plugin('report').use(
+    class ReportPlugin {
+      apply(compiler) {
+        compiler.hooks.done.tap('report', stats => {
+          if (stats.hasErrors() || stats.hasWarnings()) {
+            console.log(
+              stats.toString({
+                colors: true,
+                children: false,
+                modules: false,
+                assets: false
+              })
+            )
+          }
+        })
+      }
+    }
+  )
 }

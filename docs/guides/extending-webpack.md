@@ -6,7 +6,7 @@ In your `ream.config.js`:
 
 ```js
 module.exports = {
-  extendWebpack(config, { isServer }) {
+  chainWebpack(config, { isServer }) {
     //...
   }
 }

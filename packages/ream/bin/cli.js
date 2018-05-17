@@ -79,7 +79,7 @@ cli
   .command('generate', 'Generate static html files', (input, flags) => {
     const options = getOptions(false, input, flags)
     const app = require('../lib')(options)
-    return app.build().then(() => app.generate())
+    return app.generate()
   })
   .option('config', {
     alias: 'c',

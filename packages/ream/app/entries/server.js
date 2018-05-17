@@ -1,4 +1,5 @@
-import createApp from '../createApp'
+// eslint-disable-next-line import/no-unresolved
+import createApp from '#create-app'
 import ReamError from '../ReamError'
 import { routerReady } from '../utils'
 

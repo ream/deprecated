@@ -11,7 +11,8 @@
     "extends": ["rem", "plugin:prettier/recommended"],
     "rules": {
       "unicorn/filename-case": "off",
-      "import/prefer-default-export": "off"
+      "import/prefer-default-export": "off",
+      "unicorn/no-abusive-eslint-disable": "off"
     },
     "globals": [
       "__DEV__"
