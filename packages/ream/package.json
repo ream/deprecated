@@ -27,6 +27,7 @@
     "cac": "^4.4.1",
     "chalk": "^2.3.1",
     "chokidar": "^2.0.1",
+    "copy-webpack-plugin": "^4.5.1",
     "css-loader": "^0.28.11",
     "es6-promise": "^4.2.4",
     "file-loader": "^1.1.6",

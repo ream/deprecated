@@ -47,8 +47,8 @@ module.exports = (api, config, isServer) => {
   resolveModules(config)
 
   const babelOptions = {
-    // cacheDirectory: true,
-    babelrc: false,
+    cacheDirectory: true,
+    // babelrc: false,
     presets: [
       [
         require.resolve('babel-preset-ream'),
@@ -224,4 +224,10 @@ module.exports = (api, config, isServer) => {
   config
     .plugin('watch-missing')
     .use(require('./WatchMissingNodeModulesPlugin'))
+
+  config.plugin('webpackbar')
+    .use(require('webpackbar'), [{
+      name: isServer ? 'server' : 'client',
+      color: isServer ? 'green' : 'magenta'
+    }])
 }

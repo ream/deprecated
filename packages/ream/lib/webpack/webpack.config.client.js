@@ -1,8 +1,9 @@
+const fs = require('fs-extra')
+const path = require('path')
 const webpack = require('webpack')
 const VueSSRClientPlugin = require('vue-server-renderer/client-plugin')
 const { ownDir } = require('../utils/dir')
 const baseConfig = require('./webpack.config.base')
-const ProgressPlugin = require('./ProgressPlugin')
 
 const addHMRSupport = config => {
   config.plugin('hmr').use(webpack.HotModuleReplacementPlugin)
@@ -38,9 +39,15 @@ module.exports = (api, config) => {
     addHMRSupport(config)
   }
 
-  config.plugin('progress').use(ProgressPlugin, [
-    {
-      progress: api.options.progress
-    }
-  ])
+  const staticFolder = path.resolve(api.options.staticFolder || 'static')
+  if (fs.existsSync(staticFolder)) {
+    config.plugin('copy-static').use(require('copy-webpack-plugin'), [
+      [
+        {
+          from: staticFolder,
+          to: '.'
+        }
+      ]
+    ])
+  }
 }
