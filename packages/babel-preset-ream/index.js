@@ -49,7 +49,18 @@ module.exports = ({ isServer } = {}) => {
     ],
     // For dynamic import that you will use a lot in code-split
     require.resolve('@babel/plugin-syntax-dynamic-import'),
-    require.resolve('babel-plugin-transform-vue-jsx')
+    require.resolve('babel-plugin-transform-vue-jsx'),
+    [
+      require.resolve('babel-plugin-webpack-chunkname'),
+      {
+        getChunkName(name) {
+          return 'chunk-' + name
+            .replace(/\.[a-z0-9]{2,5}$/, '')
+            .replace(/[^a-z0-9]/gi, '-')
+            .toLowerCase()
+        }
+      }
+    ]
   ]
 
   return {

@@ -26,12 +26,40 @@ module.exports = (api, config, isServer) => {
       publicPath: '/_ream/'
     },
     optimization: {
-      minimize:
-        typeof api.options.minimize === 'boolean'
-          ? api.options.minimize
-          : !api.options.dev
+      minimize: false
     }
   })
+
+   // No need to minimize in server or dev mode
+   if (
+    !isServer &&
+    !api.options.dev &&
+    api.options.minimize !== false
+  ) {
+    config.merge({
+      optimization: {
+        minimize: true,
+        minimizer: [
+          {
+            apply(compiler) {
+              const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+              new UglifyJsPlugin({
+                cache: true,
+                parallel: true,
+                uglifyOptions: {
+                  output: {
+                    comments: false,
+                    beautify: false
+                  },
+                  ie8: false
+                }
+              }).apply(compiler)
+            }
+          }
+        ]
+      }
+    })
+  }
 
   // prettier-ignore
   config.plugin('constants')
@@ -225,9 +253,11 @@ module.exports = (api, config, isServer) => {
     .plugin('watch-missing')
     .use(require('./WatchMissingNodeModulesPlugin'))
 
-  config.plugin('webpackbar')
-    .use(require('webpackbar'), [{
-      name: isServer ? 'server' : 'client',
-      color: isServer ? 'green' : 'magenta'
-    }])
+  if (api.options.progress !== false) {
+    config.plugin('webpackbar')
+      .use(require('webpackbar'), [{
+        name: isServer ? 'server' : 'client',
+        color: isServer ? 'green' : 'magenta'
+      }])
+  }
 }

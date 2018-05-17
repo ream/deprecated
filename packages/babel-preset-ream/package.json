@@ -20,7 +20,8 @@
     "@babel/preset-env": "^7.0.0-beta.47",
     "@babel/runtime": "^7.0.0-beta.47",
     "babel-helper-vue-jsx-merge-props": "^2.0.3",
-    "babel-plugin-transform-vue-jsx": "^4.0.0"
+    "babel-plugin-transform-vue-jsx": "^4.0.0",
+    "babel-plugin-webpack-chunkname": "^1.2.0"
   },
   "xo": false
 }
