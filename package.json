@@ -8,20 +8,40 @@
   },
   "license": "MIT",
   "xo": {
-    "extends": "rem",
+    "extends": ["rem", "plugin:prettier/recommended"],
     "rules": {
       "unicorn/filename-case": "off",
       "import/prefer-default-export": "off"
     },
-    "globals": ["__DEV__"],
-    "ignores": ["examples/**"]
+    "globals": [
+      "__DEV__"
+    ],
+    "ignores": [
+      "examples/**"
+    ]
   },
   "workspaces": [
     "packages/*"
   ],
   "devDependencies": {
+    "eslint-config-prettier": "^2.9.0",
     "eslint-config-rem": "^4.0.0",
+    "eslint-plugin-prettier": "^2.6.0",
+    "husky": "^1.0.0-rc.6",
     "lerna": "^2.9.0",
+    "lint-staged": "^7.1.0",
+    "prettier": "^1.12.1",
     "xo": "^0.20.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "xo --fix",
+      "git add"
+    ]
   }
 }

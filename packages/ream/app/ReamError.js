@@ -1,6 +1,6 @@
 const captureStack =
   Error.captureStackTrace ||
-  function (error) {
+  function(error) {
     const container = new Error()
 
     Object.defineProperty(error, 'stack', {

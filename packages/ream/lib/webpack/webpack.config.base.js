@@ -190,9 +190,7 @@ module.exports = (api, config, isServer) => {
       const sourceMap = !isProd
 
       // TODO: when to extract css?
-      rule
-        .use('vue-style-loader')
-        .loader('vue-style-loader')
+      rule.use('vue-style-loader').loader('vue-style-loader')
 
       rule
         .use('css-loader')
