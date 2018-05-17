@@ -104,13 +104,15 @@ class Ream extends Event {
   }
 
   createCompilers() {
-    const serverConfig = this.serverConfig.toConfig()
+    if (this.options.debugWebpack) {
+      console.log('server config', chalk.dim(this.serverConfig.toString()))
+      console.log('client config', chalk.dim(this.clientConfig.toString()))
+    }
 
-    logger.debug('server config', inspect(serverConfig))
+    const serverConfig = this.serverConfig.toConfig()
     const serverCompiler = require('webpack')(serverConfig)
 
     const clientConfig = this.clientConfig.toConfig()
-    logger.debug('client config', inspect(clientConfig))
     const clientCompiler = require('webpack')(clientConfig)
 
     return {

@@ -62,6 +62,7 @@ module.exports = (api, config, isServer) => {
   }
 
   // prettier-ignore
+  webpack.DefinePlugin.__expression = 'webpack.DefinePlugin'
   config.plugin('constants')
     .use(webpack.DefinePlugin, [
       {
@@ -117,8 +118,10 @@ module.exports = (api, config, isServer) => {
     .use('vue-loader')
       .loader('vue-loader')
 
+  const { VueLoaderPlugin } = require('vue-loader')
+  VueLoaderPlugin.__expression = `require('vue-loader').VueLoaderPlugin`
   config.plugin('vue')
-    .use(require('vue-loader').VueLoaderPlugin)
+    .use(VueLoaderPlugin)
 
   const inlineLimit = 10000
 
@@ -170,7 +173,9 @@ module.exports = (api, config, isServer) => {
   const isProd = !api.options.dev
 
   if (!isServer && isProd) {
-    config.plugin('css-extract').use(require('mini-css-extract-plugin'), [
+    const MiniCSSExtractPlugin = require('mini-css-extract-plugin')
+    MiniCSSExtractPlugin.__expression = `require('mini-css-extract-plugin')`
+    config.plugin('css-extract').use(MiniCSSExtractPlugin, [
       {
         filename: '_peco/assets/css/styles.[chunkhash:6].css'
       }
@@ -246,6 +251,7 @@ module.exports = (api, config, isServer) => {
   })
 
   // prettier-ignore
+  TimeFixPlugin.__expression = `require('time-fix-plugin')`
   config.plugin('timefix')
     .use(TimeFixPlugin)
 
@@ -254,8 +260,10 @@ module.exports = (api, config, isServer) => {
     .use(require('./WatchMissingNodeModulesPlugin'))
 
   if (api.options.progress !== false) {
+    const webpackbar = require('webpackbar')
+    webpackbar.__expression = `require('webpackbar')`
     config.plugin('webpackbar')
-      .use(require('webpackbar'), [{
+      .use(webpackbar, [{
         name: isServer ? 'server' : 'client',
         color: isServer ? 'green' : 'magenta'
       }])

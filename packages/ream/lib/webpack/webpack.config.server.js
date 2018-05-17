@@ -3,6 +3,8 @@ const nodeExternals = require('webpack-node-externals')
 const { ownDir } = require('../utils/dir')
 const baseConfig = require('./webpack.config.base')
 
+VueSSRServerPlugin.__expression = `require('vue-server-renderer/server-plugin')`
+
 module.exports = (api, config) => {
   baseConfig(api, config, true)
 
