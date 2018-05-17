@@ -1,13 +1,13 @@
 # Extending webpack
 
-Ream uses a sensible webpack config, however it also allows you to freely customize it with [conpack](https://github.com/egoist/conpack) which makes it easier to update `rules` and `plugins` in webpack config.
+Ream uses a sensible webpack config, however it also allows you to freely customize it with [webpack-chain](https://github.com/mozilla-neutrino/webpack-chaink).
 
 In your `ream.config.js`:
 
 ```js
 module.exports = {
   extendWebpack(config, { isServer }) {
-    config.set('resolve.alias.someAlias$', 'value')
+    //...
   }
 }
 ```

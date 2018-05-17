@@ -1,12 +1,6 @@
 const path = require('path')
 const webpack = require('webpack')
-const applyCssRule = require('poi-webpack-utils/rules/css')
-const applyVueRule = require('poi-webpack-utils/rules/vue')
-const applyFontRule = require('poi-webpack-utils/rules/font')
-const applyImageRule = require('poi-webpack-utils/rules/image')
-const applyJsRule = require('poi-webpack-utils/rules/js')
 const TimeFixPlugin = require('time-fix-plugin')
-const getFileNames = require('poi-webpack-utils/helpers/getFileNames')
 const { ownDir, inWorkspace } = require('../utils/dir')
 
 const resolveModules = config => {
@@ -15,37 +9,46 @@ const resolveModules = config => {
     path.resolve('node_modules'),
     inWorkspace ? ownDir('../../node_modules') : ownDir('node_modules')
   ]
-  config.set('resolve.modules', modules)
-  config.set('resolveLoader.modules', modules)
+  config.resolve.modules.merge(modules)
+  config.resolveLoader.modules.merge(modules)
 }
 
 module.exports = (api, config, isServer) => {
-  const filename = getFileNames(!api.options.dev)
+  config.resolve.alias.set('#app-entry', api.options.entry)
 
-  config.set('resolve.alias.#app-entry', api.options.entry)
-
-  config.set('performance', {
-    hints: false
-  })
-
-  config.set('output', {
-    filename: '[name].js',
-    publicPath: '/_ream/',
-    chunkFilename: filename.chunk
-  })
-
-  config.plugins.add('envs', webpack.DefinePlugin, [
-    {
-      'process.env.NODE_ENV': `"${process.env.NODE_ENV}"`,
-      'process.server': isServer,
-      'process.browser': !isServer,
-      __DEV__: Boolean(api.options.dev)
+  config.merge({
+    mode: api.options.dev ? 'development' : 'production',
+    performance: {
+      hints: false
+    },
+    output: {
+      filename: '[name].js',
+      publicPath: '/_ream/'
+    },
+    optimization: {
+      minimize:
+        typeof api.options.minimize === 'boolean'
+          ? api.options.minimize
+          : !api.options.dev
     }
-  ])
+  })
+
+  // prettier-ignore
+  config.plugin('constants')
+    .use(webpack.DefinePlugin, [
+      {
+        'process.env.NODE_ENV': `"${process.env.NODE_ENV}"`,
+        'process.server': isServer,
+        'process.browser': !isServer,
+        __DEV__: Boolean(api.options.dev)
+      }
+    ])
 
   resolveModules(config)
 
   const babelOptions = {
+    // cacheDirectory: true,
+    babelrc: false,
     presets: [
       [
         require.resolve('babel-preset-ream'),
@@ -55,66 +58,170 @@ module.exports = (api, config, isServer) => {
       ]
     ]
   }
-  const cssOptions = {
-    minimize: !api.options.dev && api.options.minimize !== false,
-    extract: false,
-    sourceMap: api.options.dev,
-    fallbackLoader: 'vue-style-loader',
-    postcss: api.options.postcss || { plugins: [] }
-  }
-  applyCssRule.standalone(config, cssOptions)
-  applyVueRule(config, {
-    babel: babelOptions,
-    cssOptions,
-    vueOptions: {
-      preserveWhitespace: false
-    }
-  })
-  applyFontRule(config, filename)
-  applyImageRule(config, filename)
 
-  applyJsRule(config, {
-    babel: babelOptions
-  })
-  config.rules.update('js', options => {
-    options.exclude = options.exclude || []
-    options.exclude.push(
-      // Exclude ream/app
-      filepath => {
-        return filepath.indexOf(ownDir('app')) > -1
-      }
-    )
-    return options
-  })
   // Build ream app dir
-  config.rules
-    .add('js-ream-app', {
-      test: /\.js$/,
-      include: [
-        filepath => {
-          return filepath.indexOf(ownDir('app')) > -1
-        }
-      ]
-    })
-    .loaders.add('babel-loader', {
-      loader: require.resolve('babel-loader'),
-      options: {
-        babelrc: false,
-        presets: [require.resolve('babel-preset-ream')]
+  // prettier-ignore
+  config.module.rule('own-app')
+    .test(/\.js$/)
+    .include
+      .add(filepath => {
+        return filepath.startsWith(ownDir('app'))
+      })
+      .end()
+    .use('babel-loader')
+      .loader('babel-loader')
+      .options(babelOptions)
+
+  // prettier-ignore
+  config.module.rule('js')
+    .test(/\.js$/)
+    .include
+      .add(filepath => {
+        return !/node_modules/.test(filepath)
+      })
+      .end()
+    .use('babel-loader')
+      .loader('babel-loader')
+      .options(babelOptions)
+
+  config.module.rule('vue')
+    .test(/\.vue$/)
+    .use('vue-loader')
+      .loader('vue-loader')
+
+  config.plugin('vue')
+    .use(require('vue-loader').VueLoaderPlugin)
+
+  const inlineLimit = 10000
+
+  // prettier-ignore
+  config.module
+    .rule('images')
+    .test(/\.(png|jpe?g|gif)(\?.*)?$/)
+    .use('url-loader')
+      .loader('url-loader')
+      .options({
+        limit: inlineLimit,
+        name: `assets/img/[name].[hash:8].[ext]`
+      })
+
+  // do not base64-inline SVGs.
+  // https://github.com/facebookincubator/create-react-app/pull/1180
+  // prettier-ignore
+  config.module
+    .rule('svg')
+    .test(/\.(svg)(\?.*)?$/)
+    .use('file-loader')
+      .loader('file-loader')
+      .options({
+        name: `assets/img/[name].[hash:8].[ext]`
+      })
+
+  // prettier-ignore
+  config.module
+    .rule('media')
+    .test(/\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/)
+    .use('url-loader')
+      .loader('url-loader')
+      .options({
+        limit: inlineLimit,
+        name: `assets/media/[name].[hash:8].[ext]`
+      })
+
+  // prettier-ignore
+  config.module
+    .rule('fonts')
+    .test(/\.(woff2?|eot|ttf|otf)(\?.*)?$/i)
+    .use('url-loader')
+      .loader('url-loader')
+      .options({
+        limit: inlineLimit,
+        name: `assets/fonts/[name].[hash:8].[ext]`
+      })
+
+  const isProd = !api.options.dev
+
+  if (!isServer && isProd) {
+    config.plugin('css-extract').use(require('mini-css-extract-plugin'), [
+      {
+        filename: '_peco/assets/css/styles.[chunkhash:6].css'
       }
-    })
+    ])
+  }
 
-  config.plugins.add('timefix', TimeFixPlugin)
+  function createCSSRule(lang, test, loader, options) {
+    const baseRule = config.module.rule(lang).test(test)
+    const modulesRule = baseRule.oneOf('modules').resourceQuery(/module/)
+    const normalRule = baseRule.oneOf('normal')
 
-  config.set(
-    'optimization.minimize',
-    typeof api.options.minimize === 'boolean'
-      ? api.options.minimize
-      : !api.options.dev
-  )
+    applyLoaders(modulesRule, true)
+    applyLoaders(normalRule, false)
 
-  config.plugins.add(
-    'watch-missing',
-    require('./WatchMissingNodeModulesPlugin')
-  )
+    function applyLoaders(rule, modules) {
+      const sourceMap = !isProd
+
+      if (!isServer) {
+        if (isProd) {
+          rule
+            .use('extract-css-loader')
+            .loader(require('mini-css-extract-plugin').loader)
+        } else {
+          rule.use('vue-style-loader').loader('vue-style-loader')
+        }
+      }
+
+      rule
+        .use('css-loader')
+        .loader(isServer ? 'css-loader/locals' : 'css-loader')
+        .options({
+          modules,
+          sourceMap,
+          localIdentName: `[local]_[hash:base64:8]`,
+          importLoaders: 1,
+          minimize: isProd
+        })
+
+      rule
+        .use('postcss-loader')
+        .loader('postcss-loader')
+        .options(
+          Object.assign(
+            {
+              sourceMap: !isProd
+            },
+            api.options.postcss || { plugins: [] }
+          )
+        )
+
+      if (loader) {
+        rule
+          .use(loader)
+          .loader(loader)
+          .options(
+            Object.assign(
+              {
+                sourceMap
+              },
+              options
+            )
+          )
+      }
+    }
+  }
+
+  createCSSRule('css', /\.css$/)
+  createCSSRule('scss', /\.scss$/, 'sass-loader')
+  createCSSRule('sass', /\.sass$/, 'sass-loader', { indentedSyntax: true })
+  createCSSRule('less', /\.less$/, 'less-loader')
+  createCSSRule('stylus', /\.styl(us)?$/, 'stylus-loader', {
+    preferPathResolver: 'webpack'
+  })
+
+  // prettier-ignore
+  config.plugin('timefix')
+    .use(TimeFixPlugin)
+
+  config
+    .plugin('watch-missing')
+    .use(require('./WatchMissingNodeModulesPlugin'))
 }
