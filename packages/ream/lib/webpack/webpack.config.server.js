@@ -1,5 +1,5 @@
 const VueSSRServerPlugin = require('vue-server-renderer/server-plugin')
-const nodeExternals = require('poi-webpack-node-externals')
+const nodeExternals = require('webpack-node-externals')
 const { ownDir } = require('../utils/dir')
 const baseConfig = require('./webpack.config.base')
 

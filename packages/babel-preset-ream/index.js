@@ -25,8 +25,7 @@ module.exports = ({ isServer } = {}) => {
             ie: 9
           }
         }
-      ],
-    require.resolve('babel-preset-vue')
+      ]
   ]
 
   const plugins = [
@@ -49,7 +48,8 @@ module.exports = ({ isServer } = {}) => {
       }
     ],
     // For dynamic import that you will use a lot in code-split
-    require.resolve('@babel/plugin-syntax-dynamic-import')
+    require.resolve('@babel/plugin-syntax-dynamic-import'),
+    require.resolve('babel-plugin-transform-vue-jsx')
   ]
 
   return {
