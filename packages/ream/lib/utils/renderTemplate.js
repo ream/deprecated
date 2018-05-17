@@ -2,7 +2,7 @@ const serialize = require('serialize-javascript')
 
 module.exports = (template, context) => {
   const { title, link, style, script, noscript, meta } = context.meta.inject()
-
+console.log(context.renderStyles())
   let [start, end] = template.split('<!--ream-app-placeholder-->')
 
   start = start

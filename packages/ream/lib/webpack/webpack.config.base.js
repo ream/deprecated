@@ -30,12 +30,8 @@ module.exports = (api, config, isServer) => {
     }
   })
 
-   // No need to minimize in server or dev mode
-   if (
-    !isServer &&
-    !api.options.dev &&
-    api.options.minimize !== false
-  ) {
+  // No need to minimize in server or dev mode
+  if (!isServer && !api.options.dev && api.options.minimize !== false) {
     config.merge({
       optimization: {
         minimize: true,
@@ -63,15 +59,14 @@ module.exports = (api, config, isServer) => {
 
   // prettier-ignore
   webpack.DefinePlugin.__expression = 'webpack.DefinePlugin'
-  config.plugin('constants')
-    .use(webpack.DefinePlugin, [
-      {
-        'process.env.NODE_ENV': `"${process.env.NODE_ENV}"`,
-        'process.server': isServer,
-        'process.browser': !isServer,
-        __DEV__: Boolean(api.options.dev)
-      }
-    ])
+  config.plugin('constants').use(webpack.DefinePlugin, [
+    {
+      'process.env.NODE_ENV': `"${process.env.NODE_ENV}"`,
+      'process.server': isServer,
+      'process.browser': !isServer,
+      __DEV__: Boolean(api.options.dev)
+    }
+  ])
 
   resolveModules(config)
 
@@ -113,15 +108,15 @@ module.exports = (api, config, isServer) => {
       .loader('babel-loader')
       .options(babelOptions)
 
-  config.module.rule('vue')
+  config.module
+    .rule('vue')
     .test(/\.vue$/)
     .use('vue-loader')
-      .loader('vue-loader')
+    .loader('vue-loader')
 
   const { VueLoaderPlugin } = require('vue-loader')
   VueLoaderPlugin.__expression = `require('vue-loader').VueLoaderPlugin`
-  config.plugin('vue')
-    .use(VueLoaderPlugin)
+  config.plugin('vue').use(VueLoaderPlugin)
 
   const inlineLimit = 10000
 
@@ -252,20 +247,22 @@ module.exports = (api, config, isServer) => {
 
   // prettier-ignore
   TimeFixPlugin.__expression = `require('time-fix-plugin')`
-  config.plugin('timefix')
-    .use(TimeFixPlugin)
+  config.plugin('timefix').use(TimeFixPlugin)
 
-  config
-    .plugin('watch-missing')
-    .use(require('./WatchMissingNodeModulesPlugin'))
+  config.plugin('watch-missing').use(require('./WatchMissingNodeModulesPlugin'))
 
-  if (api.options.progress !== false) {
+  if (
+    api.options.progress !== false &&
+    !api.options.debug &&
+    !api.options.debugWebpack
+  ) {
     const webpackbar = require('webpackbar')
     webpackbar.__expression = `require('webpackbar')`
-    config.plugin('webpackbar')
-      .use(webpackbar, [{
+    config.plugin('webpackbar').use(webpackbar, [
+      {
         name: isServer ? 'server' : 'client',
         color: isServer ? 'green' : 'magenta'
-      }])
+      }
+    ])
   }
 }

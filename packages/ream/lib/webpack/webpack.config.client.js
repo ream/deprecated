@@ -25,18 +25,4 @@ module.exports = (api, config) => {
       filename: 'client-manifest.json'
     }
   ])
-
-  const staticFolder = path.resolve(api.options.staticFolder || 'static')
-  if (fs.existsSync(staticFolder)) {
-    const CopyPlugin = require('copy-webpack-plugin')
-    CopyPlugin.__expression = `require('copy-webpack-plugin')`
-    config.plugin('copy-static').use(CopyPlugin, [
-      [
-        {
-          from: staticFolder,
-          to: '.'
-        }
-      ]
-    ])
-  }
 }
