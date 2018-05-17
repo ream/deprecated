@@ -172,7 +172,7 @@ module.exports = (api, config, isServer) => {
     MiniCSSExtractPlugin.__expression = `require('mini-css-extract-plugin')`
     config.plugin('css-extract').use(MiniCSSExtractPlugin, [
       {
-        filename: '_peco/assets/css/styles.[chunkhash:6].css'
+        filename: 'assets/css/styles.[chunkhash:6].css'
       }
     ])
   }
