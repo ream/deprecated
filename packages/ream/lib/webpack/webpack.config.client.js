@@ -5,17 +5,6 @@ const VueSSRClientPlugin = require('vue-server-renderer/client-plugin')
 const { ownDir } = require('../utils/dir')
 const baseConfig = require('./webpack.config.base')
 
-const addHMRSupport = config => {
-  config.plugin('hmr').use(webpack.HotModuleReplacementPlugin)
-
-  config
-    .entry('client')
-    .prepend(
-      require.resolve('webpack-hot-middleware/client') +
-        '?reload=true&path=/_ream/__hmr'
-    )
-}
-
 module.exports = (api, config) => {
   baseConfig(api, config, false)
 
@@ -34,10 +23,6 @@ module.exports = (api, config) => {
       filename: 'client-manifest.json'
     }
   ])
-
-  if (api.options.dev) {
-    addHMRSupport(config)
-  }
 
   const staticFolder = path.resolve(api.options.staticFolder || 'static')
   if (fs.existsSync(staticFolder)) {
