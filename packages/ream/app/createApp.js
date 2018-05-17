@@ -2,7 +2,6 @@ import Vue from 'vue'
 import Meta from 'vue-meta'
 // eslint-disable-next-line import/no-unresolved
 import entry from '#app-entry'
-import { interopDefault } from './utils'
 
 Vue.config.productionTip = false
 
@@ -14,30 +13,32 @@ Vue.use(Meta, {
 })
 
 export default async req => {
-  let { router, store, root = 'router-view', extendAppOptions } = entry
-
-  if (typeof root === 'function') {
-    root = await root({ store, req }).then(interopDefault)
-  }
+  let { router, store, root = 'router-view', extendRootOptions } = entry
 
   if (__DEV__) {
     if (!router) {
       throw new Error('You must export "router" in entry file!')
     }
   }
+  router = router()
+  if (store) {
+    store = store()
+  }
 
-  router = typeof router === 'function' ? router() : router
-  store = typeof store === 'function' ? store() : store
+  if (typeof root === 'function') {
+    root = await root({ store, req })
+    root = root.default || root
+  }
 
-  const appOptions = {
+  const rootOptions = {
     router,
     store
   }
-  if (extendAppOptions) {
-    extendAppOptions(appOptions)
+  if (extendRootOptions) {
+    extendRootOptions(rootOptions)
   }
 
-  appOptions.render = h =>
+  rootOptions.render = h =>
     h(
       'div',
       {
@@ -48,7 +49,7 @@ export default async req => {
       [h(root)]
     )
 
-  const app = new Vue(appOptions)
+  const app = new Vue(rootOptions)
 
   return {
     app,
