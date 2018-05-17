@@ -1,6 +1,3 @@
-const fs = require('fs-extra')
-const path = require('path')
-const webpack = require('webpack')
 const VueSSRClientPlugin = require('vue-server-renderer/client-plugin')
 const { ownDir } = require('../utils/dir')
 const baseConfig = require('./webpack.config.base')

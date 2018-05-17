@@ -38,6 +38,7 @@ module.exports = (api, config, isServer) => {
         minimizer: [
           {
             apply(compiler) {
+              // eslint-disable-next-line import/no-extraneous-dependencies
               const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
               new UglifyJsPlugin({
                 cache: true,
@@ -88,25 +89,25 @@ module.exports = (api, config, isServer) => {
   config.module.rule('own-app')
     .test(/\.js$/)
     .include
-      .add(filepath => {
-        return filepath.startsWith(ownDir('app'))
-      })
-      .end()
+    .add(filepath => {
+      return filepath.startsWith(ownDir('app'))
+    })
+    .end()
     .use('babel-loader')
-      .loader('babel-loader')
-      .options(babelOptions)
+    .loader('babel-loader')
+    .options(babelOptions)
 
   // prettier-ignore
   config.module.rule('js')
     .test(/\.js$/)
     .include
-      .add(filepath => {
-        return !/node_modules/.test(filepath)
-      })
-      .end()
+    .add(filepath => {
+      return !/node_modules/.test(filepath)
+    })
+    .end()
     .use('babel-loader')
-      .loader('babel-loader')
-      .options(babelOptions)
+    .loader('babel-loader')
+    .options(babelOptions)
 
   config.module
     .rule('vue')
@@ -125,11 +126,11 @@ module.exports = (api, config, isServer) => {
     .rule('images')
     .test(/\.(png|jpe?g|gif)(\?.*)?$/)
     .use('url-loader')
-      .loader('url-loader')
-      .options({
-        limit: inlineLimit,
-        name: `assets/img/[name].[hash:8].[ext]`
-      })
+    .loader('url-loader')
+    .options({
+      limit: inlineLimit,
+      name: `assets/img/[name].[hash:8].[ext]`
+    })
 
   // do not base64-inline SVGs.
   // https://github.com/facebookincubator/create-react-app/pull/1180
@@ -138,32 +139,32 @@ module.exports = (api, config, isServer) => {
     .rule('svg')
     .test(/\.(svg)(\?.*)?$/)
     .use('file-loader')
-      .loader('file-loader')
-      .options({
-        name: `assets/img/[name].[hash:8].[ext]`
-      })
+    .loader('file-loader')
+    .options({
+      name: `assets/img/[name].[hash:8].[ext]`
+    })
 
   // prettier-ignore
   config.module
     .rule('media')
     .test(/\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/)
     .use('url-loader')
-      .loader('url-loader')
-      .options({
-        limit: inlineLimit,
-        name: `assets/media/[name].[hash:8].[ext]`
-      })
+    .loader('url-loader')
+    .options({
+      limit: inlineLimit,
+      name: `assets/media/[name].[hash:8].[ext]`
+    })
 
   // prettier-ignore
   config.module
     .rule('fonts')
     .test(/\.(woff2?|eot|ttf|otf)(\?.*)?$/i)
     .use('url-loader')
-      .loader('url-loader')
-      .options({
-        limit: inlineLimit,
-        name: `assets/fonts/[name].[hash:8].[ext]`
-      })
+    .loader('url-loader')
+    .options({
+      limit: inlineLimit,
+      name: `assets/fonts/[name].[hash:8].[ext]`
+    })
 
   const isProd = !api.options.dev
 
