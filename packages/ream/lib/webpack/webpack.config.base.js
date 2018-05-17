@@ -167,15 +167,15 @@ module.exports = (api, config, isServer) => {
 
   const isProd = !api.options.dev
 
-  if (!isServer && isProd) {
-    const MiniCSSExtractPlugin = require('mini-css-extract-plugin')
-    MiniCSSExtractPlugin.__expression = `require('mini-css-extract-plugin')`
-    config.plugin('css-extract').use(MiniCSSExtractPlugin, [
-      {
-        filename: 'assets/css/styles.[chunkhash:6].css'
-      }
-    ])
-  }
+  // if (!isServer && isProd) {
+  //   const MiniCSSExtractPlugin = require('mini-css-extract-plugin')
+  //   MiniCSSExtractPlugin.__expression = `require('mini-css-extract-plugin')`
+  //   config.plugin('css-extract').use(MiniCSSExtractPlugin, [
+  //     {
+  //       filename: 'assets/css/styles.[chunkhash:6].css'
+  //     }
+  //   ])
+  // }
 
   function createCSSRule(lang, test, loader, options) {
     const baseRule = config.module.rule(lang).test(test)
@@ -188,19 +188,14 @@ module.exports = (api, config, isServer) => {
     function applyLoaders(rule, modules) {
       const sourceMap = !isProd
 
-      if (!isServer) {
-        if (isProd) {
-          rule
-            .use('extract-css-loader')
-            .loader(require('mini-css-extract-plugin').loader)
-        } else {
-          rule.use('vue-style-loader').loader('vue-style-loader')
-        }
-      }
+      // TODO: when to extract css?
+      rule
+        .use('vue-style-loader')
+        .loader('vue-style-loader')
 
       rule
         .use('css-loader')
-        .loader(isServer ? 'css-loader/locals' : 'css-loader')
+        .loader('css-loader')
         .options({
           modules,
           sourceMap,
