@@ -57,15 +57,6 @@ module.exports = api => {
         throw new Error('You must export "router" in entry file!')
       }
     }
-    router = router()
-    if (store) {
-      store = store()
-    }
-
-    if (typeof root === 'function') {
-      root = await root({ store, req: context && context.req })
-      root = root.default || root
-    }
 
     const rootOptions = {
       router,

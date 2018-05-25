@@ -11,6 +11,8 @@ const resolveModules = config => {
   ]
   config.resolve.modules.merge(modules)
   config.resolveLoader.modules.merge(modules)
+  config.resolve.set('symlinks', true)
+  config.resolveLoader.set('symlinks', true)
 }
 
 module.exports = (api, config, isServer) => {
@@ -121,7 +123,7 @@ module.exports = (api, config, isServer) => {
     .rule('vue')
     .test(/\.vue$/)
     .use('vue-loader')
-    .loader('vue-loader')
+    .loader(require.resolve('vue-loader'))
 
   const { VueLoaderPlugin } = require('vue-loader')
   VueLoaderPlugin.__expression = `require('vue-loader').VueLoaderPlugin`

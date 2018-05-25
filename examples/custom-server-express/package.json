@@ -7,7 +7,7 @@
     "build": "ream build"
   },
   "dependencies": {
-    "ream": "latest",
-    "express": "^4.0.0"
+    "express": "^4.0.0",
+    "ream": "latest"
   }
 }

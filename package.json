@@ -21,7 +21,7 @@
       "__DEV__"
     ],
     "ignores": [
-      "examples/**"
+      "**/examples/**"
     ]
   },
   "workspaces": [

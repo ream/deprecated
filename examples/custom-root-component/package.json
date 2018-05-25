@@ -1,4 +1,5 @@
 {
+  "private": true,
   "name": "custom-root-component",
   "scripts": {
     "dev": "ream dev",

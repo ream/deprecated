@@ -3,8 +3,8 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
-export default {
-  router: () => new Router({
+export default () => ({
+  router: new Router({
     mode: 'history',
     routes: [
       {
@@ -15,4 +15,4 @@ export default {
       }
     ]
   })
-}
+})
