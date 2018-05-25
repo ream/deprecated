@@ -181,7 +181,7 @@ class Ream extends Event {
         // Fake req
         const context = { req: { url: route } }
         const html = await this.renderer.renderToString(context)
-        const { start, end } = renderTemplate(context)
+        const { start, end } = await renderTemplate(context)
         const targetPath = this.resolveDist(
           `generated/${route.replace(/\/?$/, '/index.html')}`
         )
@@ -262,7 +262,7 @@ class Ream extends Event {
       })
     }
 
-    server.get('*', (req, res) => {
+    server.get('*', async (req, res) => {
       if (!this.renderer) {
         return res.end('Please wait for compilation...')
       }
@@ -272,35 +272,34 @@ class Ream extends Event {
         return res.end('404')
       }
 
-      const context = { req }
-
-      const renderStream = this.renderer.renderToStream(context)
-
-      let splitContent
-      res.setHeader('content-type', 'text/html')
-
-      renderStream.once('data', () => {
-        splitContent = renderTemplate(context)
-        res.write(splitContent.start)
-      })
-
-      renderStream.on('data', chunk => {
-        res.write(chunk)
-      })
-
-      renderStream.on('end', () => {
-        res.end(splitContent.end)
-      })
-
-      renderStream.on('error', err => {
+      const handleError = err => {
         if (err.code === 404) return notFound(req, res)()
-        res.end(err.stack)
+
+        if (process.env.NODE_ENV === 'production') {
+          res.end('server error')
+        } else {
+          res.end(err.stack)
+        }
+
         if (err.name === 'ReamError') {
           console.log(err.message)
         } else {
           console.log(err.stack)
         }
-      })
+      }
+
+      const context = { req }
+
+      let html
+      try {
+        html = await this.renderer.renderToString(context)
+      } catch (err) {
+        return handleError(err)
+      }
+
+      res.setHeader('content-type', 'text/html')
+      const { start, end } = await renderTemplate(context)
+      res.end(start + html + end)
     })
 
     return server

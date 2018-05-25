@@ -1,4 +1,5 @@
-module.exports = ({ headTags, scripts }) => `
+module.exports = ({ headTags, scripts }) =>
+  `
 <html>
   <head>
     <meta charset="utf-8" />
@@ -11,4 +12,4 @@ module.exports = ({ headTags, scripts }) => `
     ${scripts()}
   </body>
 </html>
-`
+`.trim()

@@ -1,12 +1,12 @@
 const serialize = require('serialize-javascript')
 const defaultDocument = require('./document')
 
-module.exports = context => {
+module.exports = async context => {
   const document = context.entry.document || defaultDocument
   const { title, link, style, script, noscript, meta } = context.meta.inject()
   const html =
     '<!DOCTYPE html>' +
-    document({
+    (await document({
       app: context.app,
       entry: context.entry,
       matchedComponents: context.matchedComponents,
@@ -32,7 +32,7 @@ module.exports = context => {
           )}</script>` + context.renderScripts()
         )
       }
-    })
+    }))
 
   const [start, end] = html.split('<!--ream-root-placeholder-->')
 
