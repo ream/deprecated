@@ -52,7 +52,8 @@ async function main() {
     const getInitialDataHooks = activated
       .map(c => c.getInitialData)
       .filter(_ => _)
-    if (getInitialDataHooks.length > 0) {
+
+    if (getInitialDataHooks.length === 0) {
       return next()
     }
 
