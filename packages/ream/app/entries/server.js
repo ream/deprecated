@@ -3,16 +3,12 @@ import createApp from '#create-app'
 import ReamError from '../ReamError'
 import { routerReady } from '../utils'
 
-const isDev = process.env.NODE_ENV !== 'production'
-
 // This exported function will be called by `bundleRenderer`.
 // This is where we perform data-prefetching to determine the
 // state of our application before actually rendering it.
 // Since data fetching is async, this function is expected to
 // return a Promise that resolves to the app instance.
 export default async context => {
-  const s = isDev && Date.now()
-
   const { req } = context
   const { app, router, store, entry } = createApp(context)
 
@@ -55,10 +51,6 @@ export default async context => {
       ({ getInitialData }) => getInitialData && getInitialData(dataContext)
     )
   )
-
-  if (__DEV__) {
-    console.log(`route component resolve in: ${Date.now() - s}ms`)
-  }
 
   // After all preFetch hooks are resolved, our store is now
   // filled with the state needed to render the app.
