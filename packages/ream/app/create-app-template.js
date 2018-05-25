@@ -44,8 +44,12 @@ module.exports = api => {
     tagIDKeyName: 'rhid'
   })
 
-  export default async req => {
+  export default async context => {
     let { router, store, root = 'router-view', extendRootOptions } = entry
+    if (context) {
+      context.entry = entry
+    }
+
 
     if (__DEV__) {
       if (!router) {
@@ -58,7 +62,7 @@ module.exports = api => {
     }
 
     if (typeof root === 'function') {
-      root = await root({ store, req })
+      root = await root({ store, req: context && context.req })
       root = root.default || root
     }
 

@@ -11,7 +11,6 @@ const basePlugin = require('./plugins/base')
 const logger = require('./logger')
 const serveStatic = require('./utils/serveStatic')
 const renderTemplate = require('./utils/renderTemplate')
-const { ownDir } = require('./utils/dir')
 const emoji = require('./emoji')
 const inspect = require('./utils/inspect')
 
@@ -48,7 +47,6 @@ class Ream extends Event {
     this.options = merge(
       {
         entry: 'index.js',
-        html: ownDir('app/index.template.html'),
         plugins: [],
         server: {
           host: '0.0.0.0',
@@ -183,7 +181,7 @@ class Ream extends Event {
         // Fake req
         const context = { req: { url: route } }
         const html = await this.renderer.renderToString(context)
-        const { start, end } = renderTemplate(this.template, context)
+        const { start, end } = renderTemplate(context)
         const targetPath = this.resolveDist(
           `generated/${route.replace(/\/?$/, '/index.html')}`
         )
@@ -269,6 +267,11 @@ class Ream extends Event {
         return res.end('Please wait for compilation...')
       }
 
+      if (req.url.startsWith('/_ream/')) {
+        res.status(404)
+        return res.end('404')
+      }
+
       const context = { req }
 
       const renderStream = this.renderer.renderToStream(context)
@@ -277,7 +280,7 @@ class Ream extends Event {
       res.setHeader('content-type', 'text/html')
 
       renderStream.once('data', () => {
-        splitContent = renderTemplate(this.template, context)
+        splitContent = renderTemplate(context)
         res.write(splitContent.start)
       })
 
@@ -344,12 +347,10 @@ class Ream extends Event {
     const clientManifest = JSON.parse(
       fs.readFileSync(this.resolveDist('client/client-manifest.json'), 'utf8')
     )
-    const template = fs.readFileSync(this.options.html, 'utf8')
 
     this.createRenderer({
       serverBundle,
       clientManifest,
-      template,
       serverType
     })
   }
@@ -372,8 +373,7 @@ class Ream extends Event {
   //   }
   // }
 
-  createRenderer({ template, serverBundle, clientManifest, serverType }) {
-    this.template = template
+  createRenderer({ serverBundle, clientManifest, serverType }) {
     this.renderer = createBundleRenderer(serverBundle, {
       runInNewContext: false,
       clientManifest

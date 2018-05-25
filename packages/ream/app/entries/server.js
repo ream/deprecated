@@ -14,13 +14,14 @@ export default async context => {
   const s = isDev && Date.now()
 
   const { req } = context
-  const { app, router, store } = await createApp(req)
+  const { app, router, store } = await createApp(context)
 
   router.push(req.url)
 
   await routerReady(router)
 
   const matchedComponents = router.getMatchedComponents()
+  context.matchedComponents = matchedComponents
   // No matched routes
   if (matchedComponents.length === 0) {
     throw new ReamError({
@@ -29,19 +30,19 @@ export default async context => {
     })
   }
 
+  const dataContext = {
+    req,
+    store,
+    route: router.currentRoute
+  }
+
   // Call fetchData hooks on components matched by the route.
   // A preFetch hook dispatches a store action and returns a Promise,
   // which is resolved when the action is complete and store state has been
   // updated.
   await Promise.all(
     matchedComponents.map(
-      ({ getInitialData }) =>
-        getInitialData &&
-        getInitialData({
-          req,
-          store,
-          route: router.currentRoute
-        })
+      ({ getInitialData }) => getInitialData && getInitialData(dataContext)
     )
   )
 
@@ -61,6 +62,8 @@ export default async context => {
   if (app.$meta) {
     context.meta = app.$meta()
   }
+
+  context.app = app
 
   return app
 }

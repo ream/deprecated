@@ -1,6 +1,4 @@
-const fs = require('fs')
 const webpack = require('webpack')
-const chokidar = require('chokidar')
 
 module.exports = api => {
   const { serverCompiler, clientCompiler } = api.createCompilers()
@@ -16,23 +14,16 @@ module.exports = api => {
 
   let clientManifest
   let serverBundle
-  let template = fs.readFileSync(api.options.html, 'utf8')
 
   const notify = () => {
-    if (clientManifest && serverBundle && template) {
+    if (clientManifest && serverBundle) {
       api.createRenderer({
         clientManifest,
         serverBundle,
-        template,
         serverType: 'dev'
       })
     }
   }
-
-  chokidar.watch(api.options.html).on('change', () => {
-    template = fs.readFileSync(api.options.html, 'utf8')
-    notify()
-  })
 
   const mfs = new webpack.MemoryOutputFileSystem()
   serverCompiler.outputFileSystem = mfs

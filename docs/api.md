@@ -15,13 +15,6 @@ Default: `index.js`
 
 The path to entry file, you should at least export `createRouter` factory here.
 
-### options.html
-
-Type: `string`<br>
-Default: [`ream/app/index.template.html`](/packages/ream/app/index.template.html)
-
-The path to HTML template file.
-
 ### options.plugins
 
 Type: `Array`<br>
