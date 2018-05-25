@@ -6,7 +6,14 @@ import 'es6-promise/auto'
 import createApp from '#create-app'
 import { routerReady } from '../utils'
 
-const { app, router, store } = createApp()
+const { app, router, store, entry } = createApp()
+
+const getContext = context => {
+  if (entry.getInitialDataContext) {
+    entry.getInitialDataContext(context)
+  }
+  return context
+}
 
 // A global mixin that calls `getInitialData` when a route component's params change
 Vue.mixin({
@@ -14,10 +21,13 @@ Vue.mixin({
     const { getInitialData } = this.$options
     if (getInitialData) {
       try {
-        await getInitialData({
-          store: this.$store,
-          route: to
-        })
+        await getInitialData(
+          getContext({
+            router,
+            store: this.$store,
+            route: to
+          })
+        )
         next()
       } catch (err) {
         next(err)
@@ -57,7 +67,7 @@ async function main() {
       .filter(_ => _)
 
     try {
-      const ctx = { store, route: to, router }
+      const ctx = getContext({ store, route: to, router })
       await Promise.all(getInitialDataHooks.map(hook => hook(ctx)))
       next()
     } catch (err) {

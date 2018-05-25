@@ -34,8 +34,11 @@ export default async context => {
     req,
     store,
     router,
-    route: router.currentRoute,
-    matchedComponents
+    route: router.currentRoute
+  }
+
+  if (entry.getInitialDataContext) {
+    entry.getInitialDataContext(dataContext)
   }
 
   if (entry.getDocumentData) {
