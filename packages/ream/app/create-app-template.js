@@ -25,7 +25,7 @@ module.exports = api => {
   import Vue from 'vue'
   import Meta from 'vue-meta'
   // eslint-disable-next-line import/no-unresolved
-  import entry from '#app-entry'
+  import _entry from '#app-entry'
 
   Vue.config.productionTip = false
 
@@ -45,6 +45,7 @@ module.exports = api => {
   })
 
   export default async context => {
+    const entry = typeof _entry === 'function' ? _entry() : _entry
     let { router, store, root = 'router-view', extendRootOptions } = entry
     if (context) {
       context.entry = entry
@@ -101,7 +102,8 @@ module.exports = api => {
     return {
       app,
       router,
-      store
+      store,
+      entry
     }
   }
 

@@ -14,7 +14,7 @@ export default async context => {
   const s = isDev && Date.now()
 
   const { req } = context
-  const { app, router, store } = await createApp(context)
+  const { app, router, store, entry } = await createApp(context)
 
   router.push(req.url)
 
@@ -63,6 +63,7 @@ export default async context => {
     context.meta = app.$meta()
   }
 
+  context.entry = entry
   context.app = app
 
   return app

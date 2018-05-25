@@ -8,6 +8,7 @@ module.exports = context => {
     '<!DOCTYPE html>' +
     document({
       app: context.app,
+      entry: context.entry,
       matchedComponents: context.matchedComponents,
       headTags({ resourceHints = true } = {}) {
         return (
