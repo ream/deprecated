@@ -16,7 +16,7 @@ module.exports = (api, config) => {
       path: api.resolveDist('server')
     },
     target: 'node',
-    devtool: api.options.dev ? '#source-map' : false
+    devtool: api.options.dev ? 'source-map' : false
   })
 
   // Vue SSR plugin

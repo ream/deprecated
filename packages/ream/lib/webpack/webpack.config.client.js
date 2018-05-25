@@ -8,7 +8,7 @@ module.exports = (api, config) => {
   baseConfig(api, config, false)
 
   config.merge({
-    devtool: api.options.dev ? '#cheap-module-source-map' : false,
+    devtool: api.options.dev ? 'cheap-module-source-map' : false,
     output: {
       path: api.resolveDist('client')
     }

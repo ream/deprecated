@@ -21,7 +21,7 @@ export default async context => {
   await routerReady(router)
 
   const matchedComponents = router.getMatchedComponents()
-  context.matchedComponents = matchedComponents
+
   // No matched routes
   if (matchedComponents.length === 0) {
     throw new ReamError({
@@ -33,7 +33,14 @@ export default async context => {
   const dataContext = {
     req,
     store,
-    route: router.currentRoute
+    router,
+    route: router.currentRoute,
+    matchedComponents
+  }
+
+  if (entry.getInitialData) {
+    const initialData = await entry.getInitialData(dataContext)
+    context.initialData = Object.assign({}, initialData)
   }
 
   // Call fetchData hooks on components matched by the route.
@@ -62,9 +69,6 @@ export default async context => {
   if (app.$meta) {
     context.meta = app.$meta()
   }
-
-  context.entry = entry
-  context.app = app
 
   return app
 }

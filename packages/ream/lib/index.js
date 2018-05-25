@@ -268,45 +268,48 @@ class Ream extends Event {
       })
     }
 
-    server.get('*', async (req, res) => {
-      if (!this.renderer) {
-        return res.end('Please wait for compilation...')
-      }
+    const handleError = fn => {
+      return async (req, res) => {
+        try {
+          await fn(req, res)
+        } catch (err) {
+          if (err.code === 404) return notFound(req, res)()
 
-      if (req.url.startsWith('/_ream/')) {
-        res.status(404)
-        return res.end('404')
-      }
+          if (process.env.NODE_ENV === 'production') {
+            res.end('server error')
+          } else {
+            res.end(err.stack)
+          }
 
-      const handleError = err => {
-        if (err.code === 404) return notFound(req, res)()
-
-        if (process.env.NODE_ENV === 'production') {
-          res.end('server error')
-        } else {
-          res.end(err.stack)
-        }
-
-        if (err.name === 'ReamError') {
-          console.log(err.message)
-        } else {
-          console.log(err.stack)
+          if (err.name === 'ReamError') {
+            console.log(err.message)
+          } else {
+            console.log(err.stack)
+          }
         }
       }
+    }
 
-      const context = { req }
+    server.get(
+      '*',
+      handleError(async (req, res) => {
+        if (!this.renderer) {
+          return res.end('Please wait for compilation...')
+        }
 
-      let html
-      try {
-        html = await this.renderer.renderToString(context)
-      } catch (err) {
-        return handleError(err)
-      }
+        if (req.url.startsWith('/_ream/')) {
+          res.status(404)
+          return res.end('404')
+        }
 
-      res.setHeader('content-type', 'text/html')
-      const { start, end } = await renderTemplate(context)
-      res.end(start + html + end)
-    })
+        const context = { req }
+        const html = await this.renderer.renderToString(context)
+        const { start, end } = renderTemplate(context)
+
+        res.setHeader('content-type', 'text/html')
+        res.end(start + html + end)
+      })
+    )
 
     return server
   }
@@ -381,7 +384,8 @@ class Ream extends Event {
   createRenderer({ serverBundle, clientManifest, serverType }) {
     this.renderer = createBundleRenderer(serverBundle, {
       runInNewContext: false,
-      clientManifest
+      clientManifest,
+      basedir: this.resolveDist()
     })
     this.emit('renderer-ready', serverType)
   }

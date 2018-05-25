@@ -1,0 +1,20 @@
+{
+  "name": "with-apollo",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "ream dev",
+    "build": "ream build",
+    "start": "ream start"
+  },
+  "dependencies": {
+    "apollo-cache-inmemory": "^1.2.1",
+    "apollo-client": "^2.3.1",
+    "apollo-link-http": "^1.5.4",
+    "graphql": "^0.13.2",
+    "graphql-tag": "^2.9.2",
+    "isomorphic-fetch": "^2.2.1",
+    "ream": "^3.0.1",
+    "vue-apollo": "^3.0.0-beta.13"
+  }
+}

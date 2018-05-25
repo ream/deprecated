@@ -1,15 +1,14 @@
 const serialize = require('serialize-javascript')
 const defaultDocument = require('./document')
 
-module.exports = async context => {
+module.exports = context => {
   const document = context.entry.document || defaultDocument
   const { title, link, style, script, noscript, meta } = context.meta.inject()
+
   const html =
     '<!DOCTYPE html>' +
-    (await document({
-      app: context.app,
-      entry: context.entry,
-      matchedComponents: context.matchedComponents,
+    document({
+      initialData: context.initialData,
       headTags({ resourceHints = true } = {}) {
         return (
           `${meta.text()}
@@ -25,14 +24,13 @@ module.exports = async context => {
           `<script>window.__REAM__=${serialize(
             {
               state: context.state,
-              initialData: context.initialData,
               error: context.error
             },
             { isJSON: true }
           )}</script>` + context.renderScripts()
         )
       }
-    }))
+    })
 
   const [start, end] = html.split('<!--ream-root-placeholder-->')
 

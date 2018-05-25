@@ -70,6 +70,7 @@ module.exports = (api, config, isServer) => {
       'process.env.NODE_ENV': `"${process.env.NODE_ENV}"`,
       'process.server': isServer,
       'process.browser': !isServer,
+      'process.client': !isServer,
       __DEV__: Boolean(api.options.dev),
       __PUBLIC_PATH__: JSON.stringify(publicPath)
     }
