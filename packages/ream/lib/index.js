@@ -153,6 +153,7 @@ class Ream extends Event {
   }
 
   async generateOnly({ routes } = this.options.generate) {
+    routes = [...new Set(routes)]
     // Not an actually server
     // Don't emit `server-ready` event
     this.prepareProduction({ serverType: 'generate' })
