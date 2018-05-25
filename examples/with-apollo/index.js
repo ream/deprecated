@@ -2,8 +2,8 @@ import VueApollo from 'vue-apollo'
 import createApolloClient from './createApolloClient'
 import createRouter from './router'
 
-const document = ({ headTags, scripts, initialData }) => {
-  const { apolloState } = initialData
+const document = ({ headTags, scripts, data }) => {
+  const { apolloState } = data
   return `
   <html>
     <head>
@@ -34,7 +34,7 @@ export default () => {
       rootOptions.provide = apolloProvider.provide()
     },
     router,
-    async getInitialData() {
+    async getDocumentData() {
       await apolloProvider.prefetchAll({
         route: router.currentRoute,
       }, router.getMatchedComponents())

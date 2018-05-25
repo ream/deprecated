@@ -50,7 +50,7 @@ export default {
 
   head() {
     return {
-      title: this.post && this.post.title
+      title: this.post ? this.post.title : ''
     }
   }
 }

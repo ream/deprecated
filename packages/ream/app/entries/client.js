@@ -6,17 +6,22 @@ import 'es6-promise/auto'
 import createApp from '#create-app'
 import { routerReady } from '../utils'
 
+const { app, router, store } = createApp()
+
 // A global mixin that calls `getInitialData` when a route component's params change
 Vue.mixin({
-  beforeRouteUpdate(to, from, next) {
+  async beforeRouteUpdate(to, from, next) {
     const { getInitialData } = this.$options
     if (getInitialData) {
-      getInitialData({
-        store: this.$store,
-        route: to
-      })
-        .then(next)
-        .catch(next)
+      try {
+        await getInitialData({
+          store: this.$store,
+          route: to
+        })
+        next()
+      } catch (err) {
+        next(err)
+      }
     } else {
       next()
     }
@@ -26,8 +31,6 @@ Vue.mixin({
 // Wait until router has resolved all async before hooks
 // and async components...
 async function main() {
-  const { app, router, store } = await createApp()
-
   // Prime the store with server-initialized state.
   // the state is determined during SSR and inlined in the page markup.
   if (window.__REAM__.state && store) {
@@ -40,7 +43,7 @@ async function main() {
   // Doing it after initial route is resolved so that we don't double-fetch
   // the data that we already have. Using router.beforeResolve() so that all
   // async components are resolved.
-  router.beforeResolve((to, from, next) => {
+  router.beforeResolve(async (to, from, next) => {
     const matched = router.getMatchedComponents(to)
     const prevMatched = router.getMatchedComponents(from)
     let diffed = false
@@ -53,15 +56,13 @@ async function main() {
       .map(c => c.getInitialData)
       .filter(_ => _)
 
-    if (getInitialDataHooks.length === 0) {
-      return next()
+    try {
+      const ctx = { store, route: to, router }
+      await Promise.all(getInitialDataHooks.map(hook => hook(ctx)))
+      next()
+    } catch (err) {
+      next(err)
     }
-
-    Promise.all(getInitialDataHooks.map(hook => hook({ store, route: to })))
-      .then(() => {
-        next()
-      })
-      .catch(next)
   })
 
   // Actually mount to DOM

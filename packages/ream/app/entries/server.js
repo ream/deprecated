@@ -14,7 +14,7 @@ export default async context => {
   const s = isDev && Date.now()
 
   const { req } = context
-  const { app, router, store, entry } = await createApp(context)
+  const { app, router, store, entry } = createApp(context)
 
   router.push(req.url)
 
@@ -38,9 +38,9 @@ export default async context => {
     matchedComponents
   }
 
-  if (entry.getInitialData) {
-    const initialData = await entry.getInitialData(dataContext)
-    context.initialData = Object.assign({}, initialData)
+  if (entry.getDocumentData) {
+    const documentData = await entry.getDocumentData(dataContext)
+    context.documentData = Object.assign({}, documentData)
   }
 
   // Call fetchData hooks on components matched by the route.

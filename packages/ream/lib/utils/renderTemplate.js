@@ -8,7 +8,7 @@ module.exports = context => {
   const html =
     '<!DOCTYPE html>' +
     document({
-      initialData: context.initialData,
+      data: context.documentData,
       headTags({ resourceHints = true } = {}) {
         return (
           `${meta.text()}

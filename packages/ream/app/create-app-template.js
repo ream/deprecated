@@ -44,7 +44,7 @@ module.exports = api => {
     tagIDKeyName: 'rhid'
   })
 
-  export default async context => {
+  export default context => {
     const entry = typeof _entry === 'function' ? _entry() : _entry
     let { router, store, root = 'router-view', extendRootOptions } = entry
     if (context) {
