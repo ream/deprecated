@@ -26,14 +26,15 @@ export default () => {
     defaultClient: createApolloClient() // an apollo-client instance
   })
 
+  const router = createRouter()
+
   return {
     document,
     extendRootOptions(rootOptions) {
       rootOptions.provide = apolloProvider.provide()
     },
-    apolloProvider,
-    router: createRouter(),
-    async getInitialData({ router }) {
+    router,
+    async getInitialData() {
       await apolloProvider.prefetchAll({
         route: router.currentRoute,
       }, router.getMatchedComponents())
