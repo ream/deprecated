@@ -82,6 +82,11 @@ class Ream extends Event {
     this.chainWebpackFns.push(fn)
   }
 
+  addGenerateRoutes(routes) {
+    this.options.generate.routes = this.options.generate.routes.concat(routes)
+    return this
+  }
+
   runChainWebpackFns() {
     for (const fn of this.chainWebpackFns) {
       fn(this.serverConfig, {
