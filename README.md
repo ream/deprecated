@@ -12,7 +12,7 @@ yarn add ream
 
 ## Usage
 
-Unlike a regular Vue SPA, you must export a `router` function in your app entry in order to make it work with Ream:
+Unlike a regular Vue SPA, you must export a function which returns an object in your app entry in order to make it work with Ream:
 
 ```js
 // index.js
@@ -21,18 +21,16 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
-export default {
-  router() {
-    return new Router({
-      mode: 'history',
-      routes: [{
-        path: '/',
-        // Dynamically load your index component
-        component: () => import('./index.vue')
-      }]
-    })
-  }
-}
+export default () => ({
+  router: new Router({
+    mode: 'history',
+    routes: [{
+      path: '/',
+      // Dynamically load your index component
+      component: () => import('./index.vue')
+    }]
+  })
+})
 ```
 
 And that's it, run `ream dev` and have fun playing with your app at `http://localhost:4000`.
