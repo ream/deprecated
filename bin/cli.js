@@ -35,10 +35,7 @@ const getOptions = (dev, input, flags) => {
   const options = {
     ...flags,
     dev,
-    entry: input[0]
-  }
-  if (!options.entry) {
-    delete options.entry
+    baseDir: input[0]
   }
   return options
 }
