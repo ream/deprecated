@@ -1,7 +1,7 @@
 // eslint-disable-next-line import/no-unresolved
 import createApp from '#create-app'
-import ReamError from '../ReamError'
-import { routerReady } from '../utils'
+import ReamError from './ReamError'
+import { routerReady } from './utils'
 
 // This exported function will be called by `bundleRenderer`.
 // This is where we perform data-prefetching to determine the

@@ -4,7 +4,7 @@ import Vue from 'vue'
 import 'es6-promise/auto'
 // eslint-disable-next-line import/no-unresolved
 import createApp from '#create-app'
-import { routerReady } from '../utils'
+import { routerReady } from './utils'
 
 const { app, router, store, entry } = createApp()
 
