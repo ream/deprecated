@@ -1,10 +1,11 @@
 /* globals window */
 import Vue from 'vue'
 // eslint-disable-next-line import/no-unassigned-import
-import 'es6-promise/auto'
+import './polyfills'
 // eslint-disable-next-line import/no-unresolved
 import createApp from '#create-app'
 import { routerReady } from './utils'
+import redirect from './redirect'
 
 const { app, router, store, entry } = createApp()
 
@@ -49,12 +50,23 @@ async function main() {
 
   await routerReady(router)
 
+  if (router.getMatchedComponents().length === 0) {
+    app.setError({ code: 404, url: router.currentRoute.path })
+  }
+
   // Add router hook for handling getInitialData.
   // Doing it after initial route is resolved so that we don't double-fetch
   // the data that we already have. Using router.beforeResolve() so that all
   // async components are resolved.
   router.beforeResolve(async (to, from, next) => {
     const matched = router.getMatchedComponents(to)
+    if (matched.length === 0) {
+      app.setError({ code: 404, url: to.path })
+      return next()
+    }
+
+    app.setError(null)
+
     const prevMatched = router.getMatchedComponents(from)
     let diffed = false
     const activated = matched.filter((c, i) => {
@@ -67,7 +79,7 @@ async function main() {
       .filter(_ => _)
 
     try {
-      const ctx = getContext({ store, route: to, router })
+      const ctx = getContext({ store, route: to, router, redirect })
       await Promise.all(getInitialDataHooks.map(hook => hook(ctx)))
       next()
     } catch (err) {

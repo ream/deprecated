@@ -26,6 +26,7 @@ module.exports = api => {
   import Meta from 'vue-meta'
   // eslint-disable-next-line import/no-unresolved
   import _entry from '#app-entry'
+  import enhanceApp from '#app/enhance-app'
 
   Vue.config.productionTip = false
 
@@ -46,11 +47,10 @@ module.exports = api => {
 
   export default context => {
     const entry = typeof _entry === 'function' ? _entry() : _entry
-    let { router, store, root = 'router-view', extendRootOptions } = entry
+    let { router, store, extendRootOptions } = entry
     if (context) {
       context.entry = entry
     }
-
 
     if (__DEV__) {
       if (!router) {
@@ -58,15 +58,16 @@ module.exports = api => {
       }
     }
 
-    const rootOptions = {
-      router,
-      store
-    }
+    const rootOptions = {}
+
+    const enhanceContext = { router, store, rootOptions, entry }
+
+    enhanceApp(enhanceContext, context)
+
     if (extendRootOptions) {
       extendRootOptions(rootOptions)
     }
 
-    const enhanceContext = { router, store, rootOptions }
     ${[...enhanceAppFiles]
       .map(file =>
         `
@@ -76,17 +77,6 @@ module.exports = api => {
     `.trim()
       )
       .join('\n')}
-
-    rootOptions.render = h =>
-      h(
-        'div',
-        {
-          attrs: {
-            id: '_ream'
-          }
-        },
-        [h(root)]
-      )
 
     const app = new Vue(rootOptions)
 

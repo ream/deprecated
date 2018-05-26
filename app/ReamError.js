@@ -29,14 +29,15 @@ function inherits(ctor, superCtor) {
   })
 }
 
-function ReamError({ message, code }) {
+function ReamError(data) {
   Object.defineProperty(this, 'name', {
     configurable: true,
     value: 'ReamError',
     writable: true
   })
-  this.message = message
-  this.code = code
+  for (const key of Object.keys(data)) {
+    this[key] = data[key]
+  }
   inherits(this, Error)
   captureStack(this)
 }

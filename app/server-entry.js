@@ -2,6 +2,7 @@
 import createApp from '#create-app'
 import ReamError from './ReamError'
 import { routerReady } from './utils'
+import redirect from './redirect'
 
 // This exported function will be called by `bundleRenderer`.
 // This is where we perform data-prefetching to determine the
@@ -9,7 +10,7 @@ import { routerReady } from './utils'
 // Since data fetching is async, this function is expected to
 // return a Promise that resolves to the app instance.
 export default async context => {
-  const { req } = context
+  const { req, res } = context
   const { app, router, store, entry } = createApp(context)
 
   router.push(req.url)
@@ -20,17 +21,23 @@ export default async context => {
 
   // No matched routes
   if (matchedComponents.length === 0) {
-    throw new ReamError({
-      code: 'ROUTE_COMPONENT_NOT_FOUND',
-      message: `Cannot find corresponding route component for ${req.url}`
-    })
+    if (res) {
+      res.statusCode = 404
+      context.reamError = { code: 404, url: req.url }
+    } else {
+      throw new ReamError({
+        code: 'NOT_FOUND',
+        message: `Cannot find corresponding route component for ${req.url}`
+      })
+    }
   }
 
   const dataContext = {
     req,
     store,
     router,
-    route: router.currentRoute
+    route: router.currentRoute,
+    redirect
   }
 
   if (entry.getInitialDataContext) {
