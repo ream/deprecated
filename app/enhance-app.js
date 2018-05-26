@@ -1,3 +1,11 @@
+import Vue from 'vue'
+
+Vue.mixin({
+  beforeCreate() {
+    this.$ream = this.$root
+  }
+})
+
 const Root = {
   name: 'ReamRoot',
   props: ['error'],
