@@ -6,7 +6,7 @@ const captureStack =
     Object.defineProperty(error, 'stack', {
       configurable: true,
       get() {
-        const stack = container.stack
+        const { stack } = container
 
         Object.defineProperty(this, 'stack', {
           value: stack
