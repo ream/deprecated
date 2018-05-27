@@ -47,7 +47,7 @@ module.exports = api => {
 
   export default context => {
     const entry = typeof _entry === 'function' ? _entry() : _entry
-    let { router, store, extendRootOptions } = entry
+    let { router, extendRootOptions } = entry
     if (context) {
       context.entry = entry
     }
@@ -59,8 +59,21 @@ module.exports = api => {
     }
 
     const rootOptions = {}
+    const getInitialDataContextFns = [
+      entry.getInitialDataContext
+    ].filter(Boolean)
 
-    const enhanceContext = { router, store, rootOptions, entry }
+    const event = new Vue()
+    const enhanceContext = {
+      router,
+      rootOptions,
+      entry,
+      ssrContext: context,
+      event,
+      getInitialDataContext(fn) {
+        getInitialDataContextFns.push(fn)
+      }
+    }
 
     enhanceApp(enhanceContext, context)
 
@@ -83,8 +96,9 @@ module.exports = api => {
     return {
       app,
       router,
-      store,
-      entry
+      entry,
+      getInitialDataContextFns,
+      event
     }
   }
 

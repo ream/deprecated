@@ -7,11 +7,11 @@ import createApp from '#create-app'
 import { routerReady } from './utils'
 import redirect from './redirect'
 
-const { app, router, store, entry } = createApp()
+const { app, router, getInitialDataContextFns, event } = createApp()
 
 const getContext = context => {
-  if (entry.getInitialDataContext) {
-    entry.getInitialDataContext(context)
+  for (const fn of getInitialDataContextFns) {
+    fn(context)
   }
   return context
 }
@@ -25,7 +25,6 @@ Vue.mixin({
         await getInitialData(
           getContext({
             router,
-            store: this.$store,
             route: to
           })
         )
@@ -42,11 +41,7 @@ Vue.mixin({
 // Wait until router has resolved all async before hooks
 // and async components...
 async function main() {
-  // Prime the store with server-initialized state.
-  // the state is determined during SSR and inlined in the page markup.
-  if (window.__REAM__.state && store) {
-    store.replaceState(window.__REAM__.state)
-  }
+  event.$emit('before-client-renderer')
 
   if (window.__REAM__.initialData) {
     app.$dataStore.replaceState(window.__REAM__.initialData)
@@ -83,7 +78,7 @@ async function main() {
       .filter(_ => _)
 
     try {
-      const ctx = getContext({ store, route: to, router, redirect })
+      const ctx = getContext({ route: to, router, redirect })
       await Promise.all(getInitialDataHooks.map(hook => hook(ctx)))
       next()
     } catch (err) {

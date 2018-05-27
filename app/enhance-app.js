@@ -52,11 +52,10 @@ const Error = {
 }
 
 export default ({ rootOptions, entry }, context) => {
-  const { router, store, root = Root, error = Error } = entry
+  const { router, root = Root, error = Error } = entry
 
   const App = {
     router,
-    store,
     dataStore: createDataStore(),
     data() {
       return {
