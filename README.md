@@ -37,9 +37,7 @@ And that's it, run `ream dev` and have fun playing with your app at `http://loca
 
 ## Roadmap
 
-- [ ] [Prefetch data for route components](https://github.com/ream/ream/issues/74).
 - [ ] Document how to modify internal webpack config.
-- [ ] Documentation website.
 - [ ] Add proper tests.
 
 To make things happen faster, you may consider becoming a patron to support the development:
