@@ -45,6 +45,7 @@
     "express": "^4.16.3",
     "file-loader": "^1.1.6",
     "fs-extra": "^6.0.0",
+    "hash-sum": "^1.0.2",
     "internal-ip": "^3.0.1",
     "joycon": "^1.0.3",
     "lodash.merge": "^4.6.1",

@@ -1,8 +1,27 @@
 import Vue from 'vue'
+// eslint-disable-next-line import/no-unresolved
+import createDataStore from '#app/create-data-store'
 
 Vue.mixin({
   beforeCreate() {
     this.$ream = this.$root
+    this.$dataStore = this.$ream.$options.dataStore
+  },
+  computed: {
+    $initialData() {
+      let isRouteComponent
+      for (const m of this.$route.matched) {
+        for (const key of Object.keys(m.instances)) {
+          const instance = m.instances[key]
+          if (instance === this) {
+            isRouteComponent = true
+          }
+        }
+      }
+      return isRouteComponent
+        ? this.$dataStore.getData(this.$options.__file)
+        : null
+    }
   }
 })
 
@@ -28,6 +47,7 @@ export default ({ rootOptions, entry }, context) => {
   const App = {
     router,
     store,
+    dataStore: createDataStore(),
     data() {
       return {
         error: null

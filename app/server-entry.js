@@ -10,6 +10,8 @@ import redirect from './redirect'
 // Since data fetching is async, this function is expected to
 // return a Promise that resolves to the app instance.
 export default async context => {
+  context.initialData = context.initialData || {}
+
   const { req, res } = context
   const { app, router, store, entry } = createApp(context)
 
@@ -54,9 +56,12 @@ export default async context => {
   // which is resolved when the action is complete and store state has been
   // updated.
   await Promise.all(
-    matchedComponents.map(
-      ({ getInitialData }) => getInitialData && getInitialData(dataContext)
-    )
+    matchedComponents.map(async Component => {
+      const { getInitialData } = Component
+      if (!getInitialData) return
+      const initialData = await getInitialData(dataContext)
+      app.$dataStore.setData(Component.__file, initialData)
+    })
   )
 
   // After all preFetch hooks are resolved, our store is now
@@ -71,6 +76,8 @@ export default async context => {
   if (app.$meta) {
     context.meta = app.$meta()
   }
+
+  context.initialData = app.$dataStore.getState()
 
   return app
 }

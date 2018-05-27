@@ -48,6 +48,10 @@ async function main() {
     store.replaceState(window.__REAM__.state)
   }
 
+  if (window.__REAM__.initialData) {
+    app.$dataStore.replaceState(window.__REAM__.initialData)
+  }
+
   await routerReady(router)
 
   if (router.getMatchedComponents().length === 0) {
