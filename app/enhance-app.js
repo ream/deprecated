@@ -27,14 +27,24 @@ Vue.mixin({
 
 const Root = {
   name: 'ReamRoot',
+  render(h) {
+    return h('router-view')
+  }
+}
+
+const Error = {
+  name: 'ReamError',
+  functional: true,
   props: ['error'],
-  render() {
-    if (!this.error) {
-      return <router-view />
+  render(
+    h,
+    {
+      props: { error }
     }
+  ) {
     return (
       <div>
-        <h1>{this.error.code}</h1>
+        <h1>{error.code}</h1>
         <router-link to="/">Go Home!</router-link>
       </div>
     )
@@ -42,7 +52,7 @@ const Root = {
 }
 
 export default ({ rootOptions, entry }, context) => {
-  const { router, store, root = Root } = entry
+  const { router, store, root = Root, error = Error } = entry
 
   const App = {
     router,
@@ -62,11 +72,13 @@ export default ({ rootOptions, entry }, context) => {
           }
         },
         [
-          h(root, {
-            props: {
-              error: this.actualError
-            }
-          })
+          this.actualError
+            ? h(error, {
+                props: {
+                  error: this.actualError
+                }
+              })
+            : h(root)
         ]
       )
     },
