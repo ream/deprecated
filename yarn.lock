@@ -4172,9 +4172,9 @@ joi@^11.1.1:
     isemail "3.x.x"
     topo "2.x.x"
 
-joycon@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/joycon/-/joycon-1.0.3.tgz#ff969a347734b5ab62b50e4cdbc649b96269e4f6"
+joycon@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/joycon/-/joycon-1.0.4.tgz#25a05fc0af33e4cc288885bc594a82806978ddb8"
   dependencies:
     json5 "^1.0.1"
 

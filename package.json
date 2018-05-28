@@ -47,7 +47,7 @@
     "fs-extra": "^6.0.0",
     "hash-sum": "^1.0.2",
     "internal-ip": "^3.0.1",
-    "joycon": "^1.0.3",
+    "joycon": "^1.0.4",
     "lodash.merge": "^4.6.1",
     "log-update": "^2.3.0",
     "mini-css-extract-plugin": "^0.4.0",
