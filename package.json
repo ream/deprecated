@@ -50,7 +50,6 @@
     "joycon": "^1.0.4",
     "lodash.merge": "^4.6.1",
     "log-update": "^2.3.0",
-    "mini-css-extract-plugin": "^0.4.0",
     "object-assign": "^4.1.1",
     "postcss-load-config": "^1.2.0",
     "postcss-loader": "^2.1.5",
