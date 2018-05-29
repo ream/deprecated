@@ -2,7 +2,7 @@
 import createApp from '#create-app'
 import ReamError from './ReamError'
 import { routerReady } from './utils'
-import redirect from './redirect'
+import serverHelpers from './server-helpers'
 
 // This exported function will be called by `bundleRenderer`.
 // This is where we perform data-prefetching to determine the
@@ -45,7 +45,7 @@ export default async context => {
     res,
     router,
     route: router.currentRoute,
-    redirect
+    ...serverHelpers
   }
 
   for (const fn of getInitialDataContextFns) {

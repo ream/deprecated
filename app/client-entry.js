@@ -5,7 +5,7 @@ import './polyfills'
 // eslint-disable-next-line import/no-unresolved
 import createApp from '#create-app'
 import { routerReady } from './utils'
-import redirect from './redirect'
+import serverHelpers from './server-helpers'
 
 const { app, router, getInitialDataContextFns, event, dataStore } = createApp()
 
@@ -83,7 +83,7 @@ async function main() {
     const components = activated.filter(c => c.getInitialData)
 
     try {
-      const ctx = getContext({ route: to, router, redirect })
+      const ctx = getContext({ route: to, router, ...serverHelpers })
       await Promise.all(
         components.map(c =>
           c.getInitialData(ctx).then(data => {
