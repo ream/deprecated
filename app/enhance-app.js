@@ -1,6 +1,6 @@
 import Vue from 'vue'
-// eslint-disable-next-line import/no-unresolved
-import createDataStore from '#app/create-data-store'
+import createDataStore from './create-data-store'
+import { setInitialData } from './utils'
 
 const isRouteComponent = (matched, current) => {
   let result
@@ -21,12 +21,9 @@ Vue.mixin({
 
     this.$ream = this.$root
     this.$dataStore = this.$ream.$options.dataStore
+    this.$isRouteComponent = isRouteComponent(this.$route.matched, this)
 
-    const { getInitialData, __file } = this.$options
-    if (getInitialData && isRouteComponent(this.$route.matched, this)) {
-      const initialData = this.$dataStore.getData(__file)
-      this.$initialData = initialData
-    }
+    setInitialData(this)
   },
   data() {
     return Object.assign({}, this.$initialData)

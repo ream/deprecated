@@ -62,7 +62,7 @@ export default async context => {
       const { getInitialData } = Component
       if (!getInitialData) return
       const initialData = await getInitialData(dataContext)
-      dataStore.setData(Component.__file, initialData)
+      dataStore.setData(Component.uniqueId || Component.__file, initialData)
     })
   )
 

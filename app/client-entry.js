@@ -16,15 +16,15 @@ const getContext = context => {
   return context
 }
 
-const updateDataStore = (file, data) => {
-  dataStore.setData(file, data)
+const updateDataStore = (id, data) => {
+  dataStore.setData(id, data)
 }
 
 // A global mixin that calls `getInitialData` when a route component's params change
 Vue.mixin({
   async beforeRouteUpdate(to, from, next) {
-    const { getInitialData, __file } = this.$options
-    if (getInitialData) {
+    if (this.$uniqueId) {
+      const { getInitialData } = this.$options
       try {
         const data = await getInitialData(
           getContext({
@@ -32,7 +32,7 @@ Vue.mixin({
             route: to
           })
         )
-        updateDataStore(__file, data)
+        updateDataStore(this.$uniqueId, data)
         Object.assign(this, data)
         next()
       } catch (err) {
@@ -87,7 +87,7 @@ async function main() {
       await Promise.all(
         components.map(c =>
           c.getInitialData(ctx).then(data => {
-            updateDataStore(c.__file, data)
+            updateDataStore(c.uniqueId || c.__file, data)
           })
         )
       )
