@@ -30,3 +30,10 @@ export const setInitialData = vm => {
     vm.$initialData = initialData
   }
 }
+
+export const pageNotFound = url => ({
+  code: 404,
+  url,
+  errorPath: url,
+  message: 'page not found'
+})

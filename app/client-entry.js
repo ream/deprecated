@@ -4,7 +4,7 @@ import Vue from 'vue'
 import './polyfills'
 // eslint-disable-next-line import/no-unresolved
 import createApp from '#create-app'
-import { routerReady } from './utils'
+import { routerReady, pageNotFound } from './utils'
 import serverHelpers from './server-helpers'
 import ReamError from './ReamError'
 
@@ -80,7 +80,7 @@ async function main() {
   await routerReady(router)
 
   if (router.getMatchedComponents().length === 0) {
-    throw new ReamError({ code: 404, url: router.currentRoute.path })
+    throw new ReamError(pageNotFound(router.currentRoute.path))
   }
 
   // Add router hook for handling getInitialData.
@@ -90,7 +90,7 @@ async function main() {
   router.beforeResolve(async (to, from, next) => {
     const matched = router.getMatchedComponents(to)
     if (matched.length === 0) {
-      app.setError({ code: 404, errorPath: to.path })
+      app.setError(pageNotFound(to.path))
       return next()
     }
 

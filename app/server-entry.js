@@ -1,7 +1,7 @@
 // eslint-disable-next-line import/no-unresolved
 import createApp from '#create-app'
 import ReamError from './ReamError'
-import { routerReady } from './utils'
+import { routerReady, pageNotFound } from './utils'
 import serverHelpers from './server-helpers'
 
 // This exported function will be called by `bundleRenderer`.
@@ -31,11 +31,7 @@ export default async context => {
   if (matchedComponents.length === 0) {
     if (res) {
       res.statusCode = 404
-      context.reamError = {
-        code: 404,
-        redirectURL: req.url,
-        message: 'page not found'
-      }
+      context.reamError = pageNotFound(req.url)
     } else {
       throw new ReamError({
         code: 'NOT_FOUND',
