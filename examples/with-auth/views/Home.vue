@@ -17,9 +17,14 @@ import getToken from '../lib/getToken'
 
 export default {
   getInitialData({ req }) {
-    return {
-      token: getToken(req)
-    }
+    return new Promise(resolve => {
+      setTimeout(() => {
+        console.log('fetched!')
+        resolve({
+          token: getToken(req)
+        })
+      }, 1000)
+    })
   }
 }
 </script>

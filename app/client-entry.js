@@ -40,6 +40,45 @@ const handleError = err => {
   }
 }
 
+router.beforeResolve(async (to, from, next) => {
+  // Skip initial load on client-side
+  if (!app.$clientRendered) return next()
+
+  const matched = router.getMatchedComponents(to)
+  if (matched.length === 0) {
+    app.setError(pageNotFound(to.path))
+    return next()
+  }
+
+  const prevMatched = router.getMatchedComponents(from)
+  let diffed = false
+  const activated = matched.filter((c, i) => {
+    if (diffed) return diffed
+    diffed = prevMatched[i] !== c
+    return diffed
+  })
+
+  const components = activated.filter(c => c.getInitialData)
+
+  try {
+    const ctx = getContext({ route: to, router, ...serverHelpers })
+    if (entry.middleware) {
+      await entry.middleware(ctx)
+    }
+    await Promise.all(
+      components.map(async c => {
+        const data = await c.getInitialData(ctx)
+        updateDataStore(c.initialDataKey, data)
+      })
+    )
+    next()
+  } catch (err) {
+    err.errorPath = to.path
+    handleError(err)
+    next()
+  }
+})
+
 // A global mixin that calls `getInitialData` when a route component's params change
 Vue.mixin({
   async beforeRouteUpdate(to, from, next) {
@@ -82,56 +121,19 @@ async function main() {
   if (router.getMatchedComponents().length === 0) {
     throw new ReamError(pageNotFound(router.currentRoute.path))
   }
+}
 
-  // Add router hook for handling getInitialData.
-  // Doing it after initial route is resolved so that we don't double-fetch
-  // the data that we already have. Using router.beforeResolve() so that all
-  // async components are resolved.
-  router.beforeResolve(async (to, from, next) => {
-    const matched = router.getMatchedComponents(to)
-    if (matched.length === 0) {
-      app.setError(pageNotFound(to.path))
-      return next()
-    }
-
-    app.setError(null)
-
-    const prevMatched = router.getMatchedComponents(from)
-    let diffed = false
-    const activated = matched.filter((c, i) => {
-      if (diffed) return diffed
-      diffed = prevMatched[i] !== c
-      return diffed
-    })
-
-    const components = activated.filter(c => c.getInitialData)
-
-    try {
-      const ctx = getContext({ route: to, router, ...serverHelpers })
-      if (entry.middleware) {
-        await entry.middleware(ctx)
-      }
-      await Promise.all(
-        components.map(async c => {
-          const data = await c.getInitialData(ctx)
-          updateDataStore(c.initialDataKey, data)
-        })
-      )
-      next()
-    } catch (err) {
-      err.errorPath = to.path
-      handleError(err)
-      next()
-    }
-  })
+const mountApp = app => {
+  app.$mount('#_ream')
+  app.$clientRendered = true
 }
 
 main()
   // eslint-disable-next-line promise/prefer-await-to-then
   .then(() => {
-    app.$mount('#_ream')
+    mountApp(app)
   })
   .catch(err => {
     handleError(err)
-    app.$mount('#_ream')
+    mountApp(app)
   })
