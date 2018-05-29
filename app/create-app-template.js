@@ -24,19 +24,14 @@ module.exports = api => {
   return `
   import Vue from 'vue'
   import Meta from 'vue-meta'
+  import Router from 'vue-router'
   // eslint-disable-next-line import/no-unresolved
   import _entry from '#app-entry'
-  import enhanceApp from '#app/enhance-app'
+  import { getRequireDefault } from '#app/utils'
 
   Vue.config.productionTip = false
 
-  ${[...enhanceAppFiles]
-    .map(file =>
-      `
-  import ${file.id} from '${file.filepath}'
-  `.trim()
-    )
-    .join('\n')}
+  Vue.use(Router)
 
   Vue.use(Meta, {
     keyName: 'head',
@@ -44,6 +39,16 @@ module.exports = api => {
     ssrAttribute: 'data-ream-ssr',
     tagIDKeyName: 'rhid'
   })
+
+  const enhanceApp = getRequireDefault(require('#app/enhance-app'))
+
+  ${[...enhanceAppFiles]
+    .map(file =>
+      `
+  const ${file.id} = getRequireDefault(require('${file.filepath}'))
+  `.trim()
+    )
+    .join('\n')}
 
   export default context => {
     const entry = typeof _entry === 'function' ? _entry() : _entry
