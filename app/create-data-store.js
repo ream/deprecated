@@ -1,5 +1,4 @@
 import Vue from 'vue'
-import hash from 'hash-sum'
 
 export default () =>
   new Vue({
@@ -7,11 +6,11 @@ export default () =>
       state: {}
     },
     methods: {
-      setData(filepath, data) {
-        this.state[hash(filepath)] = data
+      setData(id, data) {
+        this.state[id] = data
       },
-      getData(filepath) {
-        return this.state[hash(filepath)]
+      getData(id) {
+        return this.state[id]
       },
       replaceState(state) {
         this.state = state

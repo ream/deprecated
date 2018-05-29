@@ -9,14 +9,14 @@ export const getRequireDefault = obj => {
 }
 
 export const setInitialData = vm => {
-  const { getInitialData, name, initialDataKey } = vm.$options
+  const { getInitialData, initialDataKey } = vm.$options
 
   if (getInitialData) {
-    vm.$initialDataKey = vm.$initialDataKey || initialDataKey || name
+    vm.$initialDataKey = vm.$initialDataKey || initialDataKey
 
     if (!vm.$initialDataKey) {
       throw new Error(
-        'Route component requires a unique component `name` to use `getInitialData` method'
+        'Route component requires a unique `initialDataKey` to use `getInitialData` method'
       )
     }
 
