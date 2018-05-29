@@ -9,14 +9,14 @@ export const getRequireDefault = obj => {
 }
 
 export const setInitialData = vm => {
-  const { getInitialData, __file, uniqueId } = vm.$options
+  const { getInitialData, name, initialDataKey } = vm.$options
 
   if (getInitialData) {
-    vm.$uniqueId = vm.$uniqueId || uniqueId || __file
+    vm.$initialDataKey = vm.$initialDataKey || initialDataKey || name
 
-    if (!vm.$uniqueId) {
+    if (!vm.$initialDataKey) {
       throw new Error(
-        'Route component requires a uniqueId to use `getInitialData` method'
+        'Route component requires a unique component `name` to use `getInitialData` method'
       )
     }
 
@@ -26,7 +26,7 @@ export const setInitialData = vm => {
       )
     }
 
-    const initialData = vm.$dataStore.getData(vm.$uniqueId)
+    const initialData = vm.$dataStore.getData(vm.$initialDataKey)
     vm.$initialData = initialData
   }
 }
