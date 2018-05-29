@@ -50,6 +50,7 @@ const Error = {
     return (
       <div>
         <h1>{error.code}</h1>
+        <div>{error.message}</div>
         <router-link to="/">Go Home!</router-link>
       </div>
     )
@@ -94,8 +95,8 @@ export default ({ rootOptions, entry }, context) => {
     computed: {
       actualError() {
         const error = context ? context.reamError : this.error
-        if (error && error.url) {
-          return error.url === this.$route.path ? error : null
+        if (error && error.errorPath) {
+          return error.errorPath === this.$route.path ? error : null
         }
         return error
       }

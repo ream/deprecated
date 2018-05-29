@@ -1,4 +1,4 @@
-# Custom root component
+# With Auth
 
 ## How to use
 
@@ -9,7 +9,7 @@ git clone https://github.com/ream/ream.git
 Install dependencies:
 
 ```bash
-cd examples/route-guard
+cd examples/with-auth
 yarn
 ```
 
@@ -25,4 +25,4 @@ yarn build && yarn start
 
 ## The idea behind this example
 
-Redirect user to a public path from a hidden path that requires login.
+Redirect user to a login page from a page that requires login.

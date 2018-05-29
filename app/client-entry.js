@@ -8,7 +8,14 @@ import { routerReady } from './utils'
 import serverHelpers from './server-helpers'
 import ReamError from './ReamError'
 
-const { app, router, getInitialDataContextFns, event, dataStore } = createApp()
+const {
+  app,
+  router,
+  getInitialDataContextFns,
+  event,
+  dataStore,
+  entry
+} = createApp()
 
 const getContext = context => {
   for (const fn of getInitialDataContextFns) {
@@ -23,7 +30,11 @@ const updateDataStore = (id, data) => {
 
 const handleError = err => {
   if (err instanceof ReamError) {
-    app.setError(err)
+    if (err.code === 'REDIRECT') {
+      router.push(err.redirectURL)
+    } else {
+      app.setError(err)
+    }
   } else {
     console.error(err)
   }
@@ -32,23 +43,26 @@ const handleError = err => {
 // A global mixin that calls `getInitialData` when a route component's params change
 Vue.mixin({
   async beforeRouteUpdate(to, from, next) {
-    if (this.$initialDataKey) {
+    try {
+      const context = getContext({
+        router,
+        route: to
+      })
+
+      if (entry.middleware) {
+        await entry.middleware(context)
+      }
+
       const { getInitialData } = this.$options
-      try {
-        const data = await getInitialData(
-          getContext({
-            router,
-            route: to
-          })
-        )
+      if (getInitialData) {
+        const data = await getInitialData(context)
         updateDataStore(this.$initialDataKey, data)
         Object.assign(this, data)
-        next()
-      } catch (err) {
-        next(false)
-        handleError(err)
       }
-    } else {
+      next()
+    } catch (err) {
+      err.url = to.path
+      handleError(err)
       next()
     }
   }
@@ -76,7 +90,7 @@ async function main() {
   router.beforeResolve(async (to, from, next) => {
     const matched = router.getMatchedComponents(to)
     if (matched.length === 0) {
-      app.setError({ code: 404, url: to.path })
+      app.setError({ code: 404, errorPath: to.path })
       return next()
     }
 
@@ -94,22 +108,30 @@ async function main() {
 
     try {
       const ctx = getContext({ route: to, router, ...serverHelpers })
+      if (entry.middleware) {
+        await entry.middleware(ctx)
+      }
       await Promise.all(
-        components.map(c =>
-          c.getInitialData(ctx).then(data => {
-            updateDataStore(c.initialDataKey, data)
-          })
-        )
+        components.map(async c => {
+          const data = await c.getInitialData(ctx)
+          updateDataStore(c.initialDataKey, data)
+        })
       )
       next()
     } catch (err) {
-      next(false)
+      err.errorPath = to.path
       handleError(err)
+      next()
     }
   })
-
-  // Actually mount to DOM
-  app.$mount('#_ream')
 }
 
-main().catch(handleError)
+main()
+  // eslint-disable-next-line promise/prefer-await-to-then
+  .then(() => {
+    app.$mount('#_ream')
+  })
+  .catch(err => {
+    handleError(err)
+    app.$mount('#_ream')
+  })

@@ -7,6 +7,7 @@
     "build": "ream build"
   },
   "dependencies": {
+    "cookie": "^0.3.1",
     "ream": "latest"
   }
 }

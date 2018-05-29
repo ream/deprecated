@@ -31,7 +31,11 @@ export default async context => {
   if (matchedComponents.length === 0) {
     if (res) {
       res.statusCode = 404
-      context.reamError = { code: 404, url: req.url, message: 'page not found' }
+      context.reamError = {
+        code: 404,
+        redirectURL: req.url,
+        message: 'page not found'
+      }
     } else {
       throw new ReamError({
         code: 'NOT_FOUND',
@@ -52,6 +56,10 @@ export default async context => {
     fn(dataContext)
   }
 
+  if (entry.middleware) {
+    await entry.middleware(dataContext)
+  }
+
   if (entry.getDocumentData) {
     const documentData = await entry.getDocumentData(dataContext)
     context.documentData = Object.assign({}, documentData)
@@ -62,6 +70,14 @@ export default async context => {
       const { getInitialData } = Component
       if (!getInitialData) return
       const initialData = await getInitialData(dataContext)
+      if (initialData) {
+        for (const key of Object.keys(initialData)) {
+          // `undefined` value will be removed when `JSON.stringify` so we set it to `null` here
+          if (initialData[key] === undefined) {
+            initialData[key] = null
+          }
+        }
+      }
       dataStore.setData(Component.initialDataKey, initialData)
     })
   )
