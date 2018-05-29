@@ -6,6 +6,7 @@ import './polyfills'
 import createApp from '#create-app'
 import { routerReady } from './utils'
 import serverHelpers from './server-helpers'
+import ReamError from './ReamError'
 
 const { app, router, getInitialDataContextFns, event, dataStore } = createApp()
 
@@ -18,6 +19,14 @@ const getContext = context => {
 
 const updateDataStore = (id, data) => {
   dataStore.setData(id, data)
+}
+
+const handleError = err => {
+  if (err instanceof ReamError) {
+    app.setError(err)
+  } else {
+    console.error(err)
+  }
 }
 
 // A global mixin that calls `getInitialData` when a route component's params change
@@ -36,7 +45,8 @@ Vue.mixin({
         Object.assign(this, data)
         next()
       } catch (err) {
-        next(err)
+        next(false)
+        handleError(err)
       }
     } else {
       next()
@@ -56,7 +66,7 @@ async function main() {
   await routerReady(router)
 
   if (router.getMatchedComponents().length === 0) {
-    app.setError({ code: 404, url: router.currentRoute.path })
+    throw new ReamError({ code: 404, url: router.currentRoute.path })
   }
 
   // Add router hook for handling getInitialData.
@@ -93,7 +103,8 @@ async function main() {
       )
       next()
     } catch (err) {
-      next(err)
+      next(false)
+      handleError(err)
     }
   })
 
@@ -101,4 +112,4 @@ async function main() {
   app.$mount('#_ream')
 }
 
-main().catch(console.error)
+main().catch(handleError)
