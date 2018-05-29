@@ -7,7 +7,7 @@ import createApp from '#create-app'
 import { routerReady } from './utils'
 import redirect from './redirect'
 
-const { app, router, getInitialDataContextFns, event } = createApp()
+const { app, router, getInitialDataContextFns, event, dataStore } = createApp()
 
 const getContext = context => {
   for (const fn of getInitialDataContextFns) {
@@ -17,7 +17,7 @@ const getContext = context => {
 }
 
 const updateDataStore = (file, data) => {
-  app.$dataStore.setData(file, data)
+  dataStore.setData(file, data)
 }
 
 // A global mixin that calls `getInitialData` when a route component's params change
@@ -33,6 +33,7 @@ Vue.mixin({
           })
         )
         updateDataStore(__file, data)
+        Object.assign(this, data)
         next()
       } catch (err) {
         next(err)
@@ -49,7 +50,7 @@ async function main() {
   event.$emit('before-client-renderer')
 
   if (window.__REAM__.initialData) {
-    app.$dataStore.replaceState(window.__REAM__.initialData)
+    dataStore.replaceState(window.__REAM__.initialData)
   }
 
   await routerReady(router)

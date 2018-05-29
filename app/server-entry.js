@@ -12,9 +12,14 @@ import redirect from './redirect'
 export default async context => {
   context.globalState = {}
   const { req, res } = context
-  const { app, router, entry, getInitialDataContextFns, event } = createApp(
-    context
-  )
+  const {
+    app,
+    dataStore,
+    router,
+    entry,
+    getInitialDataContextFns,
+    event
+  } = createApp(context)
 
   router.push(req.url)
 
@@ -57,7 +62,7 @@ export default async context => {
       const { getInitialData } = Component
       if (!getInitialData) return
       const initialData = await getInitialData(dataContext)
-      app.$dataStore.setData(Component.__file, initialData)
+      dataStore.setData(Component.__file, initialData)
     })
   )
 
@@ -65,7 +70,7 @@ export default async context => {
     context.meta = app.$meta()
   }
 
-  context.globalState.initialData = app.$dataStore.getState()
+  context.globalState.initialData = dataStore.getState()
 
   event.$emit('before-server-render')
 

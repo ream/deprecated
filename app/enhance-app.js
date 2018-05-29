@@ -17,6 +17,8 @@ const isRouteComponent = (matched, current) => {
 
 Vue.mixin({
   beforeCreate() {
+    if (!this.$root.$options._isReamRoot) return
+
     this.$ream = this.$root
     this.$dataStore = this.$ream.$options.dataStore
 

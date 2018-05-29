@@ -63,7 +63,9 @@ module.exports = api => {
       }
     }
 
-    const rootOptions = {}
+    const rootOptions = {
+      _isReamRoot: true
+    }
     const getInitialDataContextFns = [
       entry.getInitialDataContext
     ].filter(Boolean)
@@ -103,7 +105,8 @@ module.exports = api => {
       router,
       entry,
       getInitialDataContextFns,
-      event
+      event,
+      dataStore: rootOptions.dataStore
     }
   }
 
