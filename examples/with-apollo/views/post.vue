@@ -28,6 +28,7 @@ export default {
           id: this.$route.params.id
         }
       },
+      // The argument is the same as `getInitialData`
       prefetch: ({ route }) => {
         return {
           id: route.params.id,

@@ -22,7 +22,7 @@ export default () => {
   if (process.browser) {
     // If on the client, recover the injected state
     if (typeof window !== 'undefined') {
-      const state = window.__APOLLO_STATE__
+      const state = window.__REAM__.apollo
       if (state) {
         // If you have multiple clients, use `state.<client_id>`
         cache.restore(state.defaultClient)
