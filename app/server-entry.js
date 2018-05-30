@@ -1,7 +1,7 @@
 // eslint-disable-next-line import/no-unresolved
 import createApp from '#create-app'
 import ReamError from './ReamError'
-import { routerReady, pageNotFound } from './utils'
+import { routerReady, pageNotFound, runMiddlewares } from './utils'
 import serverHelpers from './server-helpers'
 
 // This exported function will be called by `bundleRenderer`.
@@ -18,7 +18,8 @@ export default async context => {
     router,
     entry,
     getInitialDataContextFns,
-    event
+    event,
+    middlewares
   } = createApp(context)
 
   router.push(req.url)
@@ -52,9 +53,7 @@ export default async context => {
     fn(dataContext)
   }
 
-  if (entry.middleware) {
-    await entry.middleware(dataContext)
-  }
+  await runMiddlewares(middlewares, dataContext)
 
   if (entry.getDocumentData) {
     const documentData = await entry.getDocumentData(dataContext)

@@ -69,6 +69,9 @@ module.exports = api => {
     const getInitialDataContextFns = [
       entry.getInitialDataContext
     ].filter(Boolean)
+    const middlewares = [
+      entry.middleware
+    ].filter(Boolean)
 
     const event = new Vue()
     const enhanceContext = {
@@ -79,6 +82,9 @@ module.exports = api => {
       event,
       getInitialDataContext(fn) {
         getInitialDataContextFns.push(fn)
+      },
+      addMiddleware(fn) {
+        middlewares.push(fn)
       }
     }
 
@@ -106,7 +112,8 @@ module.exports = api => {
       entry,
       getInitialDataContextFns,
       event,
-      dataStore: rootOptions.dataStore
+      dataStore: rootOptions.dataStore,
+      middlewares
     }
   }
 

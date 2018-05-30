@@ -37,3 +37,12 @@ export const pageNotFound = url => ({
   errorPath: url,
   message: 'page not found'
 })
+
+export const runMiddlewares = async (middlewares, ctx) => {
+  if (middlewares.length > 0) {
+    for (const middleware of middlewares) {
+      // eslint-disable-next-line no-await-in-loop
+      await middleware(ctx)
+    }
+  }
+}

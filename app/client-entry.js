@@ -4,7 +4,7 @@ import Vue from 'vue'
 import './polyfills'
 // eslint-disable-next-line import/no-unresolved
 import createApp from '#create-app'
-import { routerReady, pageNotFound } from './utils'
+import { routerReady, pageNotFound, runMiddlewares } from './utils'
 import serverHelpers from './server-helpers'
 import ReamError from './ReamError'
 
@@ -14,7 +14,7 @@ const {
   getInitialDataContextFns,
   event,
   dataStore,
-  entry
+  middlewares
 } = createApp()
 
 const getContext = context => {
@@ -62,9 +62,7 @@ router.beforeResolve(async (to, from, next) => {
 
   try {
     const ctx = getContext({ route: to, router, ...serverHelpers })
-    if (entry.middleware) {
-      await entry.middleware(ctx)
-    }
+    await runMiddlewares(middlewares, ctx)
     await Promise.all(
       components.map(async c => {
         const data = await c.getInitialData(ctx)
@@ -88,9 +86,7 @@ Vue.mixin({
         route: to
       })
 
-      if (entry.middleware) {
-        await entry.middleware(context)
-      }
+      await runMiddlewares(middlewares, context)
 
       const { getInitialData } = this.$options
       if (getInitialData) {
