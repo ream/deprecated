@@ -41,6 +41,7 @@
     "cac": "^4.4.1",
     "chalk": "^2.3.1",
     "chokidar": "^2.0.3",
+    "compression": "^1.7.2",
     "css-loader": "^0.28.11",
     "express": "^4.16.3",
     "file-loader": "^1.1.6",
