@@ -111,7 +111,13 @@ module.exports = api => {
 
     if (__DEV__) {
       if (!router) {
-        throw new Error('You must create pages/*.vue or export "router" in entry file!')
+        throw new Error(${JSON.stringify(
+          `You must ${
+            api.options.fsRoutes
+              ? `create ${api.options.fsRoutes.path}/*.vue or `
+              : ``
+          }export "router" in ${api.options.entry || `entry file`}!`
+        )})
       }
     }
 
