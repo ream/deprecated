@@ -52,19 +52,13 @@ module.exports = api => {
 
   export default context => {
     const entry = typeof _entry === 'function' ? _entry() : _entry
-    let { router, extendRootOptions } = entry
     if (context) {
       context.entry = entry
     }
 
-    if (__DEV__) {
-      if (!router) {
-        throw new Error('You must export "router" in entry file!')
-      }
-    }
-
     const rootOptions = {
-      _isReamRoot: true
+      _isReamRoot: true,
+      router: entry.router
     }
     const getInitialDataContextFns = [
       entry.getInitialDataContext
@@ -75,7 +69,6 @@ module.exports = api => {
 
     const event = new Vue()
     const enhanceContext = {
-      router,
       rootOptions,
       entry,
       ssrContext: context,
@@ -90,10 +83,6 @@ module.exports = api => {
 
     enhanceApp(enhanceContext, context)
 
-    if (extendRootOptions) {
-      extendRootOptions(rootOptions)
-    }
-
     ${[...enhanceAppFiles]
       .map(file =>
         `
@@ -103,6 +92,18 @@ module.exports = api => {
     `.trim()
       )
       .join('\n')}
+
+    if (entry.extendRootOptions) {
+      entry.extendRootOptions(rootOptions)
+    }
+
+    const { router } = rootOptions
+
+    if (__DEV__) {
+      if (!router) {
+        throw new Error('You must create pages/*.vue or export "router" in entry file!')
+      }
+    }
 
     const app = new Vue(rootOptions)
 

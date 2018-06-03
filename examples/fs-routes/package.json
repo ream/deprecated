@@ -1,0 +1,12 @@
+{
+  "private": true,
+  "name": "fs-routes",
+  "scripts": {
+    "dev": "ream dev",
+    "start": "ream start",
+    "build": "ream build"
+  },
+  "dependencies": {
+    "ream": "latest"
+  }
+}
