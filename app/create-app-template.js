@@ -16,6 +16,14 @@ const pathToId = file => {
 }
 
 module.exports = api => {
+  let entryExists = false
+  if (api.options.entry) {
+    try {
+      require.resolve(api.resolveBaseDir(api.options.entry))
+      entryExists = true
+    } catch (err) {}
+  }
+
   const enhanceAppFiles = [...api.enhanceAppFiles].map((filepath, index) => ({
     id: `${pathToId(filepath)}_${index}`,
     filepath: slash(filepath)
@@ -25,8 +33,6 @@ module.exports = api => {
   import Vue from 'vue'
   import Meta from 'vue-meta'
   import Router from 'vue-router'
-  // eslint-disable-next-line import/no-unresolved
-  import _entry from '#app-entry'
   import { getRequireDefault } from '#app/utils'
 
   Vue.config.productionTip = false
@@ -39,6 +45,10 @@ module.exports = api => {
     ssrAttribute: 'data-ream-ssr',
     tagIDKeyName: 'rhid'
   })
+
+  const _entry = ${
+    entryExists ? `getRequireDefault(require('#app-entry'))` : `{}`
+  }
 
   const enhanceApp = getRequireDefault(require('#app/enhance-app'))
 
