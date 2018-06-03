@@ -49,6 +49,7 @@
     "internal-ip": "^3.0.1",
     "joycon": "^1.0.4",
     "lodash.merge": "^4.6.1",
+    "lodash.sortby": "^4.7.0",
     "log-update": "^2.3.0",
     "mini-css-extract-plugin": "^0.4.0",
     "object-assign": "^4.1.1",
