@@ -106,7 +106,7 @@ Vue.mixin({
 // Wait until router has resolved all async before hooks
 // and async components...
 async function main() {
-  event.$emit('before-client-renderer')
+  event.$emit('before-client-render')
 
   if (window.__REAM__.initialData) {
     dataStore.replaceState(window.__REAM__.initialData)
