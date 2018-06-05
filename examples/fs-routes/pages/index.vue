@@ -1,7 +1,6 @@
 <template>
-<ul>
-  <li><router-link to="/about">About</router-link></li>
-  <li><router-link to="/catalog">Catalog</router-link></li>
-  <li><router-link to="/user">User</router-link></li>
-</ul>
+<div>
+  <h1>fs-routes example app</h1>
+  <router-link to="/user">Users</router-link>
+</div>
 </template>
