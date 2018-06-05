@@ -16,7 +16,8 @@
   "files": [
     "lib",
     "bin",
-    "app"
+    "app",
+    "webpack.config.js"
   ],
   "engines": {
     "node": ">=8",
@@ -54,7 +55,6 @@
     "mini-css-extract-plugin": "^0.4.0",
     "object-assign": "^4.1.1",
     "optimize-css-assets-webpack-plugin": "^4.0.2",
-    "postcss-load-config": "^1.2.0",
     "postcss-loader": "^2.1.5",
     "promise-polyfill": "^7.1.2",
     "register-service-worker": "^1.2.0",

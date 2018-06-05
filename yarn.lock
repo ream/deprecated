@@ -2525,7 +2525,7 @@ eslint-config-prettier@^2.9.0:
 
 eslint-config-rem@^4.0.0:
   version "4.0.0"
-  resolved "https://registry.yarnpkg.com/eslint-config-rem/-/eslint-config-rem-4.0.0.tgz#a33022c2122d925e5cf632dc45555cd2e090e50f"
+  resolved "https://registry.npmjs.org/eslint-config-rem/-/eslint-config-rem-4.0.0.tgz#a33022c2122d925e5cf632dc45555cd2e090e50f"
   dependencies:
     eslint-plugin-markdown "^1.0.0-beta.6"
 
