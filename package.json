@@ -9,7 +9,7 @@
   "bin": "bin/cli.js",
   "main": "lib/index.js",
   "scripts": {
-    "test": "npm run lint",
+    "test": "xo && jest",
     "lint": "xo",
     "postinstall": "node -e \"console.log('\\u001b[35m\\u001b[1mLove Ream? You can now donate to support the author:\\u001b[22m\\u001b[39m\\n> \\u001b[34mhttps://patreon.com/egoist\\u001b[0m')\""
   },
@@ -79,7 +79,11 @@
   "xo": {
     "extends": [
       "rem",
-      "plugin:prettier/recommended"
+      "plugin:prettier/recommended",
+      "plugin:jest/recommended"
+    ],
+    "plugins": [
+      "jest"
     ],
     "rules": {
       "unicorn/filename-case": "off",
@@ -108,8 +112,10 @@
   "devDependencies": {
     "eslint-config-prettier": "^2.9.0",
     "eslint-config-rem": "^4.0.0",
+    "eslint-plugin-jest": "^21.17.0",
     "eslint-plugin-prettier": "^2.6.0",
     "husky": "^1.0.0-rc.6",
+    "jest": "^23.1.0",
     "lerna": "^2.11.0",
     "lint-staged": "^7.1.0",
     "prettier": "^1.12.1",

@@ -1,0 +1,6 @@
+[
+  {
+    "path": "/some/foo",
+    "component": "#base/foo.vue"
+  }
+]

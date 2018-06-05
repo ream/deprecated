@@ -1,0 +1,24 @@
+[
+  {
+    "path": "/foo",
+    "component": "#base/foo.vue",
+    "children": [
+      {
+        "path": "bar",
+        "component": "#base/foo/bar.vue",
+        "children": [
+          {
+            "path": "baz",
+            "component": "#base/foo/bar/baz.vue",
+            "children": [
+              {
+                "path": "qux",
+                "component": "#base/foo/bar/baz/qux.vue"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

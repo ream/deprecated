@@ -1,0 +1,10 @@
+[
+  {
+    "path": "/",
+    "component": "#base/index.vue"
+  },
+  {
+    "path": "/page",
+    "component": "#base/page.ts"
+  }
+]
