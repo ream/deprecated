@@ -68,7 +68,7 @@ module.exports = api => {
 
     const rootOptions = {
       _isReamRoot: true,
-      router: entry.router
+      router: entry.router || new Router({ mode: 'history' })
     }
     const getInitialDataContextFns = [
       entry.getInitialDataContext
@@ -107,25 +107,11 @@ module.exports = api => {
       entry.extendRootOptions(rootOptions)
     }
 
-    const { router } = rootOptions
-
-    if (__DEV__) {
-      if (!router) {
-        throw new Error(${JSON.stringify(
-          `You must ${
-            api.options.fsRoutes
-              ? `create ${api.options.fsRoutes.path}/*.vue or `
-              : ``
-          }export "router" in ${api.options.entry || `entry file`}!`
-        )})
-      }
-    }
-
     const app = new Vue(rootOptions)
 
     return {
       app,
-      router,
+      router: rootOptions.router,
       entry,
       getInitialDataContextFns,
       event,
