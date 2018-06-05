@@ -8,6 +8,18 @@ export const getRequireDefault = obj => {
   return obj && obj.hasOwnProperty('default') ? obj.default : obj
 }
 
+export const importContextModule = (context, path) => {
+  let moduleExists = false
+  try {
+    context.resolve(path)
+    moduleExists = true
+  } catch (err) {}
+
+  if (moduleExists) {
+    return context(path)
+  }
+}
+
 export const setInitialData = vm => {
   const { getInitialData, initialDataKey } = vm.$options
 

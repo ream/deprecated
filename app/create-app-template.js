@@ -15,15 +15,9 @@ const pathToId = file => {
   return path.basename(slash(file)).replace(/\W/g, '_')
 }
 
-module.exports = api => {
-  let entryExists = false
-  if (api.options.entry) {
-    try {
-      require.resolve(api.resolveBaseDir(api.options.entry))
-      entryExists = true
-    } catch (err) {}
-  }
+const escapeRegexp = s => s.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&')
 
+module.exports = api => {
   const enhanceAppFiles = [...api.enhanceAppFiles].map((filepath, index) => ({
     id: `${pathToId(filepath)}_${index}`,
     filepath: slash(filepath)
@@ -33,7 +27,7 @@ module.exports = api => {
   import Vue from 'vue'
   import Meta from 'vue-meta'
   import Router from 'vue-router'
-  import { getRequireDefault } from '#app/utils'
+  import { getRequireDefault, importContextModule } from '#app/utils'
 
   Vue.config.productionTip = false
 
@@ -47,8 +41,19 @@ module.exports = api => {
   })
 
   const _entry = ${
-    entryExists ? `getRequireDefault(require('#app-entry'))` : `{}`
-  }
+    api.options.entry
+      ? `
+    getRequireDefault(
+      importContextModule(
+        require.context(
+          ${JSON.stringify(api.baseDir)},
+          false,
+          /^${escapeRegexp('./' + api.options.entry)}$/
+        ),
+        ${JSON.stringify('./' + api.options.entry)}
+      )`
+      : `undefined`
+  }) || {}
 
   const enhanceApp = getRequireDefault(require('#app/enhance-app'))
 
