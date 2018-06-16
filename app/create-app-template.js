@@ -51,9 +51,10 @@ module.exports = api => {
           /^${escapeRegexp('./' + api.options.entry)}$/
         ),
         ${JSON.stringify('./' + api.options.entry)}
-      )`
+      )
+    )`
       : `undefined`
-  }) || {}
+  } || {}
 
   const enhanceApp = getRequireDefault(require('#app/enhance-app'))
 
