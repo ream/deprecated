@@ -15,8 +15,6 @@ const pathToId = file => {
   return path.basename(slash(file)).replace(/\W/g, '_')
 }
 
-const escapeRegexp = s => s.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&')
-
 module.exports = api => {
   const enhanceAppFiles = [...api.enhanceAppFiles].map((filepath, index) => ({
     id: `${pathToId(filepath)}_${index}`,
@@ -27,7 +25,8 @@ module.exports = api => {
   import Vue from 'vue'
   import Meta from 'vue-meta'
   import Router from 'vue-router'
-  import { getRequireDefault, importContextModule } from '#app/utils'
+  import _entry from '#out/entry'
+  import { getRequireDefault } from '#app/utils'
 
   Vue.config.productionTip = false
 
@@ -39,22 +38,6 @@ module.exports = api => {
     ssrAttribute: 'data-ream-ssr',
     tagIDKeyName: 'rhid'
   })
-
-  const _entry = ${
-    api.options.entry
-      ? `
-    getRequireDefault(
-      importContextModule(
-        require.context(
-          ${JSON.stringify(api.baseDir)},
-          false,
-          /^${escapeRegexp('./' + api.options.entry)}$/
-        ),
-        ${JSON.stringify('./' + api.options.entry)}
-      )
-    )`
-      : `undefined`
-  } || {}
 
   const enhanceApp = getRequireDefault(require('#app/enhance-app'))
 
