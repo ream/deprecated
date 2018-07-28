@@ -10,9 +10,6 @@ export default () => {
   const router = createRouter()
 
   return {
-    extendRootOptions(rootOptions) {
-      rootOptions.provide = apolloProvider.provide()
-    },
     router,
     apolloProvider
   }
