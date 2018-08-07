@@ -3,7 +3,7 @@ import Vue from 'vue'
 // eslint-disable-next-line import/no-unassigned-import
 import './polyfills'
 // eslint-disable-next-line import/no-unresolved
-import createApp from '#create-app'
+import createApp from '#out/create-app'
 import { routerReady, pageNotFound, runMiddlewares } from './utils'
 import serverHelpers from './server-helpers'
 import ReamError from './ReamError'
