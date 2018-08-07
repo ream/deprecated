@@ -1,0 +1,14 @@
+{
+  "private": true,
+  "name": "serve-public-files",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "ream dev",
+    "build": "ream build",
+    "start": "ream start"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "ream": "latest"
+  }
+}

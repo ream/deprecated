@@ -3,7 +3,7 @@ import Vue from 'vue'
 // eslint-disable-next-line import/no-unassigned-import
 import './polyfills'
 // eslint-disable-next-line import/no-unresolved
-import createApp from '#create-app'
+import createApp from '#out/create-app'
 import { routerReady, pageNotFound, runMiddlewares } from './utils'
 import serverHelpers from './server-helpers'
 import ReamError from './ReamError'
@@ -106,7 +106,7 @@ Vue.mixin({
 // Wait until router has resolved all async before hooks
 // and async components...
 async function main() {
-  event.$emit('before-client-renderer')
+  event.$emit('before-client-render')
 
   if (window.__REAM__.initialData) {
     dataStore.replaceState(window.__REAM__.initialData)

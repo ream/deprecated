@@ -1,6 +1,6 @@
 {
   "name": "ream",
-  "version": "3.2.5",
+  "version": "3.2.6",
   "description": "Framework for building unversal web apps.",
   "repository": {
     "url": "ream/ream",
@@ -16,7 +16,8 @@
   "files": [
     "lib",
     "bin",
-    "app"
+    "app",
+    "webpack.config.js"
   ],
   "engines": {
     "node": ">=8",
@@ -41,6 +42,7 @@
     "cac": "^4.4.1",
     "chalk": "^2.3.1",
     "chokidar": "^2.0.3",
+    "compression": "^1.7.2",
     "css-loader": "^0.28.11",
     "express": "^4.16.3",
     "file-loader": "^1.1.6",
@@ -55,7 +57,6 @@
     "mini-css-extract-plugin": "^0.4.0",
     "object-assign": "^4.1.1",
     "optimize-css-assets-webpack-plugin": "^4.0.2",
-    "postcss-load-config": "^1.2.0",
     "postcss-loader": "^2.1.5",
     "promise-mutex": "^0.1.1",
     "promise-polyfill": "^7.1.2",
