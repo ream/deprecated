@@ -51,7 +51,7 @@ module.exports = api => {
     .join('\n')}
 
   export default context => {
-    const entry = typeof _entry === 'function' ? _entry() : _entry
+    const entry = typeof _entry === 'function' ? _entry(context) : _entry
     let { router, extendRootOptions } = entry
     if (context) {
       context.entry = entry
