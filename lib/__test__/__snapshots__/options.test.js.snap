@@ -19,6 +19,7 @@ Object {
   },
   "plugins": Array [],
   "productionSourceMap": true,
+  "pwa": false,
   "runtimeCompiler": false,
   "server": Object {
     "host": "0.0.0.0",
