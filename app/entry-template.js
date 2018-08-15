@@ -10,11 +10,11 @@ const fs = require('fs-extra')
 module.exports = api => {
   if (
     !(
-      api.options.entry &&
-      fs.pathExistsSync(api.resolveBaseDir(api.options.entry))
+      api.config.entry &&
+      fs.pathExistsSync(api.resolveBaseDir(api.config.entry))
     )
   ) {
-    return ``
+    return `export default () => ({})`
   }
 
   return `

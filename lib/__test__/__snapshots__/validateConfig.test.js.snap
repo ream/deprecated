@@ -5,7 +5,6 @@ Object {
   "css": Object {
     "extract": false,
   },
-  "dev": true,
   "entry": "hi",
   "fsRoutes": Object {
     "baseDir": "pages",
@@ -17,6 +16,7 @@ Object {
       "/",
     ],
   },
+  "minimize": false,
   "plugins": Array [],
   "productionSourceMap": true,
   "pwa": false,

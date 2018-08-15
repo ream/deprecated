@@ -15,7 +15,7 @@ const cli = cac()
 const logUrl = app => {
   let ip
   app.on('renderer-ready', () => {
-    const { host, port } = app.options.server
+    const { host, port } = app.config.server
     const isDefaultRoute = host === '0.0.0.0'
     logger.log(
       `\n  App running at:\n\n  - Local: ${chalk.bold(
@@ -34,31 +34,35 @@ const logUrl = app => {
 
 const getOptions = (command, input, flags) => {
   const dev = command === 'dev'
-  const options = {
+  const options = Object.assign({}, flags, {
     dev,
     baseDir: input[0]
-  }
+  })
+  const config = {}
   if (command === 'dev' || command === 'start') {
     if (flags.host) {
-      options.server = merge(options.server, { host: flags.host })
+      config.server = merge(config.server, { host: flags.host })
     }
     if (flags.port) {
-      options.server = merge(options.server, { port: flags.port })
+      config.server = merge(config.server, { port: flags.port })
     }
   }
-  return options
+  return {
+    options,
+    config
+  }
 }
 
 cli.command('build', 'Build your application', (input, flags) => {
-  const options = getOptions('build', input, flags)
-  const app = require('../lib')(options)
+  const { options, config } = getOptions('build', input, flags)
+  const app = require('../lib')(options, config)
   return app.build()
 })
 
 cli
   .command('dev', 'Develop your application', (input, flags) => {
-    const options = getOptions('dev', input, flags)
-    const app = require('../lib')(options)
+    const { options, config } = getOptions('dev', input, flags)
+    const app = require('../lib')(options, config)
     logUrl(app)
     return app.start()
   })
@@ -67,8 +71,8 @@ cli
 
 cli
   .command('start', 'Start your application in production', (input, flags) => {
-    const options = getOptions('start', input, flags)
-    const app = require('../lib')(options)
+    const { options, config } = getOptions('start', input, flags)
+    const app = require('../lib')(options, config)
     logUrl(app)
     return app.start()
   })
@@ -76,8 +80,8 @@ cli
   .option('port', 'Server port (default: 4000)')
 
 cli.command('generate', 'Generate static html files', (input, flags) => {
-  const options = getOptions('generate', input, flags)
-  const app = require('../lib')(options)
+  const { options, config } = getOptions('generate', input, flags)
+  const app = require('../lib')(options, config)
   return app.generate()
 })
 
@@ -86,6 +90,8 @@ cli
     alias: 'c',
     desc: 'Load a config file (default: ream.config.js)'
   })
-  .option('debug', 'Output debug logs')
+  .option('debug', 'Print debug logs')
+  .option('inspectWebpack', 'Print webpack config as string')
+  .option('progress', 'Toggle progress bar')
 
 cli.parse()

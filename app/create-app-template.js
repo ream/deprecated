@@ -55,6 +55,10 @@ module.exports = api => {
     }
 
     const entry = _entry(context)
+    if (__DEV__ && typeof entry !== 'object') {
+      throw new TypeError(\`The return value of the default export in entry file should be a plain object but got "\${typeof entry}"\`)
+    }
+
     let { router, extendRootOptions } = entry
     if (context) {
       context.entry = entry
