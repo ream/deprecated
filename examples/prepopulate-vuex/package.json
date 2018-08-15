@@ -1,0 +1,8 @@
+{
+  "private": true,
+  "scripts": {
+    "dev": "ream dev",
+    "build": "ream build",
+    "start": "ream start"
+  }
+}
