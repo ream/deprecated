@@ -3,12 +3,8 @@ const ream = require('ream')
 const config = require('./ream.config')
 
 const port = process.env.PORT || 3000
-const dev = process.env.NODE_ENV !== 'production'
 
-const app = ream({
-  ...config,
-  dev
-})
+const app = ream(config)
 
 // Get the request handler for http.createServer
 // app.getRequestHandler() returns a Promise which resolves to the request handler
