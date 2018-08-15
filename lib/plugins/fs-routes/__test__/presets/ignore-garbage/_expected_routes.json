@@ -1,0 +1,6 @@
+[
+  {
+    "path": "/page",
+    "component": "#base/page.vue"
+  }
+]

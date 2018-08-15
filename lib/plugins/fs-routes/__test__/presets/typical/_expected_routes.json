@@ -1,0 +1,30 @@
+[
+  {
+    "path": "/",
+    "component": "#base/index.vue"
+  },
+  {
+    "path": "/foo",
+    "component": "#base/foo.vue"
+  },
+  {
+    "path": "/user",
+    "component": "#base/user.vue",
+    "children": [
+      {
+        "path": ":user",
+        "component": "#base/user/[user].vue",
+        "children": [
+          {
+            "path": "",
+            "component": "#base/user/[user]/index.vue"
+          },
+          {
+            "path": "friends",
+            "component": "#base/user/[user]/friends.vue"
+          }
+        ]
+      }
+    ]
+  }
+]

@@ -49,19 +49,23 @@ const Error = {
   ) {
     return (
       <div>
-        <h1>{error.code}</h1>
-        <div>{error.message}</div>
-        <router-link to="/">Go Home!</router-link>
+        <h1>
+          {error.code}: {error.message}
+        </h1>
+        {__DEV__ &&
+          error.code === 404 &&
+          error.errorPath === '/' && (
+            <p>You must create pages/*.vue or export "router" in entry file!</p>
+          )}
       </div>
     )
   }
 }
 
 export default ({ rootOptions, entry }, context) => {
-  const { router, root = Root, error = Error } = entry
+  const { root = Root, error = Error } = entry
 
   const App = {
-    router,
     dataStore: createDataStore(),
     data() {
       return {

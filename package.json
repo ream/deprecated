@@ -9,7 +9,7 @@
   "bin": "bin/cli.js",
   "main": "lib/index.js",
   "scripts": {
-    "test": "npm run lint",
+    "test": "xo && jest",
     "lint": "xo",
     "postinstall": "node -e \"console.log('\\u001b[35m\\u001b[1mLove Ream? You can now donate to support the author:\\u001b[22m\\u001b[39m\\n> \\u001b[34mhttps://patreon.com/egoist\\u001b[0m')\""
   },
@@ -50,12 +50,15 @@
     "hash-sum": "^1.0.2",
     "internal-ip": "^3.0.1",
     "joycon": "^1.0.4",
+    "lodash.debounce": "^4.0.8",
     "lodash.merge": "^4.6.1",
+    "lodash.sortby": "^4.7.0",
     "log-update": "^2.3.0",
     "mini-css-extract-plugin": "^0.4.0",
     "object-assign": "^4.1.1",
     "optimize-css-assets-webpack-plugin": "^4.0.2",
     "postcss-loader": "^2.1.5",
+    "promise-mutex": "^0.1.1",
     "promise-polyfill": "^7.1.2",
     "register-service-worker": "^1.2.0",
     "serialize-javascript": "^1.4.0",
@@ -79,7 +82,11 @@
   "xo": {
     "extends": [
       "rem",
-      "plugin:prettier/recommended"
+      "plugin:prettier/recommended",
+      "plugin:jest/recommended"
+    ],
+    "plugins": [
+      "jest"
     ],
     "rules": {
       "unicorn/filename-case": "off",
@@ -108,8 +115,10 @@
   "devDependencies": {
     "eslint-config-prettier": "^2.9.0",
     "eslint-config-rem": "^4.0.0",
+    "eslint-plugin-jest": "^21.17.0",
     "eslint-plugin-prettier": "^2.6.0",
     "husky": "^1.0.0-rc.6",
+    "jest": "^23.1.0",
     "lerna": "^2.11.0",
     "lint-staged": "^7.1.0",
     "prettier": "^1.12.1",

@@ -25,8 +25,7 @@ module.exports = api => {
   import Vue from 'vue'
   import Meta from 'vue-meta'
   import Router from 'vue-router'
-  // eslint-disable-next-line import/no-unresolved
-  import _entry from '#app-entry'
+  import _entry from '#out/entry'
   import { getRequireDefault } from '#app/utils'
 
   Vue.config.productionTip = false
@@ -57,14 +56,9 @@ module.exports = api => {
       context.entry = entry
     }
 
-    if (__DEV__) {
-      if (!router) {
-        throw new Error('You must export "router" in entry file!')
-      }
-    }
-
     const rootOptions = {
-      _isReamRoot: true
+      _isReamRoot: true,
+      router: entry.router || new Router({ mode: 'history' })
     }
     const getInitialDataContextFns = [
       entry.getInitialDataContext
@@ -75,7 +69,6 @@ module.exports = api => {
 
     const event = new Vue()
     const enhanceContext = {
-      router,
       rootOptions,
       entry,
       ssrContext: context,
@@ -90,10 +83,6 @@ module.exports = api => {
 
     enhanceApp(enhanceContext, context)
 
-    if (extendRootOptions) {
-      extendRootOptions(rootOptions)
-    }
-
     ${[...enhanceAppFiles]
       .map(file =>
         `
@@ -104,11 +93,15 @@ module.exports = api => {
       )
       .join('\n')}
 
+    if (entry.extendRootOptions) {
+      entry.extendRootOptions(rootOptions)
+    }
+
     const app = new Vue(rootOptions)
 
     return {
       app,
-      router,
+      router: rootOptions.router,
       entry,
       getInitialDataContextFns,
       event,
