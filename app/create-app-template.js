@@ -50,7 +50,11 @@ module.exports = api => {
     .join('\n')}
 
   export default context => {
-    const entry = typeof _entry === 'function' ? _entry(context) : _entry
+    if (__DEV__ && typeof _entry !== 'function') {
+      throw new TypeError(\`The entry file should export a function but got "\${typeof _entry}"\`)
+    }
+
+    const entry = _entry(context)
     let { router, extendRootOptions } = entry
     if (context) {
       context.entry = entry
