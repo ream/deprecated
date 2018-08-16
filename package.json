@@ -1,6 +1,6 @@
 {
   "name": "ream",
-  "version": "3.2.6",
+  "version": "4.0.0-beta.0",
   "description": "Framework for building unversal web apps.",
   "repository": {
     "url": "ream/ream",
