@@ -15,6 +15,7 @@
   },
   "files": [
     "lib",
+    "!**/__test__/**",
     "bin",
     "app",
     "webpack.config.js"
