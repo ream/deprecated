@@ -31,7 +31,7 @@ declare module 'ream' {
 
   export type ConfigureServerFn = (server: express.Express) => void
 
-  export type GeneratedRoutes = Array<String>
+  export type GeneratedRoutes = string[]
 
   export interface PluginDef {
     name: string
@@ -49,7 +49,7 @@ declare module 'ream' {
       basePath: string
       match: RegExp
     }
-    transpileDependencies: Array<string>
+    transpileDependencies: string[]
     runtimeCompiler: boolean
     productionSourceMap: boolean
     chainWebpack: ChainWebpackFn
@@ -58,7 +58,7 @@ declare module 'ream' {
       port: number
       host: string
     }
-    plugins: Array<PluginDef>
+    plugins: PluginDef[]
     generate: GenerateOptions
     css: {
       extract: boolean
