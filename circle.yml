@@ -12,12 +12,15 @@ jobs:
       - restore_cache:
           key: dependency-cache-{{ checksum "yarn.lock" }}
       - run:
-          name: install dependences
+          name: Install dependences
           command: yarn
       - save_cache:
           key: dependency-cache-{{ checksum "yarn.lock" }}
           paths:
             - ./node_modules
       - run:
-          name: test
+          name: Test
           command: yarn test
+      - run:
+          name: Release
+          command: if [[ "$CIRCLE_BRANCH" == "master" ]]; then yarn semantic-release; fi
