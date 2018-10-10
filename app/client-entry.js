@@ -58,7 +58,9 @@ router.beforeResolve(async (to, from, next) => {
     return diffed
   })
 
-  const components = activated.filter(c => c.getInitialData)
+  const components = activated
+    .map(c => (typeof c === 'function' ? c.options : c))
+    .filter(c => c.getInitialData)
 
   try {
     const ctx = getContext({ route: to, router, ...serverHelpers })
