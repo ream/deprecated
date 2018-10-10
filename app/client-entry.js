@@ -31,7 +31,12 @@ const updateDataStore = (id, data) => {
 const handleError = err => {
   if (err instanceof ReamError) {
     if (err.code === 'REDIRECT') {
-      router.push(err.redirectURL)
+      const url = err.redirectURL
+      if (/^(\w+:)?\/\//.test(url)) {
+        window.location.assign(url)
+      } else {
+        router.push(url)
+      }
     } else {
       app.setError(err)
     }
