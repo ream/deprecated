@@ -62,6 +62,10 @@ export default async context => {
 
   await Promise.all(
     matchedComponents.map(async Component => {
+      if (typeof Component === 'function') {
+        // Component created with Vue.extend
+        Component = Component.options
+      }
       const { getInitialData } = Component
       if (!getInitialData) return
       const initialData = await getInitialData(dataContext)
