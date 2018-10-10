@@ -1,9 +1,9 @@
 {
   "name": "ream",
-  "version": "4.0.0-beta.0",
+  "version": "0.0.0-managed-by-semantic-release",
   "description": "Framework for building unversal web apps.",
   "repository": {
-    "url": "ream/ream",
+    "url": "https://github.com/ream/ream.git",
     "type": "git"
   },
   "bin": "bin/cli.js",
@@ -124,6 +124,7 @@
     "lerna": "^2.11.0",
     "lint-staged": "^7.1.0",
     "prettier": "^1.12.1",
+    "semantic-release": "^15.9.17",
     "vuex": "^3.0.1",
     "xo": "^0.20.1"
   },
