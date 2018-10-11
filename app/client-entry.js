@@ -30,18 +30,26 @@ const updateDataStore = (id, data) => {
 
 const handleError = err => {
   if (err instanceof ReamError) {
-    if (err.code === 'REDIRECT') {
-      const url = err.redirectURL
-      if (/^(\w+:)?\/\//.test(url)) {
-        window.location.assign(url)
-      } else {
-        router.push(url)
-      }
+    app.setError(err)
+    return true
+  }
+  console.error(err)
+  return false
+}
+
+const handleRouteGuardError = (err, next) => {
+  if (err instanceof ReamError && err.code === 'REDIRECT') {
+    const url = err.redirectURL
+    if (/^(\w+:)?\/\//.test(url)) {
+      window.location.assign(url)
+      next(false)
     } else {
-      app.setError(err)
+      next(url)
     }
+  } else if (handleError(err)) {
+    next()
   } else {
-    console.error(err)
+    next(false)
   }
 }
 
@@ -79,8 +87,7 @@ router.beforeResolve(async (to, from, next) => {
     next()
   } catch (err) {
     err.errorPath = to.path
-    handleError(err)
-    next()
+    handleRouteGuardError(err, next)
   }
 })
 
@@ -104,8 +111,7 @@ Vue.mixin({
       next()
     } catch (err) {
       err.url = to.path
-      handleError(err)
-      next()
+      handleRouteGuardError(err, next)
     }
   }
 })
@@ -137,6 +143,7 @@ main()
     mountApp(app)
   })
   .catch(err => {
-    handleError(err)
-    mountApp(app)
+    if (handleError(err)) {
+      mountApp(app)
+    }
   })
