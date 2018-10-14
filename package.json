@@ -86,11 +86,7 @@
   "xo": {
     "extends": [
       "rem",
-      "plugin:prettier/recommended",
-      "plugin:jest/recommended"
-    ],
-    "plugins": [
-      "jest"
+      "plugin:prettier/recommended"
     ],
     "rules": {
       "unicorn/filename-case": "off",
@@ -121,7 +117,6 @@
     "axios": "^0.18.0",
     "eslint-config-prettier": "^2.9.0",
     "eslint-config-rem": "^4.0.0",
-    "eslint-plugin-jest": "^21.17.0",
     "eslint-plugin-prettier": "^2.6.0",
     "husky": "^1.0.0-rc.6",
     "lerna": "^2.11.0",

@@ -3573,11 +3573,6 @@ eslint-plugin-import@^2.8.0:
     read-pkg-up "^2.0.0"
     resolve "^1.6.0"
 
-eslint-plugin-jest@^21.17.0:
-  version "21.21.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-jest/-/eslint-plugin-jest-21.21.0.tgz#f0afd138c4acb5f0cd7698318fb49c7d49f3bf45"
-  integrity sha512-qoYGTPYuV8bvFYkWj19y4VTq5f2QiNky1Z97rx8RRcPhyJOYbaOs+vjdA/B2FkwWKB46NgzB1rzreDrvEXFh5Q==
-
 eslint-plugin-markdown@^1.0.0-beta.6:
   version "1.0.0-beta.6"
   resolved "https://registry.yarnpkg.com/eslint-plugin-markdown/-/eslint-plugin-markdown-1.0.0-beta.6.tgz#d9e62666eea4e76387e85f502df668abdfbd4395"
