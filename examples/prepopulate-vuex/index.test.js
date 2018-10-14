@@ -1,5 +1,5 @@
 const testProject = require('../../test/lib/testProject')
 
-testProject(__dirname, async (t, axios) => {
-  t.matchSnapshot((await axios.get('/')).data, 'page')
+testProject(__dirname, async (t, c) => {
+  t.matchSnapshot((await c.axios.get('/')).data, 'page')
 })
