@@ -40,7 +40,18 @@ module.exports = function(baseDir, fn) {
   // Calculate relative base directory for consistent snapshots.
   const relativeBaseDir = path.relative('.', baseDir)
   return tap.test(relativeBaseDir, async t => {
-    const app = ream({ baseDir, dev: false })
+    const app = ream(
+      {
+        baseDir,
+        dev: false
+      },
+      {
+        css: {
+          extract: false
+        },
+        minimize: false
+      }
+    )
     app.chainWebpack(config => {
       config.plugins.delete('webpackbar')
       // Ensure consistent filenames in different environments.
