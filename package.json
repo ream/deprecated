@@ -10,7 +10,7 @@
   "main": "lib/index.js",
   "scripts": {
     "test": "npm run lint && npm run tap",
-    "tap": "tap '{{lib,test}/**/*.test.js,examples/*/*.test.js}'",
+    "tap": "tap --jobs-auto '{{lib,test}/**/*.test.js,examples/*/*.test.js}'",
     "lint": "xo",
     "postinstall": "node -e \"console.log('\\u001b[35m\\u001b[1mLove Ream? You can now donate to support the author:\\u001b[22m\\u001b[39m\\n> \\u001b[34mhttps://patreon.com/egoist\\u001b[0m')\""
   },
