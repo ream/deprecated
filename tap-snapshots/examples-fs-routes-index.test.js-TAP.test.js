@@ -16,7 +16,7 @@ exports[`examples/fs-routes/index.test.js TAP examples/fs-routes > / 1`] = `
       
       
       
-      <link rel="preload" href="/_ream/chunk-vendors.js" as="script"><link rel="preload" href="/_ream/client.js" as="script"><link rel="prefetch" href="/_ream/chunk--base-pages-index.js"><link rel="prefetch" href="/_ream/chunk--base-pages-user.js"><link rel="prefetch" href="/_ream/chunk--base-pages-user-index.js"><link rel="prefetch" href="/_ream/chunk--base-pages-user-user-id-.js"><link rel="prefetch" href="/_ream/chunk--base-pages-user-user-id-index.js"><link rel="prefetch" href="/_ream/chunk--base-pages-user-user-id-friends.js">
+      <link rel="preload" href="/_ream/chunk-vendors.js" as="script"><link rel="preload" href="/_ream/client.js" as="script"><link rel="prefetch" href="/_ream/chunk--base-pages-index.js"><link rel="prefetch" href="/_ream/chunk--base-pages-user-index.js"><link rel="prefetch" href="/_ream/chunk--base-pages-user-user-id-.js"><link rel="prefetch" href="/_ream/chunk--base-pages-user-user-id-friends.js"><link rel="prefetch" href="/_ream/chunk--base-pages-user-user-id-index.js"><link rel="prefetch" href="/_ream/chunk--base-pages-user.js">
   </head>
   <body>
     <div id="_ream" data-server-rendered="true"><div><h1>fs-routes example app</h1> <a href="/user">Users</a></div></div>
@@ -36,7 +36,7 @@ exports[`examples/fs-routes/index.test.js TAP examples/fs-routes > /user 1`] = `
       
       
       
-      <link rel="preload" href="/_ream/chunk-vendors.js" as="script"><link rel="preload" href="/_ream/client.js" as="script"><link rel="prefetch" href="/_ream/chunk--base-pages-index.js"><link rel="prefetch" href="/_ream/chunk--base-pages-user.js"><link rel="prefetch" href="/_ream/chunk--base-pages-user-index.js"><link rel="prefetch" href="/_ream/chunk--base-pages-user-user-id-.js"><link rel="prefetch" href="/_ream/chunk--base-pages-user-user-id-index.js"><link rel="prefetch" href="/_ream/chunk--base-pages-user-user-id-friends.js">
+      <link rel="preload" href="/_ream/chunk-vendors.js" as="script"><link rel="preload" href="/_ream/client.js" as="script"><link rel="prefetch" href="/_ream/chunk--base-pages-index.js"><link rel="prefetch" href="/_ream/chunk--base-pages-user-index.js"><link rel="prefetch" href="/_ream/chunk--base-pages-user-user-id-.js"><link rel="prefetch" href="/_ream/chunk--base-pages-user-user-id-friends.js"><link rel="prefetch" href="/_ream/chunk--base-pages-user-user-id-index.js"><link rel="prefetch" href="/_ream/chunk--base-pages-user.js">
   </head>
   <body>
     <div id="_ream" data-server-rendered="true"><div><h1>Users</h1> <div><li><a href="/user/mary">mary</a></li><li><a href="/user/ann">ann</a></li><li><a href="/user/joe">joe</a></li></div></div></div>
@@ -58,7 +58,7 @@ exports[
       
       
       
-      <link rel="preload" href="/_ream/chunk-vendors.js" as="script"><link rel="preload" href="/_ream/client.js" as="script"><link rel="prefetch" href="/_ream/chunk--base-pages-index.js"><link rel="prefetch" href="/_ream/chunk--base-pages-user.js"><link rel="prefetch" href="/_ream/chunk--base-pages-user-index.js"><link rel="prefetch" href="/_ream/chunk--base-pages-user-user-id-.js"><link rel="prefetch" href="/_ream/chunk--base-pages-user-user-id-index.js"><link rel="prefetch" href="/_ream/chunk--base-pages-user-user-id-friends.js">
+      <link rel="preload" href="/_ream/chunk-vendors.js" as="script"><link rel="preload" href="/_ream/client.js" as="script"><link rel="prefetch" href="/_ream/chunk--base-pages-index.js"><link rel="prefetch" href="/_ream/chunk--base-pages-user-index.js"><link rel="prefetch" href="/_ream/chunk--base-pages-user-user-id-.js"><link rel="prefetch" href="/_ream/chunk--base-pages-user-user-id-friends.js"><link rel="prefetch" href="/_ream/chunk--base-pages-user-user-id-index.js"><link rel="prefetch" href="/_ream/chunk--base-pages-user.js">
   </head>
   <body>
     <div id="_ream" data-server-rendered="true"><div><h1>Users</h1> <div><h2>mary</h2> <ul><li><a href="/user/mary" class="router-link-exact-active router-link-active">Profile</a></li> <li><a href="/user/mary/friends">Friends</a></li></ul> <div>User mary profile</div></div></div></div>
