@@ -807,10 +807,10 @@
   dependencies:
     source-map "^0.6.1"
 
-"@types/webpack-chain@^5.0.0":
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/@types/webpack-chain/-/webpack-chain-5.0.0.tgz#35a60c7e853640a4625047c2f8e43e4352d6a3c0"
-  integrity sha512-J4DNl1L4cF0Nwxe/tZiRU54iIjvv06ggxPBRMoE+J99y1yHOH+UzHo8UUIjLR9nMiiMqm1/C8yJMKllv7VxEeA==
+"@types/webpack-chain@^4.8.0":
+  version "4.8.1"
+  resolved "https://registry.yarnpkg.com/@types/webpack-chain/-/webpack-chain-4.8.1.tgz#b09a886ac0fc0dc20277c3ae221db6ebf4d30553"
+  integrity sha512-9WzdZRwrHX2+2y82YDJdUsMUAE4pe4kerbbCC8X+3g2sjVGnkpTFcSbiCFtlUgL9PwcBsWtSFMvLD7gbI8lzDQ==
   dependencies:
     "@types/webpack" "*"
 
