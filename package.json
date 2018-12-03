@@ -8,6 +8,7 @@
   },
   "bin": "bin/cli.js",
   "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "scripts": {
     "test": "npm run lint && npm run tap",
     "tap": "tap --jobs-auto '{{lib,test}/**/*.test.js,examples/*/*.test.js}'",
