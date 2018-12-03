@@ -71,6 +71,7 @@
     "register-service-worker": "^1.2.0",
     "serialize-javascript": "^1.4.0",
     "serve-static": "^1.13.2",
+    "terser-webpack-plugin": "^1.1.0",
     "time-fix-plugin": "^2.0.4",
     "url-loader": "^1.1.0",
     "vue": "^2.5.16",
