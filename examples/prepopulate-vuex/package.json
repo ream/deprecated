@@ -4,5 +4,9 @@
     "dev": "ream dev",
     "build": "ream build",
     "start": "ream start"
+  },
+  "dependencies": {
+    "ream": "latest",
+    "vuex": "^3.0.1"
   }
 }
