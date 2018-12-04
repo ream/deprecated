@@ -9,7 +9,7 @@ import fetch from 'isomorphic-fetch'
 Vue.use(VueApollo)
 
 // Create the apollo client
-export default () => {
+export default context => {
   const httpLink = new HttpLink({
     fetch,
     // You should use an absolute URL here
@@ -22,7 +22,7 @@ export default () => {
   if (process.browser) {
     // If on the client, recover the injected state
     if (typeof window !== 'undefined') {
-      const state = window.__REAM__.apollo
+      const state = context.globalState.apollo
       if (state) {
         // If you have multiple clients, use `state.<client_id>`
         cache.restore(state.defaultClient)

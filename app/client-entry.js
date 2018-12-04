@@ -3,26 +3,16 @@ import Vue from 'vue'
 // eslint-disable-next-line import/no-unassigned-import
 import './polyfills'
 // eslint-disable-next-line import/no-unresolved
-import createApp from '#out/create-app'
+import createApp from '#app/create-app'
 import { routerReady, pageNotFound, runMiddlewares } from './utils'
 import serverHelpers from './server-helpers'
 import ReamError from './ReamError'
 
-const {
-  app,
-  router,
-  getInitialDataContextFns,
-  event,
-  dataStore,
-  middlewares
-} = createApp()
-
-const getContext = context => {
-  for (const fn of getInitialDataContextFns) {
-    fn(context)
-  }
-  return context
+const context = {
+  globalState: window.__REAM__
 }
+
+const { app, router, event, dataStore, middlewares } = createApp(context)
 
 const updateDataStore = (id, data) => {
   dataStore.setData(id, data)
@@ -76,7 +66,7 @@ router.beforeResolve(async (to, from, next) => {
     .filter(c => c.getInitialData)
 
   try {
-    const ctx = getContext({ route: to, router, ...serverHelpers })
+    const ctx = { router, route: to, ...serverHelpers }
     await runMiddlewares(middlewares, ctx)
     await Promise.all(
       components.map(async c => {
@@ -95,11 +85,7 @@ router.beforeResolve(async (to, from, next) => {
 Vue.mixin({
   async beforeRouteUpdate(to, from, next) {
     try {
-      const context = getContext({
-        router,
-        route: to
-      })
-
+      const context = { router, route: to }
       await runMiddlewares(middlewares, context)
 
       const { getInitialData } = this.$options
@@ -121,8 +107,8 @@ Vue.mixin({
 async function main() {
   event.$emit('before-client-render')
 
-  if (window.__REAM__.initialData) {
-    dataStore.replaceState(window.__REAM__.initialData)
+  if (context.globalState.initialData) {
+    dataStore.replaceState(context.globalState.initialData)
   }
 
   await routerReady(router)

@@ -1,18 +1,34 @@
 import Vue from 'vue'
+import Meta from 'vue-meta'
+import Router from 'vue-router'
+// eslint-disable-next-line import/no-unresolved
+import getEntry from '#out/entry'
+// eslint-disable-next-line import/no-unresolved
+import enhanceApp from '#out/enhance-app'
 import createDataStore from './create-data-store'
 import { setInitialData } from './utils'
 
-const isRouteComponent = (matched, current) => {
-  let result
+Vue.config.productionTip = false
+
+Vue.use(Router)
+
+Vue.use(Meta, {
+  keyName: 'head',
+  attribute: 'data-ream-head',
+  ssrAttribute: 'data-ream-ssr',
+  tagIDKeyName: 'rhid'
+})
+
+function isRouteComponent(matched, current) {
   for (const m of matched) {
     for (const key of Object.keys(m.instances)) {
       const instance = m.instances[key]
       if (instance === current) {
-        result = true
+        return true
       }
     }
   }
-  return result
+  return false
 }
 
 Vue.mixin({
@@ -62,11 +78,10 @@ const Error = {
   }
 }
 
-export default ({ rootOptions, entry }, context) => {
+function createRootComponent(entry) {
   const { root = Root, error = Error } = entry
 
-  const App = {
-    dataStore: createDataStore(),
+  return {
     data() {
       return {
         error: null
@@ -98,7 +113,7 @@ export default ({ rootOptions, entry }, context) => {
     },
     computed: {
       actualError() {
-        const error = context ? context.reamError : this.error
+        const error = this.error
         if (error && error.errorPath) {
           return error.errorPath === this.$route.path ? error : null
         }
@@ -106,6 +121,56 @@ export default ({ rootOptions, entry }, context) => {
       }
     }
   }
+}
 
-  Object.assign(rootOptions, App)
+export default function createApp(context) {
+  if (__DEV__ && typeof getEntry !== 'function') {
+    throw new TypeError(
+      `The entry file should export a function but got "${typeof getEntry}"`
+    )
+  }
+  const entry = getEntry(context)
+  if (__DEV__ && typeof entry !== 'object') {
+    throw new TypeError(
+      `The return value of the default export in entry file should be a plain object but got "${typeof entry}"`
+    )
+  }
+
+  const rootOptions = {
+    ...createRootComponent(entry),
+    _isReamRoot: true,
+    dataStore: createDataStore(),
+    router: entry.router || new Router({ mode: 'history' })
+  }
+  const middlewares = []
+  const event = new Vue()
+  const enhanceContext = {
+    ...context,
+    entry,
+    rootOptions,
+    event,
+    addMiddleware(fn) {
+      middlewares.push(fn)
+    }
+  }
+
+  enhanceApp(enhanceContext)
+
+  if (entry.enhanceApp) {
+    entry.enhanceApp(enhanceContext)
+  }
+  if (entry.middleware) {
+    middlewares.push(entry.middleware)
+  }
+
+  const app = new Vue(rootOptions)
+
+  return {
+    app,
+    entry,
+    event,
+    middlewares,
+    router: app.$router,
+    dataStore: app.$dataStore
+  }
 }

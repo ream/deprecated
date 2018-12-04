@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/no-unresolved
-import createApp from '#out/create-app'
+import createApp from '#app/create-app'
 import ReamError from './ReamError'
 import { routerReady, pageNotFound, runMiddlewares } from './utils'
 import serverHelpers from './server-helpers'
@@ -12,15 +12,9 @@ import serverHelpers from './server-helpers'
 export default async context => {
   context.globalState = {}
   const { req, res } = context
-  const {
-    app,
-    dataStore,
-    router,
-    entry,
-    getInitialDataContextFns,
-    event,
-    middlewares
-  } = createApp(context)
+  const { app, dataStore, router, entry, event, middlewares } = createApp(
+    context
+  )
 
   router.push(req.url)
 
@@ -32,7 +26,7 @@ export default async context => {
   if (matchedComponents.length === 0) {
     if (res) {
       res.statusCode = 404
-      context.reamError = pageNotFound(req.url)
+      app.setError(pageNotFound(req.url))
     } else {
       throw new ReamError({
         code: 'NOT_FOUND',
@@ -48,13 +42,9 @@ export default async context => {
     route: router.currentRoute,
     ...serverHelpers
   }
-
-  for (const fn of getInitialDataContextFns) {
-    fn(dataContext)
-  }
-
   await runMiddlewares(middlewares, dataContext)
 
+  context.document = entry.document
   if (entry.getDocumentData) {
     const documentData = await entry.getDocumentData(dataContext)
     context.documentData = Object.assign({}, documentData)
