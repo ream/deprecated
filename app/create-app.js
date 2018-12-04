@@ -159,6 +159,9 @@ export default function createApp(context) {
   if (entry.enhanceApp) {
     entry.enhanceApp(enhanceContext)
   }
+  if (entry.extendRootOptions) {
+    entry.extendRootOptions(rootOptions)
+  }
   if (entry.middleware) {
     middlewares.push(entry.middleware)
   }
