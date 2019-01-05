@@ -81,7 +81,7 @@ export class Ream {
   generateOnly(opts?: GenerateOptions): Promise<void>
   configureServer(fn: ConfigureServerFn): void
   prepareFiles(): Promise<void>
-  writeCreateAppFile(): Promise<void>
+  writeEnhanceAppFile(): Promise<void>
   writeEntryFile(): Promise<void>
   getServer(): Promise<express.Express>
   getRequestHandler(): Promise<express.Application>

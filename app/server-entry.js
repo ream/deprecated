@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/no-unresolved
-import createApp from '#out/create-app'
+import createApp from '#app/create-app'
 import ReamError from './ReamError'
 import { routerReady, pageNotFound, runMiddlewares } from './utils'
 import serverHelpers from './server-helpers'
