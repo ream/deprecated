@@ -19,17 +19,16 @@ Vue.use(Meta, {
   tagIDKeyName: 'rhid'
 })
 
-const isRouteComponent = (matched, current) => {
-  let result
+function isRouteComponent(matched, current) {
   for (const m of matched) {
     for (const key of Object.keys(m.instances)) {
       const instance = m.instances[key]
       if (instance === current) {
-        result = true
+        return true
       }
     }
   }
-  return result
+  return false
 }
 
 Vue.mixin({
