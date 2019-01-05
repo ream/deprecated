@@ -23,6 +23,7 @@ module.exports = api => {
 
   return `
   import { getRequireDefault } from '#app/utils'
+
   ${[...enhanceAppFiles]
     .map(file =>
       `
@@ -30,6 +31,7 @@ module.exports = api => {
   `.trim()
     )
     .join('\n')}
+
   export default function enhanceApp (enhanceContext) {
     ${[...enhanceAppFiles]
       .map(file =>

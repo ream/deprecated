@@ -62,7 +62,7 @@ router.beforeResolve(async (to, from, next) => {
     .filter(c => c.getInitialData)
 
   try {
-    const ctx = { route: to, router, ...serverHelpers }
+    const ctx = { router, route: to, ...serverHelpers }
     await runMiddlewares(middlewares, ctx)
     await Promise.all(
       components.map(async c => {
@@ -82,7 +82,6 @@ Vue.mixin({
   async beforeRouteUpdate(to, from, next) {
     try {
       const context = { router, route: to }
-
       await runMiddlewares(middlewares, context)
 
       const { getInitialData } = this.$options

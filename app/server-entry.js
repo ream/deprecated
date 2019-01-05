@@ -42,7 +42,6 @@ export default async context => {
     route: router.currentRoute,
     ...serverHelpers
   }
-
   await runMiddlewares(middlewares, dataContext)
 
   if (entry.getDocumentData) {
