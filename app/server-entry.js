@@ -44,11 +44,6 @@ export default async context => {
   }
   await runMiddlewares(middlewares, dataContext)
 
-  if (entry.getDocumentData) {
-    const documentData = await entry.getDocumentData(dataContext)
-    context.documentData = Object.assign({}, documentData)
-  }
-
   await Promise.all(
     matchedComponents.map(async Component => {
       if (typeof Component === 'function') {
@@ -69,6 +64,12 @@ export default async context => {
       dataStore.setData(Component.initialDataKey, initialData)
     })
   )
+
+  context.document = entry.document
+  if (entry.getDocumentData) {
+    const documentData = await entry.getDocumentData(dataContext)
+    context.documentData = Object.assign({}, documentData)
+  }
 
   if (app.$meta) {
     context.meta = app.$meta()

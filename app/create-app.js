@@ -124,7 +124,7 @@ function createRootComponent(entry, context) {
   }
 }
 
-export default context => {
+export default function createApp(context) {
   if (__DEV__ && typeof _entry !== 'function') {
     throw new TypeError(
       `The entry file should export a function but got "${typeof _entry}"`
@@ -138,10 +138,6 @@ export default context => {
     )
   }
 
-  if (context) {
-    context.entry = entry
-  }
-
   const rootOptions = {
     ...createRootComponent(entry, context),
     _isReamRoot: true,
@@ -150,19 +146,19 @@ export default context => {
   const middlewares = []
   const event = new Vue()
   const enhanceContext = {
-    rootOptions,
+    ...context,
     entry,
-    ssrContext: context,
+    rootOptions,
     event,
     addMiddleware(fn) {
       middlewares.push(fn)
     }
   }
 
-  enhanceApp(enhanceContext, context)
+  enhanceApp(enhanceContext)
 
   if (entry.enhanceApp) {
-    entry.enhanceApp(enhanceContext, context)
+    entry.enhanceApp(enhanceContext)
   }
   if (entry.extendRootOptions) {
     entry.extendRootOptions(rootOptions)
@@ -175,10 +171,10 @@ export default context => {
 
   return {
     app,
-    router: rootOptions.router,
     entry,
     event,
-    dataStore: rootOptions.dataStore,
-    middlewares
+    middlewares,
+    router: rootOptions.router,
+    dataStore: rootOptions.dataStore
   }
 }
