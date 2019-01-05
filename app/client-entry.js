@@ -8,7 +8,11 @@ import { routerReady, pageNotFound, runMiddlewares } from './utils'
 import serverHelpers from './server-helpers'
 import ReamError from './ReamError'
 
-const { app, router, event, dataStore, middlewares } = createApp()
+const globalState = window.__REAM__
+
+const { app, router, event, dataStore, middlewares } = createApp({
+  globalState
+})
 
 const updateDataStore = (id, data) => {
   dataStore.setData(id, data)
@@ -103,8 +107,8 @@ Vue.mixin({
 async function main() {
   event.$emit('before-client-render')
 
-  if (window.__REAM__.initialData) {
-    dataStore.replaceState(window.__REAM__.initialData)
+  if (globalState.initialData) {
+    dataStore.replaceState(globalState.initialData)
   }
 
   await routerReady(router)

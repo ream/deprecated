@@ -114,7 +114,7 @@ function createRootComponent(entry, context) {
     },
     computed: {
       actualError() {
-        const error = context ? context.reamError : this.error
+        const error = context.req ? context.reamError : this.error
         if (error && error.errorPath) {
           return error.errorPath === this.$route.path ? error : null
         }
