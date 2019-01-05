@@ -148,18 +148,13 @@ export default context => {
     _isReamRoot: true,
     router: entry.router || new Router({ mode: 'history' })
   }
-  const getInitialDataContextFns = [entry.getInitialDataContext].filter(Boolean)
-  const middlewares = [entry.middleware].filter(Boolean)
-
+  const middlewares = []
   const event = new Vue()
   const enhanceContext = {
     rootOptions,
     entry,
     ssrContext: context,
     event,
-    getInitialDataContext(fn) {
-      getInitialDataContextFns.push(fn)
-    },
     addMiddleware(fn) {
       middlewares.push(fn)
     }
@@ -167,8 +162,14 @@ export default context => {
 
   enhanceApp(enhanceContext, context)
 
+  if (entry.enhanceApp) {
+    entry.enhanceApp(enhanceContext, context)
+  }
   if (entry.extendRootOptions) {
     entry.extendRootOptions(rootOptions)
+  }
+  if (entry.middleware) {
+    middlewares.push(entry.middleware)
   }
 
   const app = new Vue(rootOptions)
@@ -177,7 +178,6 @@ export default context => {
     app,
     router: rootOptions.router,
     entry,
-    getInitialDataContextFns,
     event,
     dataStore: rootOptions.dataStore,
     middlewares

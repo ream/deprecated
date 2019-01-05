@@ -8,21 +8,7 @@ import { routerReady, pageNotFound, runMiddlewares } from './utils'
 import serverHelpers from './server-helpers'
 import ReamError from './ReamError'
 
-const {
-  app,
-  router,
-  getInitialDataContextFns,
-  event,
-  dataStore,
-  middlewares
-} = createApp()
-
-const getContext = context => {
-  for (const fn of getInitialDataContextFns) {
-    fn(context)
-  }
-  return context
-}
+const { app, router, event, dataStore, middlewares } = createApp()
 
 const updateDataStore = (id, data) => {
   dataStore.setData(id, data)
@@ -76,7 +62,7 @@ router.beforeResolve(async (to, from, next) => {
     .filter(c => c.getInitialData)
 
   try {
-    const ctx = getContext({ route: to, router, ...serverHelpers })
+    const ctx = { route: to, router, ...serverHelpers }
     await runMiddlewares(middlewares, ctx)
     await Promise.all(
       components.map(async c => {
@@ -95,10 +81,7 @@ router.beforeResolve(async (to, from, next) => {
 Vue.mixin({
   async beforeRouteUpdate(to, from, next) {
     try {
-      const context = getContext({
-        router,
-        route: to
-      })
+      const context = { router, route: to }
 
       await runMiddlewares(middlewares, context)
 

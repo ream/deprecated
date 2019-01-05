@@ -12,15 +12,9 @@ import serverHelpers from './server-helpers'
 export default async context => {
   context.globalState = {}
   const { req, res } = context
-  const {
-    app,
-    dataStore,
-    router,
-    entry,
-    getInitialDataContextFns,
-    event,
-    middlewares
-  } = createApp(context)
+  const { app, dataStore, router, entry, event, middlewares } = createApp(
+    context
+  )
 
   router.push(req.url)
 
@@ -47,10 +41,6 @@ export default async context => {
     router,
     route: router.currentRoute,
     ...serverHelpers
-  }
-
-  for (const fn of getInitialDataContextFns) {
-    fn(dataContext)
   }
 
   await runMiddlewares(middlewares, dataContext)
