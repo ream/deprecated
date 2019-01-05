@@ -78,7 +78,7 @@ const Error = {
   }
 }
 
-function createRootComponent(entry, context) {
+function createRootComponent(entry) {
   const { root = Root, error = Error } = entry
 
   return {
@@ -114,7 +114,7 @@ function createRootComponent(entry, context) {
     },
     computed: {
       actualError() {
-        const error = context.req ? context.reamError : this.error
+        const error = this.error
         if (error && error.errorPath) {
           return error.errorPath === this.$route.path ? error : null
         }
@@ -139,7 +139,7 @@ export default function createApp(context) {
   }
 
   const rootOptions = {
-    ...createRootComponent(entry, context),
+    ...createRootComponent(entry),
     _isReamRoot: true,
     router: entry.router || new Router({ mode: 'history' })
   }

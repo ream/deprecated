@@ -26,7 +26,7 @@ export default async context => {
   if (matchedComponents.length === 0) {
     if (res) {
       res.statusCode = 404
-      context.reamError = pageNotFound(req.url)
+      app.setError(pageNotFound(req.url))
     } else {
       throw new ReamError({
         code: 'NOT_FOUND',
