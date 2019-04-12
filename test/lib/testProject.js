@@ -36,7 +36,7 @@ class Client {
   }
 }
 
-module.exports = function(baseDir, fn) {
+module.exports = function(baseDir, fn, config) {
   // Calculate relative base directory for consistent snapshots.
   const relativeBaseDir = path.relative('.', baseDir)
   return tap.test(relativeBaseDir, async t => {
@@ -49,7 +49,8 @@ module.exports = function(baseDir, fn) {
         css: {
           extract: false
         },
-        minimize: false
+        minimize: false,
+        ...config
       }
     )
     app.chainWebpack(config => {
