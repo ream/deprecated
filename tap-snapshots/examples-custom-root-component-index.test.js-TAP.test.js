@@ -5,9 +5,7 @@
  * Make sure to inspect the output below.  Do not ignore changes!
  */
 'use strict'
-exports[
-  `examples/custom-root-component/index.test.js TAP examples/custom-root-component > page 1`
-] = `
+exports[`examples/custom-root-component/index.test.js TAP examples/custom-root-component > page 1`] = `
 <!DOCTYPE html><html>
   <head>
     <meta charset="utf-8" />

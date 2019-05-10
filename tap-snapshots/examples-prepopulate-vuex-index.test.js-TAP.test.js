@@ -5,9 +5,7 @@
  * Make sure to inspect the output below.  Do not ignore changes!
  */
 'use strict'
-exports[
-  `examples/prepopulate-vuex/index.test.js TAP examples/prepopulate-vuex > page 1`
-] = `
+exports[`examples/prepopulate-vuex/index.test.js TAP examples/prepopulate-vuex > page 1`] = `
 <!DOCTYPE html><html>
   <head>
     <meta charset="utf-8" />

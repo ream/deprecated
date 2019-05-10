@@ -5,9 +5,7 @@
  * Make sure to inspect the output below.  Do not ignore changes!
  */
 'use strict'
-exports[
-  `test/projects/errors/index.test.js TAP test/projects/errors server-side 404 > must match snapshot 1`
-] = `
+exports[`test/projects/errors/index.test.js TAP test/projects/errors server-side 404 > must match snapshot 1`] = `
 <!DOCTYPE html><html>
   <head>
     <meta charset="utf-8" />

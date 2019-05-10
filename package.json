@@ -142,10 +142,13 @@
     }
   },
   "lint-staged": {
-    "*.js": [
-      "xo --fix",
-      "git add"
-    ]
+    "linters": {
+      "*.js": [
+        "xo --fix",
+        "git add"
+      ]
+    },
+    "relative": true
   },
   "commitlint": {
     "extends": [

@@ -45,9 +45,7 @@ exports[`examples/fs-routes/index.test.js TAP examples/fs-routes > /user 1`] = `
 </html>
 `
 
-exports[
-  `examples/fs-routes/index.test.js TAP examples/fs-routes > /user/mary 1`
-] = `
+exports[`examples/fs-routes/index.test.js TAP examples/fs-routes > /user/mary 1`] = `
 <!DOCTYPE html><html>
   <head>
     <meta charset="utf-8" />
