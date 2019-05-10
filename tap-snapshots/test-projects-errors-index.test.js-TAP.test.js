@@ -6,7 +6,7 @@
  */
 'use strict'
 exports[
-  `test/projects/errors/index.test.js TAP test/projects/errors server-side 404 > undefined 1`
+  `test/projects/errors/index.test.js TAP test/projects/errors server-side 404 > must match snapshot 1`
 ] = `
 <!DOCTYPE html><html>
   <head>
