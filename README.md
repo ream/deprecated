@@ -1,3 +1,5 @@
+## This project is deprecated in favor of https://vapperjs.org
+
 <p align="center">
 <img src="https://user-images.githubusercontent.com/8784712/36352897-581670e6-14fa-11e8-98e6-163f10bd8ab5.png" width="400">
 </p>
